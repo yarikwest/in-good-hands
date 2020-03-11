@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import pl.coderslab.charity.model.Institution;
+import pl.coderslab.charity.service.DonationService;
 import pl.coderslab.charity.service.InstitutionService;
 
 import java.util.Set;
@@ -11,9 +12,11 @@ import java.util.Set;
 @Controller
 public class HomeController {
 
+    private final DonationService donationService;
     private final InstitutionService institutionService;
 
-    public HomeController(InstitutionService institutionService) {
+    public HomeController(DonationService donationService, InstitutionService institutionService) {
+        this.donationService = donationService;
         this.institutionService = institutionService;
     }
 
@@ -21,8 +24,10 @@ public class HomeController {
     @GetMapping("/")
     public String homeAction(Model model) {
         Set<Institution> institutions = institutionService.getAll();
+        long countAllDonations = donationService.getCountAllDonations();
 
         model.addAttribute("institutions", institutions);
+        model.addAttribute("countAllDonations", countAllDonations);
 
         return "index";
     }

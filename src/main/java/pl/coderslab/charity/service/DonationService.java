@@ -32,4 +32,8 @@ public class DonationService {
     public Donation create(Donation donation) {
         return donationRepository.save(donation);
     }
+
+    public long getCountAllDonations() {
+        return donationRepository.count();
+    }
 }
