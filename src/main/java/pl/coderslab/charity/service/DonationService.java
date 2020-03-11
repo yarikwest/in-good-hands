@@ -36,4 +36,8 @@ public class DonationService {
     public long getCountAllDonations() {
         return donationRepository.count();
     }
+
+    public long getSumOfAllPackage() {
+        return donationRepository.sumAllQuantity();
+    }
 }

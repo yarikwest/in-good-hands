@@ -25,9 +25,11 @@ public class HomeController {
     public String homeAction(Model model) {
         Set<Institution> institutions = institutionService.getAll();
         long countAllDonations = donationService.getCountAllDonations();
+        long sumOfAllPackage = donationService.getSumOfAllPackage();
 
         model.addAttribute("institutions", institutions);
         model.addAttribute("countAllDonations", countAllDonations);
+        model.addAttribute("sumOfAllPackage", sumOfAllPackage);
 
         return "index";
     }
