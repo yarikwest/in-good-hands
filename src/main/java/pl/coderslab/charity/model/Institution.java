@@ -15,7 +15,9 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Table(name = "institutions")
 public class Institution extends BaseEntity {
+
     @NotBlank
     String name;
+
     String description;
 }

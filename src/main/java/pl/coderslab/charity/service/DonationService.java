@@ -1,14 +1,35 @@
 package pl.coderslab.charity.service;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import pl.coderslab.charity.exceptions.DonationNotFoundException;
 import pl.coderslab.charity.model.Donation;
+import pl.coderslab.charity.repository.DonationRepository;
 
+import java.util.HashSet;
 import java.util.Set;
 
-public interface DonationService {
-    Set<Donation> getAll();
+@Service
+@Slf4j
+public class DonationService {
+    private final DonationRepository donationRepository;
 
-    Donation getById(long id);
+    DonationService(DonationRepository donationRepository) {
+        this.donationRepository = donationRepository;
+    }
 
-    Donation create(Donation donation);
+    public Set<Donation> getAll() {
+        return new HashSet<>(donationRepository.findAll());
+    }
 
+    public Donation getById(long id) {
+        return donationRepository.findById(id).orElseThrow(() -> {
+            log.warn("IN getById(id): donation with id {} not founded", id);
+            return new DonationNotFoundException(id);
+        });
+    }
+
+    public Donation create(Donation donation) {
+        return donationRepository.save(donation);
+    }
 }

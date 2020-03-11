@@ -22,24 +22,33 @@ import java.util.Set;
 @Entity
 @Table(name = "donations")
 public class Donation extends BaseEntity {
+
     @Min(1)
     Integer quantity;
+
     @NotBlank
     String street;
+
     @NotBlank
     String city;
+
     @NotBlank
     String zipCode;
+
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     LocalDate pickUpDate;
+
     @NotNull
     LocalTime pickUpTime;
+
     @NotBlank
     String pickUpComment;
+
     @NotNull
     @ManyToOne
     Institution institution;
+
     @Size(min = 1)
     @ManyToMany
     @JoinTable(name = "donations_categories",

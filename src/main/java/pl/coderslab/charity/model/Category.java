@@ -15,6 +15,7 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Table(name = "categories")
 public class Category extends BaseEntity {
+
     @NotBlank
     String name;
 }
