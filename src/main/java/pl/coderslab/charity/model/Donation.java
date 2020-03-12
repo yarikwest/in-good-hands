@@ -16,6 +16,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -23,7 +24,7 @@ import java.util.Set;
 @Table(name = "donations")
 public class Donation extends BaseEntity {
 
-    @Min(1)
+    @Min(value = 1)
     Integer quantity;
 
     @NotBlank
@@ -35,6 +36,9 @@ public class Donation extends BaseEntity {
     @NotBlank
     String zipCode;
 
+    @NotBlank
+    String phone;
+
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     LocalDate pickUpDate;
@@ -45,11 +49,11 @@ public class Donation extends BaseEntity {
     @NotBlank
     String pickUpComment;
 
-    @NotNull
+    @NotNull(message = "Wybierz fundację")
     @ManyToOne
     Institution institution;
 
-    @Size(min = 1)
+    @Size(min = 1, message = "Wybierz przynajmniej jedną kategorię")
     @ManyToMany
     @JoinTable(name = "donations_categories",
             joinColumns = @JoinColumn(name = "donation_id"),
