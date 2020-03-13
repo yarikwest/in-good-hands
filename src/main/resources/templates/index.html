@@ -11,8 +11,8 @@
 <header class="header--main-page">
     <nav class="container container--70" th:fragment="header-nav">
         <ul class="nav--actions">
-            <li><a href="" class="btn btn--small btn--without-border">Zaloguj</a></li>
-            <li><a href="#" class="btn btn--small btn--highlighted">Załóż konto</a></li>
+            <li><a th:href="@{/login}" href="" class="btn btn--small btn--without-border">Zaloguj</a></li>
+            <li><a th:href="@{/register}" href="#" class="btn btn--small btn--highlighted">Załóż konto</a></li>
             <li class="logged-user">
                 Witaj Agata
                 <ul class="dropdown">
