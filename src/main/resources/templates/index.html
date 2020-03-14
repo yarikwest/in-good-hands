@@ -1,24 +1,27 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Document</title>
+    <title>Oddam w dobre ręce</title>
     <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
 <header class="header--main-page">
     <nav class="container container--70" th:fragment="header-nav">
         <ul class="nav--actions">
-            <li><a th:href="@{/login}" href="" class="btn btn--small btn--without-border">Zaloguj</a></li>
-            <li><a th:href="@{/register}" href="#" class="btn btn--small btn--highlighted">Załóż konto</a></li>
-            <li class="logged-user">
-                Witaj Agata
+            <th:block sec:authorize="!isAuthenticated()">
+                <li><a th:href="@{/login}" href="" class="btn btn--small btn--without-border">Zaloguj</a></li>
+                <li><a th:href="@{/register}" href="#" class="btn btn--small btn--highlighted">Załóż konto</a></li>
+            </th:block>
+            <li class="logged-user" sec:authorize="isAuthenticated()">
+                Witaj <span sec:authentication="name"></span>
                 <ul class="dropdown">
                     <li><a href="#">Profil</a></li>
                     <li><a href="#">Moje zbiórki</a></li>
-                    <li><a href="#">Wyloguj</a></li>
+                    <li><a th:href="@{/logout}" href="#">Wyloguj</a></li>
                 </ul>
             </li>
         </ul>
@@ -88,7 +91,7 @@
         </div>
     </div>
 
-    <a href="#" class="btn btn--large">Załóż konto</a>
+    <a sec:authorize="!isAuthenticated()" th:href="@{/register}" href="#" class="btn btn--large">Załóż konto</a>
 </section>
 
 <section id="about-us" class="about-us">
