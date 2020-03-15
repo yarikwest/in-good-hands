@@ -1,15 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="msapplication-tap-highlight" content="no">
-    <meta name="description"
-          content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">
-    <meta name="keywords"
-          content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">
-    <title>Materialize - Material Design Admin Template</title>
+    <title>Admin Panel</title>
     <!-- Favicons-->
     <link rel="icon" th:href="@{/images/favicon/favicon-32x32.png}" sizes="32x32">
     <!-- Favicons-->
@@ -25,11 +21,10 @@
     <link th:href="@{/css/custom/custom.css}" type="text/css" rel="stylesheet">
     <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
     <link th:href="@{/vendors/perfect-scrollbar/perfect-scrollbar.css}" type="text/css" rel="stylesheet">
-    <link th:href="@{/vendors/flag-icon/css/flag-icon.min.css}" type="text/css" rel="stylesheet">
 </head>
 <body>
 <!-- Start Page Loading -->
-<div id="loader-wrapper">
+<div id="loader-wrapper" th:fragment="loader">
     <div id="loader"></div>
     <div class="loader-section section-left"></div>
     <div class="loader-section section-right"></div>
@@ -40,7 +35,7 @@
 <header id="header" class="page-topbar" th:fragment="admin-header">
     <!-- start header nav-->
     <div class="navbar-fixed">
-        <nav class="navbar-color gradient-45deg-light-blue-cyan">
+        <nav class="navbar-color gradient-45deg-amber-amber">
             <div class="nav-wrapper">
                 <ul class="left">
                     <li>
@@ -70,7 +65,7 @@
                 </ul>
                 <!-- profile-dropdown -->
                 <ul id="profile-dropdown" class="dropdown-content">
-                    <th:block th:replace="admin/index.html :: profile-dropdown"/>
+                    <th:block th:replace="admin/panel.html :: profile-dropdown"/>
                 </ul>
             </div>
         </nav>
@@ -574,16 +569,20 @@
 <!-- END MAIN -->
 <!-- //////////////////////////////////////////////////////////////////////////// -->
 <!-- START FOOTER -->
-<footer class="page-footer gradient-45deg-light-blue-cyan">
+<footer class="page-footer gradient-45deg-amber-amber" th:fragment="footer">
     <div class="footer-copyright">
         <div class="container">
             <span>Copyright ©
               <script type="text/javascript">
                 document.write(new Date().getFullYear());
-              </script> <a class="grey-text text-lighten-2"
-                           href="http://themeforest.net/user/pixinvent/portfolio?ref=pixinvent" target="_blank">PIXINVENT</a> All rights reserved.</span>
-            <span class="right hide-on-small-only"> Design and Developed by <a class="grey-text text-lighten-2"
-                                                                               href="https://pixinvent.com/">PIXINVENT</a></span>
+              </script>
+                <a class="grey-text text-lighten-2" href="https://coderslab.pl" target="_blank">CODERS LAB</a>
+                All rights reserved.
+            </span>
+            <span class="right hide-on-small-only black-text">
+                Design and Developed by
+                <a class="black-text text-lighten-2" href="https://github.com/yarikwest" target="_blank">JaroWest</a>
+            </span>
         </div>
     </div>
 </footer>
