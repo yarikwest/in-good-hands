@@ -81,6 +81,25 @@ public class UserService {
         return userRepository.save(oldUser);
     }
 
+    public User updateAdminData(long id, User user) {
+
+        User oldUser = userRepository.findById(id).orElseThrow(() -> {
+            log.warn("IN updateAdminData(): user with id {} not exists", id);
+            throw new UserNotFoundException(id);
+        });
+
+        oldUser.setEmail(user.getEmail());
+        return userRepository.save(oldUser);
+    }
+
+    public User createAdmin(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode("admin"));
+        user.setActive(true);
+        Role roleAdmin = roleRepository.findByName("ROLE_ADMIN").orElseThrow(RoleNotFoundException::new);
+        user.getRoles().add(roleAdmin);
+        return userRepository.save(user);
+    }
+
     public void delete(long id) {
         if (!userRepository.existsById(id)) {
             log.warn("IN delete(): user with id {} not exists", id);
