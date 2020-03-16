@@ -1,4 +1,4 @@
-package pl.coderslab.charity.controller;
+package pl.coderslab.charity.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,10 +12,10 @@ import java.util.Set;
 
 @Controller
 @RequestMapping("admin/institutions")
-class AdminInstitutionController {
+class InstitutionController {
     private final InstitutionService institutionService;
 
-    AdminInstitutionController(InstitutionService institutionService) {
+    InstitutionController(InstitutionService institutionService) {
         this.institutionService = institutionService;
     }
 
