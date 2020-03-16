@@ -9,3 +9,11 @@ NOTE:
 ------
 PLACE HERE YOUR OWN CSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
 WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+.row-flex {
+    display: flex;
+    align-items: center;
+}
+
+.row-flex > div:not(:first-child) {
+    text-align: center;
+}

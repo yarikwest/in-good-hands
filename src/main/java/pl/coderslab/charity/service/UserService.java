@@ -11,6 +11,7 @@ import pl.coderslab.charity.model.User;
 import pl.coderslab.charity.repository.RoleRepository;
 import pl.coderslab.charity.repository.UserRepository;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -116,5 +117,17 @@ public class UserService {
 
         user.setActive(!user.getActive());
         userRepository.save(user);
+    }
+
+    public long getCountAll() {
+        return userRepository.countAllByRole(roleRepository.findByName("ROLE_USER").orElseThrow(RoleNotFoundException::new));
+    }
+
+    public long getCountAllNewUserFromLastMonth() {
+        LocalDateTime period = LocalDateTime.now().minusMonths(1);
+        return userRepository.countAllByRoleAndCreatedFromLastMonth(
+                roleRepository.findByName("ROLE_USER").orElseThrow(RoleNotFoundException::new),
+                period
+        );
     }
 }

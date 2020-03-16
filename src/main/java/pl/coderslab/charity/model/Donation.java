@@ -49,6 +49,10 @@ public class Donation extends BaseEntity {
     @NotBlank
     String pickUpComment;
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    DonationStatus status = DonationStatus.MISSED;
+
     @NotNull(message = "Wybierz fundację")
     @ManyToOne
     Institution institution;

@@ -2,7 +2,6 @@ package pl.coderslab.charity.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import pl.coderslab.charity.exceptions.InstitutionNotFoundException;
 import pl.coderslab.charity.model.Institution;
 import pl.coderslab.charity.repository.InstitutionRepository;
@@ -48,5 +47,9 @@ public class InstitutionService {
             throw new InstitutionNotFoundException(id);
         }
         institutionRepository.deleteById(id);
+    }
+
+    public long getCountAll() {
+        return institutionRepository.count();
     }
 }
