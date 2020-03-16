@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>Admin Panel</title>
+    <!-- Favicons-->
+    <link rel="icon" th:href="@{/images/favicon/favicon-32x32.png}" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" th:href="@{/images/favicon/apple-touch-icon-152x152.png}">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link th:href="@{/css/materialize.css}" type="text/css" rel="stylesheet">
+    <link th:href="@{/css/admin-style.css}" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link th:href="@{/css/custom/custom.css}" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link th:href="@{/vendors/perfect-scrollbar/perfect-scrollbar.css}" type="text/css" rel="stylesheet">
+</head>
+<body>
+<!-- Start Page Loading -->
+<div id="loader-wrapper" th:fragment="loader">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- End Page Loading -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START HEADER -->
+<header id="header" class="page-topbar" th:fragment="admin-header">
+    <!-- start header nav-->
+    <div class="navbar-fixed">
+        <nav class="navbar-color gradient-45deg-amber-amber">
+            <div class="nav-wrapper">
+                <ul class="left">
+                    <li>
+                        <h1 class="logo-wrapper">
+                            <a th:href="@{/}" class="brand-logo darken-1">
+                                <img th:src="@{/images/logo/materialize-logo.png}" alt="materialize logo">
+                                <span class="logo-text hide-on-med-and-down">Panel administratora</span>
+                            </a>
+                        </h1>
+                    </li>
+                </ul>
+                <ul class="right hide-on-med-and-down">
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect waves-block waves-light toggle-fullscreen">
+                            <i class="material-icons">settings_overscan</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect waves-block waves-light profile-button"
+                           data-activates="profile-dropdown">
+                            <span class="avatar-status avatar-online">
+                                <img th:src="@{/images/avatar/avatar-7.png}" alt="avatar">
+                                <i></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- profile-dropdown -->
+                <ul id="profile-dropdown" class="dropdown-content">
+                    <th:block th:replace="admin/panel.html :: profile-dropdown"/>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!-- end header nav-->
+</header>
+<!-- END HEADER -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START MAIN -->
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+        <!-- START LEFT SIDEBAR NAV-->
+        <aside id="left-sidebar-nav" th:fragment="admin-left-sidebar-nav">
+            <ul id="slide-out" class="side-nav fixed leftside-navigation">
+                <li class="user-details cyan darken-2">
+                    <div class="row">
+                        <div class="col col s4 m4 l4">
+                            <img th:src="@{/images/avatar/avatar-7.png}" alt=""
+                                 class="circle responsive-img valign profile-image cyan">
+                        </div>
+                        <div class="col col s8 m8 l8">
+                            <ul id="profile-dropdown-nav" class="dropdown-content">
+                                <th:block th:fragment="profile-dropdown">
+                                    <li>
+                                        <a href="#" class="grey-text text-darken-1">
+                                            <i class="material-icons">face</i> Profile</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="grey-text text-darken-1">
+                                            <i class="material-icons">settings</i> Settings</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a th:href="@{/logout}" class="grey-text text-darken-1">
+                                            <i class="material-icons">keyboard_tab</i> Logout</a>
+                                    </li>
+                                </th:block>
+                            </ul>
+                            <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#"
+                               data-activates="profile-dropdown-nav" sec:authentication="name">John Doe<i
+                                    class="mdi-navigation-arrow-drop-down right"></i></a>
+                            <p class="user-roal">Administrator</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="no-padding">
+                    <ul class="collapsible" data-collapsible="accordion">
+                        <li class="bold">
+                            <a th:href="@{/admin}" class="waves-effect waves-cyan">
+                                <i class="material-icons">dashboard</i>
+                                <span class="nav-text">Panel główny</span>
+                            </a>
+                        </li>
+                        <li class="bold">
+                            <a th:href="@{/admin/institutions}" class="waves-effect waves-cyan">
+                                <i class="material-icons">account_balance</i>
+                                <span class="nav-text">Fundacji</span>
+                            </a>
+                        </li>
+                        <li class="bold">
+                            <a th:href="@{/admin/admins}" class="waves-effect waves-cyan">
+                                <i class="material-icons">assignment_ind</i>
+                                <span class="nav-text">Administratory</span>
+                            </a>
+                        </li>
+                        <li class="bold">
+                            <a th:href="@{/admin/users}" class="waves-effect waves-cyan">
+                                <i class="material-icons">people_outline</i>
+                                <span class="nav-text">Użytkownicy</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <a href="#" data-activates="slide-out"
+               class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only">
+                <i class="material-icons">menu</i>
+            </a>
+        </aside>
+        <!-- END LEFT SIDEBAR NAV-->
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- START CONTENT -->
+        <section id="content">
+            <!--start container-->
+            <div class="container">
+                <!--card stats start-->
+                <div id="card-stats">
+                    <div class="row mt-1">
+                        <div class="col s12 m6 l4">
+                            <div class="card gradient-45deg-light-blue-cyan gradient-shadow min-height-100 white-text">
+                                <div class="padding-4">
+                                    <div class="col s8 m8">
+                                        <i class="material-icons background-round mt-5">account_balance</i>
+                                        <p>Fundacji</p>
+                                    </div>
+                                    <div class="col s4 m4 right-align">
+                                        <h5 class="mb-0" th:text="${institutionsCount}">N/A</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m6 l4">
+                            <div class="card gradient-45deg-amber-amber gradient-shadow min-height-100 white-text">
+                                <div class="padding-4">
+                                    <div class="col s8 m8">
+                                        <i class="material-icons background-round mt-5">perm_identity</i>
+                                        <p>Użytkownicy</p>
+                                    </div>
+                                    <div class="col s4 m4 right-align">
+                                        <h5 class="mb-0" th:text="${usersCount}">N/A</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m6 l4">
+                            <div class="card gradient-45deg-red-pink gradient-shadow min-height-100 white-text">
+                                <div class="padding-4">
+                                    <div class="col s8 m8">
+                                        <i class="material-icons background-round mt-5">card_giftcard</i>
+                                        <p>Przekazane dary</p>
+                                    </div>
+                                    <div class="col s4 m4 right-align">
+                                        <h5 class="mb-0" th:text="${donationsCount}">N/A</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="card-stats">
+                    <div class="row">
+                        <div class="col s12 m6 l3">
+                            <div class="card">
+                                <div class="card-content cyan white-text">
+                                    <p class="card-stats-title">
+                                        <i class="material-icons">person_outline</i> Nowych użytkowników</p>
+                                    <h4 class="card-stats-number" th:text="${newUsersCount}">N/A</h4>
+                                    <p class="card-stats-compare">
+                                        <span class="cyan text text-lighten-5">za ostatni miesiąc</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m6 l3">
+                            <div class="card">
+                                <div class="card-content red accent-2 white-text">
+                                    <p class="card-stats-title">
+                                        <i class="material-icons">card_giftcard</i> Przekazanych darów</p>
+                                    <h4 class="card-stats-number" th:text="${newDonationsCount}">N/A</h4>
+                                    <p class="card-stats-compare">
+                                        <span class="red-text text-lighten-5">za ostatni miesiąc</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m6 l3">
+                            <div class="card">
+                                <div class="card-content teal accent-4 white-text">
+                                    <p class="card-stats-title">
+                                        <i class="material-icons">open_with</i> Przekazanych worków</p>
+                                    <h4 class="card-stats-number" th:text="${newQuantityCount}">N/A</h4>
+                                    <p class="card-stats-compare">
+                                        <span class="teal-text text-lighten-5">za ostatni miesiąc</span>
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col s12 m6 l3">
+                            <div class="card">
+                                <div class="card-content deep-orange accent-2 white-text">
+                                    <p class="card-stats-title">
+                                        <i class="material-icons">account_balance</i> Wspartych fundacji</p>
+                                    <h4 class="card-stats-number" th:text="${supportedInstitutions}">N/A</h4>
+                                    <p class="card-stats-compare">
+                                        <span class="deep-orange-text text-lighten-5">za ostatni miesiąc</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--card stats end-->
+                <!--work collections start-->
+                <div id="work-collections">
+                    <div class="row">
+                        <div class="col s12">
+                            <ul id="projects-collection" class="collection z-depth-1">
+                                <li class="collection-item avatar">
+                                    <div class="row row-flex">
+                                        <div class="col s7">
+                                            <i class="material-icons cyan circle">card_travel</i>
+                                            <h6 class="collection-header m-0">Przekazane dary</h6>
+                                            <p>Nie odebrane</p>
+                                        </div>
+                                        <div class="col s2">
+                                            <h6 class="collection-header m-0">Worków</h6>
+                                        </div>
+                                        <div class="col s3">
+                                            <h6 class="collection-header m-0">Fundacja</h6>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="collection-item" th:each="donation : ${notReceivedDonations}">
+                                    <div class="row row-flex">
+                                        <div class="col s7">
+                                            <p class="collections-title"
+                                               th:text="|Adres: ${donation.street}, ${donation.zipCode} ${donation.city}|">
+                                                Street, zip-code city</p>
+                                            <p class="collections-content"
+                                               th:text="|Data odbioru: ${donation.pickUpDate} ${donation.pickUpTime}|">
+                                                Date time</p>
+                                            <p class="collections-content" th:text="|Telefon: ${donation.phone}|">
+                                                Phone</p>
+                                        </div>
+                                        <div class="col s2">
+                                            <span th:if="${donation.quantity}==1" class="task-cat blue darken-2"
+                                                  th:text="${donation.quantity}">N/A</span>
+                                            <span th:if="${donation.quantity}==2" class="task-cat green darken-3"
+                                                  th:text="${donation.quantity}">N/A</span>
+                                            <span th:if="${donation.quantity}==3" class="task-cat amber darken-4"
+                                                  th:text="${donation.quantity}">N/A</span>
+                                            <span th:if="${donation.quantity}>3" class="task-cat red darken-1"
+                                                  th:text="${donation.quantity}">N/A</span>
+                                        </div>
+                                        <div class="col s3">
+                                            <p class="collections-title" th:text="${donation.institution.name}">
+                                                Fundacja</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--work collections end-->
+
+                <!-- //////////////////////////////////////////////////////////////////////////// -->
+            </div>
+            <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+    </div>
+    <!-- END WRAPPER -->
+</div>
+<!-- END MAIN -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START FOOTER -->
+<footer class="page-footer gradient-45deg-amber-amber" th:fragment="footer">
+    <div class="footer-copyright">
+        <div class="container">
+            <span>Copyright ©
+              <script type="text/javascript">
+                document.write(new Date().getFullYear());
+              </script>
+                <a class="grey-text text-lighten-2" href="https://github.com/yarikwest" target="_blank">JARO WEST</a>
+            </span>
+            <span class="right hide-on-small-only black-text">
+                Design and Developed by
+                <a class="black-text text-lighten-2" href="https://pixinvent.com/" target="_blank">PIXINVENT</a>
+            </span>
+        </div>
+    </div>
+</footer>
+<!-- END FOOTER -->
+<!-- ================================================
+Scripts
+================================================ -->
+<!-- jQuery Library -->
+<script type="text/javascript" th:src="@{/vendors/jquery-3.2.1.min.js}"></script>
+<!--materialize js-->
+<script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+<!--scrollbar-->
+<script type="text/javascript" th:src="@{/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" th:src="@{/js/plugins.js}"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" th:src="@{/js/custom-script.js}"></script>
+</body>
+</html>

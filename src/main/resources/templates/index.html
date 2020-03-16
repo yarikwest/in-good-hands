@@ -19,6 +19,7 @@
             <li class="logged-user" sec:authorize="isAuthenticated()">
                 Witaj <span sec:authentication="name"></span>
                 <ul class="dropdown">
+                    <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin}">Panel admina</a></li>
                     <li><a href="#">Profil</a></li>
                     <li><a href="#">Moje zbiórki</a></li>
                     <li><a th:href="@{/logout}" href="#">Wyloguj</a></li>

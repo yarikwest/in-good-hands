@@ -7,19 +7,23 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import pl.coderslab.charity.service.CharityUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final CharityUserDetailsService userDetailsService;
+    private final AuthenticationSuccessHandler successHandler;
 
-    public SecurityConfiguration(BCryptPasswordEncoder bCryptPasswordEncoder, CharityUserDetailsService userDetailsService) {
+    public SecurityConfiguration(BCryptPasswordEncoder bCryptPasswordEncoder, CharityUserDetailsService userDetailsService, AuthenticationSuccessHandler successHandler) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userDetailsService = userDetailsService;
+        this.successHandler = successHandler;
     }
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -32,7 +36,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
+                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/fonts/**", "/sass/**", "/vendors/**");
     }
 
     @Override
@@ -43,15 +47,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.
                 authorizeRequests()
                 .antMatchers("/", "/register").permitAll()
-                .antMatchers("/admin/**").hasAuthority("ADMIN")
-                .anyRequest().authenticated()
+                .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+//                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and().csrf().disable()
                 .formLogin()
                 .loginPage(loginPage).permitAll()
-                .failureUrl("/login?error=true")
-                .defaultSuccessUrl("/")
                 .usernameParameter("email")
                 .passwordParameter("password")
+                .failureUrl("/login?error=true")
+                .successHandler(successHandler)
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher(logoutPage))
                 .logoutSuccessUrl(loginPage).and().exceptionHandling();
