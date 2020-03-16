@@ -21,8 +21,6 @@ public class User extends BaseEntity {
 
     String email;
 
-    @NotBlank
-    @Length(min = 8)
     String password;
 
     Boolean active;

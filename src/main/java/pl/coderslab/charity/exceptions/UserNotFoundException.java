@@ -2,9 +2,10 @@ package pl.coderslab.charity.exceptions;
 
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException() {
+        super("User not found");
     }
 
-    public UserNotFoundException(String message) {
-        super("User with " + message + " not exists");
+    public UserNotFoundException(long id) {
+        super("User with id " + id + " not exists");
     }
 }

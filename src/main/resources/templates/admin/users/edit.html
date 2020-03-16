@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>Edit User | Admin Panel</title>
+    <!-- Favicons-->
+    <link rel="icon" th:href="@{/images/favicon/favicon-32x32.png}" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" th:href="@{/images/favicon/apple-touch-icon-152x152.png}">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link th:href="@{/css/materialize.css}" type="text/css" rel="stylesheet">
+    <link th:href="@{/css/admin-style.css}" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link th:href="@{/css/custom/custom.css}" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link th:href="@{/vendors/prism/prism.css}" type="text/css" rel="stylesheet">
+    <link th:href="@{/vendors/perfect-scrollbar/perfect-scrollbar.css}" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+<!-- Start Page Loading -->
+<th:block th:replace="admin/panel.html :: loader"/>
+<!-- End Page Loading -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START HEADER -->
+<th:block th:replace="admin/panel.html :: admin-header"/>
+<!-- END HEADER -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START MAIN -->
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+        <!-- START LEFT SIDEBAR NAV-->
+        <th:block th:replace="admin/panel.html :: admin-left-sidebar-nav"/>
+        <!-- END LEFT SIDEBAR NAV-->
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- START CONTENT -->
+        <section id="content">
+            <!--breadcrumbs start-->
+            <div id="breadcrumbs-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 m6 l6">
+                            <h5 class="breadcrumbs-title">Edytuj użytkownika</h5>
+                            <ol class="breadcrumbs">
+                                <li><a th:href="@{/admin}">Panel główny</a></li>
+                                <li><a th:href="@{/admin/users}">Użytkownicy</a></li>
+                                <li class="active">Edytuj użytkownika</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--breadcrumbs end-->
+            <!--start container-->
+            <div class="container">
+                <div class="section">
+                    <!--Basic Form-->
+                    <div id="basic-form" class="section">
+                        <div class="row">
+                            <div class="col s12 m12 l6 offset-l3">
+                                <div class="card-panel">
+                                    <h4 class="header2">Edytuj użytkownika</h4>
+                                    <div class="row">
+                                        <form th:action="@{/admin/users/edit/{id}(id = ${user.id})}"
+                                              th:object="${user}"
+                                              method="post" class="col s12">
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <input id="email" type="email" th:field="*{email}" class="validate">
+                                                    <label for="email"
+                                                           data-error="Niepoprawny adres email">Email</label>
+                                                    <span th:if="${#fields.hasErrors('email')}"
+                                                          th:errors="*{email}" class="red-text"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <p>
+                                                    <input type="checkbox" id="active" th:field="*{active}"/>
+                                                    <label for="active">Aktywny</label>
+                                                </p>
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <button class="btn waves-effect waves-light right" type="submit"
+                                                                name="action">Zapisz
+                                                            <i class="material-icons right">send</i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- END WRAPPER -->
+</div>
+<!-- END MAIN -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START FOOTER -->
+<th:block th:replace="admin/panel.html :: footer"/>
+<!-- END FOOTER -->
+<!-- ================================================
+  Scripts
+  ================================================ -->
+<!-- jQuery Library -->
+<script type="text/javascript" th:src="@{/vendors/jquery-3.2.1.min.js}"></script>
+<!--materialize js-->
+<script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+<!--prism-->
+<script type="text/javascript" th:src="@{/vendors/prism/prism.js}"></script>
+<!--scrollbar-->
+<script type="text/javascript" th:src="@{/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" th:src="@{/js/plugins.js}"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" th:src="@{/js/custom-script.js}"></script>
+</body>
+
+</html>
