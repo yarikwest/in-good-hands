@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>Profile | User Panel</title>
+    <!-- Favicons-->
+    <link rel="icon" th:href="@{/images/favicon/favicon-32x32.png}" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" th:href="@{/images/favicon/apple-touch-icon-152x152.png}">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link th:href="@{/css/materialize.css}" type="text/css" rel="stylesheet">
+    <link th:href="@{/css/admin-style.css}" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link th:href="@{/css/custom/custom.css}" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link th:href="@{/vendors/perfect-scrollbar/perfect-scrollbar.css}" type="text/css" rel="stylesheet">
+</head>
+<body>
+<!-- Start Page Loading -->
+<th:block th:replace="user/panel.html :: loader"/>
+<!-- End Page Loading -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START HEADER -->
+<th:block th:replace="user/panel.html :: user-header"/>
+<!-- END HEADER -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START MAIN -->
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+        <!-- START LEFT SIDEBAR NAV-->
+        <th:block th:replace="user/panel.html :: user-left-sidebar-nav"/>
+        <!-- END LEFT SIDEBAR NAV-->
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- START CONTENT -->
+        <section id="content">
+            <!--start container-->
+            <div class="container">
+                <!--card widgets start-->
+                <div id="card-widgets">
+                    <div class="row">
+                        <div class="col s12 m6 l4 offset-m3 offset-l4">
+                            <div id="profile-card" class="card">
+                                <div class="card-image waves-effect waves-block waves-light">
+                                    <img class="activator" th:src="@{/images/gallary/5.png}" alt="email bg">
+                                </div>
+                                <div class="card-content">
+                                    <div class="circle responsive-img activator card-profile-image">
+                                        <i class="material-icons background-round mt-10 green lighten-1">email</i>
+                                    </div>
+                                    <a class="btn-floating activator btn-move-up waves-effect waves-light red accent-2 z-depth-4 right">
+                                        <i class="material-icons">edit</i>
+                                    </a>
+                                    <span class="card-title activator grey-text text-darken-4">Zmiana adresu e-mail</span>
+                                    <p th:errors="${user.email}" class="red-text"></p>
+                                </div>
+                                <div class="card-reveal">
+                                    <span class="card-title grey-text text-darken-4">
+                                        <i class="material-icons right">close</i>
+                                    </span>
+                                    <div>
+                                        <form class="col s12" th:action="@{/user/profile/update-email}"
+                                              th:object="${user}" method="post">
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <i class="material-icons prefix">email</i>
+                                                    <input id="email" type="text" class="validate"
+                                                           th:field="*{email}">
+                                                    <label for="email" data-error="Email niepoprawny">
+                                                        Nowy adres email</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <button class="btn waves-effect waves-light right"
+                                                                type="submit" name="action">Zapisz
+                                                            <i class="material-icons right">send</i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12 m6 l4 offset-m3 offset-l4">
+                                <div id="profile-card" class="card">
+                                    <div class="card-image waves-effect waves-block waves-light">
+                                        <img class="activator" th:src="@{/images/gallary/32.png}" alt="user bg">
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="circle responsive-img activator card-profile-image">
+                                            <i class="material-icons background-round mt-10 green lighten-1">lock</i>
+                                        </div>
+                                        <a class="btn-floating activator btn-move-up waves-effect waves-light red accent-2 z-depth-4 right">
+                                            <i class="material-icons">edit</i>
+                                        </a>
+                                        <span class="card-title activator grey-text text-darken-4">Zmiana hasła</span>
+                                        <p style="height: 20px"></p>
+                                        <p th:errors="${updatePassword.*}" class="red-text"></p>
+                                    </div>
+                                    <div class="card-reveal">
+                                        <span class="card-title grey-text text-darken-4">
+                                            <i class="material-icons right">close</i>
+                                        </span>
+                                        <form class="col s12" th:action="@{/user/profile/update-password}"
+                                              th:object="${updatePassword}" method="post">
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <i class="material-icons prefix">lock</i>
+                                                    <input id="oldPassword" type="password" th:field="*{oldPassword}">
+                                                    <label for="oldPassword">Stare hasło</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s6">
+                                                    <i class="material-icons prefix">lock_outline</i>
+                                                    <input id="password" type="password" minlength="8"
+                                                           class="validate" th:field="*{password}">
+                                                    <label for="password" data-error="Minimum 8 znaków">
+                                                        Nowe hasło
+                                                    </label>
+                                                </div>
+                                                <div class="input-field col s6">
+                                                    <input id="matchingPassword" type="password"
+                                                           th:field="*{matchingPassword}">
+                                                    <label for="matchingPassword">Potwierdz nowe hasło</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <button class="btn waves-effect waves-light right"
+                                                                type="submit" name="action">Zapisz
+                                                            <i class="material-icons right">send</i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--card widgets end-->
+                    <!-- //////////////////////////////////////////////////////////////////////////// -->
+                </div>
+            </div>
+            <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+    </div>
+    <!-- END WRAPPER -->
+</div>
+<!-- END MAIN -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START FOOTER -->
+<th:block th:replace="user/panel.html :: footer"/>
+<!-- END FOOTER -->
+<!-- ================================================
+Scripts
+================================================ -->
+<!-- jQuery Library -->
+<script type="text/javascript" th:src="@{/vendors/jquery-3.2.1.min.js}"></script>
+<!--materialize js-->
+<script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+<!--scrollbar-->
+<script type="text/javascript" th:src="@{/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" th:src="@{/js/plugins.js}"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" th:src="@{/js/custom-script.js}"></script>
+</body>
+</html>

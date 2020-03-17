@@ -21,7 +21,7 @@ class MyUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler 
         if (roles.contains("ROLE_ADMIN")) {
             httpServletResponse.sendRedirect("/admin");
         } else {
-            httpServletResponse.sendRedirect("/");
+            httpServletResponse.sendRedirect("/user");
         }
 
     }

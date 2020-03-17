@@ -1,24 +1,22 @@
 package pl.coderslab.charity.dto;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 import org.hibernate.validator.constraints.Length;
 import pl.coderslab.charity.validation.PasswordMatcher;
 import pl.coderslab.charity.validation.PasswordMatches;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @PasswordMatches
-public class RegisterUserDto implements PasswordMatcher {
-
-    @Email
+public class UpdatePasswordDto implements PasswordMatcher {
     @NotBlank
-    String email;
+    String oldPassword;
 
     @NotBlank
     @Length(min = 8)
