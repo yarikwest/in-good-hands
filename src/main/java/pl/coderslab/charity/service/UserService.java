@@ -135,6 +135,10 @@ public class UserService {
         return bCryptPasswordEncoder.matches(oldPassword, loggedInUser.getPassword());
     }
 
+    public boolean checkIfEmailAlreadyExists(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
     public void changeUserPassword(User loggedInUser, String password) {
         loggedInUser.setPassword(bCryptPasswordEncoder.encode(password));
         userRepository.save(loggedInUser);

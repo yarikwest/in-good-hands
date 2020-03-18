@@ -18,4 +18,9 @@ public class Category extends BaseEntity {
 
     @NotBlank
     String name;
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

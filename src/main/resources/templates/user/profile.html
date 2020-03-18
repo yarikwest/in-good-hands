@@ -68,87 +68,84 @@
                                     <div>
                                         <form class="col s12" th:action="@{/user/profile/update-email}"
                                               th:object="${user}" method="post">
+                                            <h6 class="teal-text">Po zmianie adresu email zostaniesz wylogowany</h6>
                                             <div class="row">
                                                 <div class="input-field col s12">
                                                     <i class="material-icons prefix">email</i>
-                                                    <input id="email" type="text" class="validate"
+                                                    <input id="email" type="email" class="validate"
                                                            th:field="*{email}">
                                                     <label for="email" data-error="Email niepoprawny">
                                                         Nowy adres email</label>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="row">
-                                                    <div class="input-field col s12">
-                                                        <button class="btn waves-effect waves-light right"
-                                                                type="submit" name="action">Zapisz
-                                                            <i class="material-icons right">send</i>
-                                                        </button>
-                                                    </div>
-                                                </div>
+                                                <button class="btn waves-effect waves-light right"
+                                                        type="submit" name="action">Zapisz
+                                                    <i class="material-icons right">send</i>
+                                                </button>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col s12 m6 l4 offset-m3 offset-l4">
-                                <div id="profile-card" class="card">
-                                    <div class="card-image waves-effect waves-block waves-light">
-                                        <img class="activator" th:src="@{/images/gallary/32.png}" alt="user bg">
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m6 l4 offset-m3 offset-l4">
+                            <div id="profile-card" class="card">
+                                <div class="card-image waves-effect waves-block waves-light">
+                                    <img class="activator" th:src="@{/images/gallary/32.png}" alt="user bg">
+                                </div>
+                                <div class="card-content">
+                                    <div class="circle responsive-img activator card-profile-image">
+                                        <i class="material-icons background-round mt-10 green lighten-1">lock</i>
                                     </div>
-                                    <div class="card-content">
-                                        <div class="circle responsive-img activator card-profile-image">
-                                            <i class="material-icons background-round mt-10 green lighten-1">lock</i>
-                                        </div>
-                                        <a class="btn-floating activator btn-move-up waves-effect waves-light red accent-2 z-depth-4 right">
-                                            <i class="material-icons">edit</i>
-                                        </a>
-                                        <span class="card-title activator grey-text text-darken-4">Zmiana hasła</span>
-                                        <p style="height: 20px"></p>
-                                        <p th:errors="${updatePassword.*}" class="red-text"></p>
-                                    </div>
-                                    <div class="card-reveal">
+                                    <a class="btn-floating activator btn-move-up waves-effect waves-light red accent-2 z-depth-4 right">
+                                        <i class="material-icons">edit</i>
+                                    </a>
+                                    <span class="card-title activator grey-text text-darken-4">Zmiana hasła</span>
+                                    <p style="height: 20px"></p>
+                                    <p th:errors="${updatePassword.*}" class="red-text"></p>
+                                </div>
+                                <div class="card-reveal">
                                         <span class="card-title grey-text text-darken-4">
                                             <i class="material-icons right">close</i>
                                         </span>
-                                        <form class="col s12" th:action="@{/user/profile/update-password}"
-                                              th:object="${updatePassword}" method="post">
+                                    <form class="col s12" th:action="@{/user/profile/update-password}"
+                                          th:object="${updatePassword}" method="post">
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">lock</i>
+                                                <input id="oldPassword" type="password" th:field="*{oldPassword}">
+                                                <label for="oldPassword">Stare hasło</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s6">
+                                                <i class="material-icons prefix">lock_outline</i>
+                                                <input id="password" type="password" minlength="8"
+                                                       class="validate" th:field="*{password}">
+                                                <label for="password" data-error="Minimum 8 znaków">
+                                                    Nowe hasło
+                                                </label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <input id="matchingPassword" type="password"
+                                                       th:field="*{matchingPassword}">
+                                                <label for="matchingPassword">Potwierdz nowe hasło</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="row">
                                                 <div class="input-field col s12">
-                                                    <i class="material-icons prefix">lock</i>
-                                                    <input id="oldPassword" type="password" th:field="*{oldPassword}">
-                                                    <label for="oldPassword">Stare hasło</label>
+                                                    <button class="btn waves-effect waves-light right"
+                                                            type="submit" name="action">Zapisz
+                                                        <i class="material-icons right">send</i>
+                                                    </button>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="input-field col s6">
-                                                    <i class="material-icons prefix">lock_outline</i>
-                                                    <input id="password" type="password" minlength="8"
-                                                           class="validate" th:field="*{password}">
-                                                    <label for="password" data-error="Minimum 8 znaków">
-                                                        Nowe hasło
-                                                    </label>
-                                                </div>
-                                                <div class="input-field col s6">
-                                                    <input id="matchingPassword" type="password"
-                                                           th:field="*{matchingPassword}">
-                                                    <label for="matchingPassword">Potwierdz nowe hasło</label>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="row">
-                                                    <div class="input-field col s12">
-                                                        <button class="btn waves-effect waves-light right"
-                                                                type="submit" name="action">Zapisz
-                                                            <i class="material-icons right">send</i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

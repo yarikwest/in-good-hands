@@ -58,7 +58,7 @@
                         <a href="javascript:void(0);" class="waves-effect waves-block waves-light profile-button"
                            data-activates="profile-dropdown">
                             <span class="avatar-status avatar-online">
-                                <img th:src="@{/images/avatar/avatar-6.png}" alt="avatar">
+                                <img th:src="@{/images/avatar/avatar-1.png}" alt="avatar">
                                 <i></i>
                             </span>
                         </a>
@@ -139,7 +139,7 @@
             <div class="container">
                 <!--card stats start-->
                 <div id="card-stats">
-                    <div class="row mt-1">
+                    <div class="row">
                         <div class="col s12 m6 l4">
                             <div class="card gradient-45deg-red-pink gradient-shadow min-height-100 white-text">
                                 <div class="padding-4">
@@ -182,6 +182,54 @@
                     </div>
                 </div>
                 <!--card stats end-->
+                <!--work collections start-->
+                <div id="work-collections">
+                    <div class="row">
+                        <div class="col s12">
+                            <ul id="projects-collection" class="collection z-depth-1">
+                                <li class="collection-item avatar">
+                                    <div class="row row-flex">
+                                        <div class="col s7">
+                                            <i class="material-icons cyan circle">card_travel</i>
+                                            <h6 class="collection-header m-0">Przekazane dary</h6>
+                                            <p>Nie odebrane</p>
+                                        </div>
+                                        <div class="col s2">
+                                            <h6 class="collection-header m-0">Worków</h6>
+                                        </div>
+                                        <div class="col s3">
+                                            <h6 class="collection-header m-0">Fundacja</h6>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="collection-item" th:each="donation : ${donations}">
+                                    <div class="row row-flex">
+                                        <div class="col s7">
+                                            <p class="collections-title"
+                                               th:text="|Data odbioru: ${donation.pickUpDate} ${donation.pickUpTime}|">
+                                                Date time</p>
+                                        </div>
+                                        <div class="col s2">
+                                            <span th:if="${donation.quantity}==1" class="task-cat blue darken-2"
+                                                  th:text="${donation.quantity}">N/A</span>
+                                            <span th:if="${donation.quantity}==2" class="task-cat green darken-3"
+                                                  th:text="${donation.quantity}">N/A</span>
+                                            <span th:if="${donation.quantity}==3" class="task-cat amber darken-4"
+                                                  th:text="${donation.quantity}">N/A</span>
+                                            <span th:if="${donation.quantity}>3" class="task-cat red darken-1"
+                                                  th:text="${donation.quantity}">N/A</span>
+                                        </div>
+                                        <div class="col s3">
+                                            <p class="collections-title" th:text="${donation.institution.name}">
+                                                Fundacja</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--work collections end-->
                 <!-- //////////////////////////////////////////////////////////////////////////// -->
             </div>
             <!--end container-->

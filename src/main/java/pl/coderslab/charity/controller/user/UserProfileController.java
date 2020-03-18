@@ -4,7 +4,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.dto.UpdatePasswordDto;
 import pl.coderslab.charity.dto.UserDto;
@@ -39,7 +38,7 @@ class UserProfileController {
 
         User loggedInUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         if (!userService.checkIfValidOldPassword(loggedInUser, updatePassword.getOldPassword())) {
-            bindingResult.rejectValue("oldPassword", "message.invalidOldPassword");
+            bindingResult.rejectValue("oldPassword", "invalidOldPassword.error.message");
             model.addAttribute("user", userMapper.userToUserDto(loggedInUser));
             return "user/profile";
         }
@@ -60,6 +59,13 @@ class UserProfileController {
         if (result.hasErrors()) {
             model.addAttribute("updatePassword", new UpdatePasswordDto());
             return "user/profile";
+        }
+
+        if (userService.checkIfEmailAlreadyExists(userDto.getEmail())) {
+            result.rejectValue("email", "emailExists.error.message");
+            model.addAttribute("updatePassword", new UpdatePasswordDto());
+            return "user/profile";
+
         }
 
         User loggedInUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
