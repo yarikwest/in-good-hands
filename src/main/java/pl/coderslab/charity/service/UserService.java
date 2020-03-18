@@ -130,4 +130,22 @@ public class UserService {
                 period
         );
     }
+
+    public boolean checkIfValidOldPassword(User loggedInUser, String oldPassword) {
+        return bCryptPasswordEncoder.matches(oldPassword, loggedInUser.getPassword());
+    }
+
+    public boolean checkIfEmailAlreadyExists(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    public void changeUserPassword(User loggedInUser, String password) {
+        loggedInUser.setPassword(bCryptPasswordEncoder.encode(password));
+        userRepository.save(loggedInUser);
+    }
+
+    public void changeUserEmail(User loggedInUser, String email) {
+        loggedInUser.setEmail(email);
+        userRepository.save(loggedInUser);
+    }
 }

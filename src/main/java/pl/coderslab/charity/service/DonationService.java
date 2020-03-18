@@ -1,10 +1,13 @@
 package pl.coderslab.charity.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.coderslab.charity.exceptions.DonationNotFoundException;
 import pl.coderslab.charity.model.Donation;
 import pl.coderslab.charity.model.DonationStatus;
+import pl.coderslab.charity.model.User;
 import pl.coderslab.charity.repository.DonationRepository;
 
 import java.time.LocalDateTime;
@@ -60,5 +63,25 @@ public class DonationService {
 
     public Set<Donation> getAllNotReceivedDonations() {
         return donationRepository.getAllByStatusEquals(DonationStatus.MISSED);
+    }
+
+    public long getCountAllDonationsByUser(User user) {
+        return donationRepository.countAllByUser(user);
+    }
+
+    public long getSumOfAllPackageByUser(User user) {
+        return donationRepository.sumAllQuantityByUser(user);
+    }
+
+    public long getCountAllSupportedInstitutionsByUser(User user) {
+        return donationRepository.countAllByUserIdGroupByInstitution(user.getId());
+    }
+
+    public Set<Donation> getAllByUser(User user) {
+        return donationRepository.findAllByUser(user);
+    }
+
+    public Page<Donation> getAllByUserSotred(User user, Pageable pageable) {
+        return donationRepository.findAllByUser(user, pageable);
     }
 }

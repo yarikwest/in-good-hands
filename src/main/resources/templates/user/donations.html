@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>Donations | User Panel</title>
+    <!-- Favicons-->
+    <link rel="icon" th:href="@{/images/favicon/favicon-32x32.png}" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" th:href="@{/images/favicon/apple-touch-icon-152x152.png}">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link th:href="@{/css/materialize.css}" type="text/css" rel="stylesheet">
+    <link th:href="@{/css/admin-style.css}" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link th:href="@{/css/custom/custom.css}" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link th:href="@{/vendors/perfect-scrollbar/perfect-scrollbar.css}" type="text/css" rel="stylesheet">
+</head>
+<body th:with="pageParam=${param.page},sizeParam=${param.size},sortByParam=${param.sortBy},ascParam=${param.asc},currentUrl='/user/donations'">
+<!-- Start Page Loading -->
+<th:block th:replace="user/panel.html :: loader"/>
+<!-- End Page Loading -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START HEADER -->
+<th:block th:replace="user/panel.html :: user-header"/>
+<!-- END HEADER -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START MAIN -->
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+        <!-- START LEFT SIDEBAR NAV-->
+        <th:block th:replace="user/panel.html :: user-left-sidebar-nav"/>
+        <!-- END LEFT SIDEBAR NAV-->
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- START CONTENT -->
+        <section id="content">
+            <!--breadcrumbs start-->
+            <div id="breadcrumbs-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 m6 l6">
+                            <h5 class="breadcrumbs-title">Przekazane dary</h5>
+                            <ol class="breadcrumbs">
+                                <li><a th:href="@{/user}">Panel główny</a></li>
+                                <li class="active">Przekazane dary</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--breadcrumbs end-->
+            <!--start container-->
+            <div class="container">
+                <!--work collections start-->
+                <div class="divider"></div>
+                <div id="work-collections">
+                    <div class="row">
+                        <h4 class="header col s12 m6 l6">Lista przekazanych darów</h4>
+                        <div class="col s12 m6 l6" style="margin-top: 17px;">
+                            <a class="btn dropdown-settings waves-effect waves-light breadcrumbs-btn right"
+                               th:href="@{/donations}">
+                                <i class="material-icons left">add</i>
+                                <span class="hide-on-small-onl">Przekaż dar</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <a class="btn-flat dropdown-button waves-effect right" href="#!" data-activates="dropdownSize">Rozmiar<i
+                                class="material-icons right">arrow_drop_down</i></a>
+                        <ul id="dropdownSize" class="dropdown-content">
+                            <li>
+                                <a th:href="@{${currentUrl}(page=${pageParam},size=5,sortBy=${sortByParam}, asc=${ascParam})}"
+                                   class="-text">
+                                    5
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{${currentUrl}(page=${pageParam},size=10,sortBy=${sortByParam}, asc=${ascParam})}"
+                                   class="-text">
+                                    10
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{${currentUrl}(page=${pageParam},size=20,sortBy=${sortByParam}, asc=${ascParam})}"
+                                   class="-text">
+                                    20
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{${currentUrl}(page=${pageParam},size=50,sortBy=${sortByParam}, asc=${ascParam})}"
+                                   class="-text">
+                                    50
+                                </a>
+                            </li>
+                        </ul>
+                        <a class="btn-flat dropdown-button waves-effect right" href="#!"
+                           data-activates="dropdownSortBy">Sortuj<i
+                                class="material-icons right">arrow_drop_down</i></a>
+                        <ul id="dropdownSortBy" class="dropdown-content">
+                            <li>
+                                <a th:href="@{${currentUrl}(page=${pageParam},size=${sizeParam},sortBy='status', asc=false)}"
+                                   class="-text">
+                                    Status: najpierw odebrane
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{${currentUrl}(page=${pageParam},size=${sizeParam},sortBy='status', asc=true)}"
+                                   class="-text">
+                                    Status: najpierw nieodebrane
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{${currentUrl}(page=${pageParam},size=${sizeParam},sortBy='created', asc=false)}"
+                                   class="-text">
+                                    Data przekazania: od najnowszej
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{${currentUrl}(page=${pageParam},size=${sizeParam},sortBy='created', asc=true)}"
+                                   class="-text">
+                                    Data przekazania: od najstarszej
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <ul id="projects-collection" class="collection z-depth-1">
+                                <li class="collection-item avatar">
+                                    <div class="row row-flex">
+                                        <div class="col s6">
+                                            <i class="material-icons cyan circle">card_travel</i>
+                                            <h6 class="collection-header m-0">Przekazane dary</h6>
+                                        </div>
+                                        <div class="col s2">
+                                            <h6 class="collection-header m-0">Status</h6>
+                                        </div>
+                                        <div class="col s2">
+                                            <h6 class="collection-header m-0">Worków</h6>
+                                        </div>
+                                        <div class="col s2">
+                                            <h6 class="collection-header m-0">Fundacja</h6>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="collection-item" th:each="donation : ${donations.content}">
+                                    <div class="row row-flex">
+                                        <div class="col s6">
+                                            <p class="collections-title"
+                                               th:text="|Data przekazania: ${donation.created}|">
+                                                Street, zip-code city</p>
+                                            <p class="collections-content"
+                                               th:text="|Data odbioru: ${donation.pickUpDate} ${donation.pickUpTime}|">
+                                                Date time</p>
+                                            <p class="collections-content"
+                                               th:text="|Komentarz: ${donation.pickUpComment}|">
+                                                Comment</p>
+                                            <p class="collections-content"
+                                               th:text="|Kategoria: ${donation.categories}|">
+                                                Category</p>
+                                        </div>
+                                        <div class="col s2" th:switch="${donation.status}">
+                                            <span th:case="${donation.status.MISSED}"
+                                                  class="task-cat red darken-1">NIEODEBRANE</span>
+                                            <span th:case="${donation.status.RECEIVED}"
+                                                  class="task-cat green darken-3">ODEBRANE</span>
+                                        </div>
+                                        <div class="col s2">
+                                            <span th:if="${donation.quantity}==1" class="task-cat blue darken-2"
+                                                  th:text="${donation.quantity}">N/A</span>
+                                            <span th:if="${donation.quantity}==2" class="task-cat green darken-3"
+                                                  th:text="${donation.quantity}">N/A</span>
+                                            <span th:if="${donation.quantity}==3" class="task-cat amber darken-4"
+                                                  th:text="${donation.quantity}">N/A</span>
+                                            <span th:if="${donation.quantity}>3" class="task-cat red darken-1"
+                                                  th:text="${donation.quantity}">N/A</span>
+                                        </div>
+                                        <div class="col s2">
+                                            <p class="collections-title" th:text="${donation.institution.name}">
+                                                Fundacja</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <ul class="pagination center" th:if="${donations.totalPages > 1}">
+                        <li th:unless="${donations.number==0}">
+                            <a th:href="@{${currentUrl}(page=${donations.number},size=${sizeParam},sortBy=${sortByParam}, asc=${ascParam})}">
+                                <i class="material-icons">chevron_left</i>
+                            </a>
+                        </li>
+                        <li th:each="pageNumber: ${pageNumbers}"
+                            th:class="${pageNumber==donations.number+1} ? active"
+                            class="waves-effect">
+                            <a th:href="@{${currentUrl}(page=${pageNumber},size=${sizeParam},sortBy=${sortByParam}, asc=${ascParam})}"
+                               th:text="${pageNumber}">
+                            </a>
+                        </li>
+                        <li th:unless="${donations.totalPages==donations.number+1}">
+                            <a th:href="@{${currentUrl}(page=${donations.number+2},size=${sizeParam},sortBy=${sortByParam}, asc=${ascParam})}">
+                                <i class="material-icons">chevron_right</i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--work collections end-->
+                <!-- //////////////////////////////////////////////////////////////////////////// -->
+            </div>
+            <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+    </div>
+    <!-- END WRAPPER -->
+</div>
+<!-- END MAIN -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START FOOTER -->
+<th:block th:replace="user/panel.html :: footer"/>
+<!-- END FOOTER -->
+<!-- ================================================
+Scripts
+================================================ -->
+<!-- jQuery Library -->
+<script type="text/javascript" th:src="@{/vendors/jquery-3.2.1.min.js}"></script>
+<!--materialize js-->
+<script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+<!--scrollbar-->
+<script type="text/javascript" th:src="@{/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" th:src="@{/js/plugins.js}"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" th:src="@{/js/custom-script.js}"></script>
+</body>
+</html>
