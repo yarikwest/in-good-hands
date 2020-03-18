@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Documented
 public @interface PasswordMatches {
 
-    String message() default "passwordMatches.error.message";
+    String message() default "{passwordMatches.error.message}";
 
     Class<?>[] groups() default {};
 

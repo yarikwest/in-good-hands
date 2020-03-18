@@ -47,7 +47,7 @@ class AuthController {
         try {
             userService.registerNewUser(user);
         } catch (EmailExistsException e) {
-            bindingResult.rejectValue("email", "message.regError");
+            bindingResult.rejectValue("email", "emailExists.error.message");
             return "register";
         }
         return "index";
