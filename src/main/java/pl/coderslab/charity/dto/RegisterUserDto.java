@@ -1,9 +1,9 @@
 package pl.coderslab.charity.dto;
 
 import lombok.*;
-import org.hibernate.validator.constraints.Length;
 import pl.coderslab.charity.validation.PasswordMatcher;
 import pl.coderslab.charity.validation.PasswordMatches;
+import pl.coderslab.charity.validation.ValidPassword;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -20,8 +20,7 @@ public class RegisterUserDto implements PasswordMatcher {
     @NotBlank
     String email;
 
-    @NotBlank
-    @Length(min = 8)
+    @ValidPassword
     String password;
 
     String matchingPassword;

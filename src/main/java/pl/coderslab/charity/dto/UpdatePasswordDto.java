@@ -4,9 +4,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.validator.constraints.Length;
 import pl.coderslab.charity.validation.PasswordMatcher;
 import pl.coderslab.charity.validation.PasswordMatches;
+import pl.coderslab.charity.validation.ValidPassword;
 
 import javax.validation.constraints.NotBlank;
 
@@ -18,8 +18,7 @@ public class UpdatePasswordDto implements PasswordMatcher {
     @NotBlank
     String oldPassword;
 
-    @NotBlank
-    @Length(min = 8)
+    @ValidPassword
     String password;
 
     String matchingPassword;

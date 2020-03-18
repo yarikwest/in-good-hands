@@ -20,8 +20,8 @@
                 Witaj <span sec:authentication="name"></span>
                 <ul class="dropdown">
                     <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin}">Panel admina</a></li>
-                    <li><a th:href="@{/user}" href="#">Profil</a></li>
-                    <li><a th:href="@{/user/donations}" href="#">Moje zbiórki</a></li>
+                    <li sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/user}" href="#">Profil</a></li>
+                    <li sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/user/donations}" href="#">Moje zbiórki</a></li>
                     <li><a th:href="@{/logout}" href="#">Wyloguj</a></li>
                 </ul>
             </li>
