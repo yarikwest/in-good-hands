@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -77,25 +76,25 @@
                                 class="material-icons right">arrow_drop_down</i></a>
                         <ul id="dropdownSize" class="dropdown-content">
                             <li>
-                                <a th:href="@{${currentUrl}(page=${pageParam},size=5,sortBy=${sortByParam}, asc=${ascParam})}"
+                                <a th:href="@{${currentUrl}(page=1,size=5,sortBy=${sortByParam}, asc=${ascParam})}"
                                    class="-text">
                                     5
                                 </a>
                             </li>
                             <li>
-                                <a th:href="@{${currentUrl}(page=${pageParam},size=10,sortBy=${sortByParam}, asc=${ascParam})}"
+                                <a th:href="@{${currentUrl}(page=1,size=10,sortBy=${sortByParam}, asc=${ascParam})}"
                                    class="-text">
                                     10
                                 </a>
                             </li>
                             <li>
-                                <a th:href="@{${currentUrl}(page=${pageParam},size=20,sortBy=${sortByParam}, asc=${ascParam})}"
+                                <a th:href="@{${currentUrl}(page=1,size=20,sortBy=${sortByParam}, asc=${ascParam})}"
                                    class="-text">
                                     20
                                 </a>
                             </li>
                             <li>
-                                <a th:href="@{${currentUrl}(page=${pageParam},size=50,sortBy=${sortByParam}, asc=${ascParam})}"
+                                <a th:href="@{${currentUrl}(page=1,size=50,sortBy=${sortByParam}, asc=${ascParam})}"
                                    class="-text">
                                     50
                                 </a>
@@ -106,25 +105,25 @@
                                 class="material-icons right">arrow_drop_down</i></a>
                         <ul id="dropdownSortBy" class="dropdown-content">
                             <li>
-                                <a th:href="@{${currentUrl}(page=${pageParam},size=${sizeParam},sortBy='status', asc=false)}"
+                                <a th:href="@{${currentUrl}(page=1,size=${sizeParam},sortBy='status', asc=false)}"
                                    class="-text">
                                     Status: najpierw odebrane
                                 </a>
                             </li>
                             <li>
-                                <a th:href="@{${currentUrl}(page=${pageParam},size=${sizeParam},sortBy='status', asc=true)}"
+                                <a th:href="@{${currentUrl}(page=1,size=${sizeParam},sortBy='status', asc=true)}"
                                    class="-text">
                                     Status: najpierw nieodebrane
                                 </a>
                             </li>
                             <li>
-                                <a th:href="@{${currentUrl}(page=${pageParam},size=${sizeParam},sortBy='created', asc=false)}"
+                                <a th:href="@{${currentUrl}(page=1,size=${sizeParam},sortBy='created', asc=false)}"
                                    class="-text">
                                     Data przekazania: od najnowszej
                                 </a>
                             </li>
                             <li>
-                                <a th:href="@{${currentUrl}(page=${pageParam},size=${sizeParam},sortBy='created', asc=true)}"
+                                <a th:href="@{${currentUrl}(page=1,size=${sizeParam},sortBy='created', asc=true)}"
                                    class="-text">
                                     Data przekazania: od najstarszej
                                 </a>
