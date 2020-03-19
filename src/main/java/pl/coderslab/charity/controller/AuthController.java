@@ -69,7 +69,7 @@ class AuthController {
         ));
         Locale locale = request.getLocale();
         String message = messageSource.getMessage("auth.message.regSuccess", null, locale);
-        model.addAttribute("regSuccess", message);
+        model.addAttribute("successMsg", message);
         return "login";
     }
 
