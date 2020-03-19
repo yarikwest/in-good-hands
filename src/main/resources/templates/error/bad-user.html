@@ -1,0 +1,13 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+    <title th:text="#{label.badUser.title}">bad user</title>
+</head>
+<body>
+<div class="container">
+    <h1 class="alert alert-danger" th:text="${message}">error</h1>
+    <br/>
+    <a class="btn btn-default" th:href="@{/registration}" th:text="#{label.form.loginSignUp}">signup</a>
+</div>
+</body>
+</html>

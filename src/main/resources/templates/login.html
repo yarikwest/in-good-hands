@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -24,10 +24,11 @@
             <a href="#" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
         </div>
 
-        <span th:if="${param.error}" th:class="error">Wprowadzony adres e-mail lub hasło są nieprawidłowe</span>
+        <span th:if="${param.error}" th:class="error" th:text="${session.SPRING_SECURITY_LAST_EXCEPTION}"></span>
+        <span th:if="${regSuccess}" th:class="success" th:text="${regSuccess}"></span>
 
         <div class="form-group form-group--buttons">
-            <a th:href="@{/register}" href="#" class="btn btn--without-border">Załóż konto</a>
+            <a th:href="@{/registration}" href="#" class="btn btn--without-border">Załóż konto</a>
             <button class="btn" type="submit">Zaloguj się</button>
         </div>
     </form>

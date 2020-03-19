@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -15,7 +15,7 @@
 
 <section class="login-page">
     <h2>Załóż konto</h2>
-    <form th:action="@{/register}" th:object="${user}" method="post">
+    <form th:action="@{/registration}" th:object="${user}" method="post">
         <div class="form-group">
             <input th:field="*{email}" type="email" name="email" placeholder="Email"/>
             <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:class="error"></span>
