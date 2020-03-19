@@ -8,6 +8,8 @@ import pl.coderslab.charity.exceptions.RoleNotFoundException;
 import pl.coderslab.charity.exceptions.UserNotFoundException;
 import pl.coderslab.charity.model.Role;
 import pl.coderslab.charity.model.User;
+import pl.coderslab.charity.model.VerificationToken;
+import pl.coderslab.charity.repository.VerificationTokenRepository;
 import pl.coderslab.charity.repository.RoleRepository;
 import pl.coderslab.charity.repository.UserRepository;
 
@@ -21,11 +23,14 @@ public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final VerificationTokenRepository tokenRepository;
 
-    UserService(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    UserService(UserRepository userRepository, RoleRepository roleRepository,
+                BCryptPasswordEncoder bCryptPasswordEncoder, VerificationTokenRepository tokenRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.tokenRepository = tokenRepository;
     }
 
     public User getUserByEmail(String email) {
@@ -40,15 +45,15 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public void registerNewUser(User user) throws EmailExistsException {
+    public User registerNewUser(User user) throws EmailExistsException {
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new EmailExistsException();
         }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setActive(true);
+        user.setActive(false);
         Role userRole = roleRepository.findByName("ROLE_USER").orElseThrow(RoleNotFoundException::new);
         user.getRoles().add(userRole);
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     public Set<User> getAll() {
@@ -147,5 +152,20 @@ public class UserService {
     public void changeUserEmail(User loggedInUser, String email) {
         loggedInUser.setEmail(email);
         userRepository.save(loggedInUser);
+    }
+
+    public void createVerificationToken(User user, String token) {
+        VerificationToken myToken = new VerificationToken();
+        myToken.setToken(token);
+        myToken.setUser(user);
+        tokenRepository.save(myToken);
+    }
+
+    public VerificationToken getVerificationToken(String token) {
+        return tokenRepository.findByToken(token);
+    }
+
+    public void saveRegisteredUser(User user) {
+        userRepository.save(user);
     }
 }

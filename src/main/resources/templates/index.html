@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8"/>
@@ -14,7 +14,7 @@
         <ul class="nav--actions">
             <th:block sec:authorize="!isAuthenticated()">
                 <li><a th:href="@{/login}" href="" class="btn btn--small btn--without-border">Zaloguj</a></li>
-                <li><a th:href="@{/register}" href="#" class="btn btn--small btn--highlighted">Załóż konto</a></li>
+                <li><a th:href="@{/registration}" href="#" class="btn btn--small btn--highlighted">Załóż konto</a></li>
             </th:block>
             <li class="logged-user" sec:authorize="isAuthenticated()">
                 Witaj <span sec:authentication="name"></span>
@@ -92,7 +92,7 @@
         </div>
     </div>
 
-    <a sec:authorize="!isAuthenticated()" th:href="@{/register}" href="#" class="btn btn--large">Załóż konto</a>
+    <a sec:authorize="!isAuthenticated()" th:href="@{/registration}" href="#" class="btn btn--large">Załóż konto</a>
 </section>
 
 <section id="about-us" class="about-us">

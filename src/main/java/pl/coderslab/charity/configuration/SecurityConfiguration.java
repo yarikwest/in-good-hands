@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import pl.coderslab.charity.service.CharityUserDetailsService;
@@ -17,11 +18,16 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final CharityUserDetailsService userDetailsService;
     private final AuthenticationSuccessHandler successHandler;
+    private final AuthenticationFailureHandler failureHandler;
 
-    public SecurityConfiguration(BCryptPasswordEncoder bCryptPasswordEncoder, CharityUserDetailsService userDetailsService, AuthenticationSuccessHandler successHandler) {
+    public SecurityConfiguration(BCryptPasswordEncoder bCryptPasswordEncoder,
+                                 CharityUserDetailsService userDetailsService,
+                                 AuthenticationSuccessHandler successHandler,
+                                 AuthenticationFailureHandler failureHandler) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userDetailsService = userDetailsService;
         this.successHandler = successHandler;
+        this.failureHandler = failureHandler;
     }
 
 
@@ -46,16 +52,16 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.
                 authorizeRequests()
-                .antMatchers("/", "/register").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                 .antMatchers("/user/**").hasAuthority("ROLE_USER")
-                .anyRequest().authenticated()
+                .antMatchers("/donations").hasAnyRole()
+                .anyRequest().permitAll()
                 .and().csrf().disable()
                 .formLogin()
                 .loginPage(loginPage).permitAll()
                 .usernameParameter("email")
                 .passwordParameter("password")
-                .failureUrl("/login?error=true")
+                .failureHandler(failureHandler)
                 .successHandler(successHandler)
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher(logoutPage))
