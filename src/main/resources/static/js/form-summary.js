@@ -24,8 +24,11 @@ btnNextStep.forEach(value => {
     value.addEventListener("click", function () {
         inputInstitution = document.querySelector("input[type=radio]:checked");
 
+        if (inputInstitution != null) {
+            summaryInstitution.innerText = inputInstitution.parentElement.children[2].children[0].innerText;
+        }
+
         summaryQuantity.innerText = inputQuantity.value + ' worki';
-        summaryInstitution.innerText = inputInstitution.parentElement.children[2].children[0].innerText;
         summaryStreet.innerText = inputStreet.value;
         summaryCity.innerText = inputCity.value;
         summaryZipCode.innerText = inputZipCode.value;
