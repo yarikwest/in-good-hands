@@ -33,11 +33,11 @@ public class UserService {
         this.tokenRepository = tokenRepository;
     }
 
-    public User getUserByEmail(String email) {
+    public User getUserByEmail(String email) throws Throwable {
         return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
     }
 
-    public User create(User user) {
+    public User create(User user) throws Throwable {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(true);
         Role userRole = roleRepository.findByName("ROLE_USER").orElseThrow(RoleNotFoundException::new);
@@ -60,7 +60,7 @@ public class UserService {
         return new HashSet<>(userRepository.findAll());
     }
 
-    public Set<User> getAllUsers() {
+    public Set<User> getAllUsers() throws Throwable {
         return userRepository.findAllByRole(roleRepository.findByName("ROLE_USER").orElseThrow(RoleNotFoundException::new));
     }
 
@@ -68,7 +68,7 @@ public class UserService {
         return userRepository.findAllByRole(roleRepository.findByName("ROLE_ADMIN").orElseThrow(RoleNotFoundException::new));
     }
 
-    public User getById(long id) {
+    public User getById(long id) throws Throwable {
         return userRepository.findById(id).orElseThrow(() -> {
             log.warn("IN getById(id): user with id {} not founded", id);
             return new UserNotFoundException(id);
@@ -98,7 +98,7 @@ public class UserService {
         return userRepository.save(oldUser);
     }
 
-    public User createAdmin(User user) {
+    public User createAdmin(User user) throws Throwable {
         user.setPassword(bCryptPasswordEncoder.encode("admin"));
         user.setActive(true);
         Role roleAdmin = roleRepository.findByName("ROLE_ADMIN").orElseThrow(RoleNotFoundException::new);
@@ -124,11 +124,11 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public long getCountAll() {
+    public long getCountAll() throws Throwable {
         return userRepository.countAllByRole(roleRepository.findByName("ROLE_USER").orElseThrow(RoleNotFoundException::new));
     }
 
-    public long getCountAllNewUserFromLastMonth() {
+    public long getCountAllNewUserFromLastMonth() throws Throwable {
         LocalDateTime period = LocalDateTime.now().minusMonths(1);
         return userRepository.countAllByRoleAndCreatedFromLastMonth(
                 roleRepository.findByName("ROLE_USER").orElseThrow(RoleNotFoundException::new),
