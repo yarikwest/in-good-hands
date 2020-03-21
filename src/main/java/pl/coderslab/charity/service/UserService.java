@@ -75,7 +75,7 @@ public class UserService {
         });
     }
 
-    public User updateUserData(long id, User user) {
+    public User updateUserData(long id, User user) throws UserNotFoundException {
 
         User oldUser = userRepository.findById(id).orElseThrow(() -> {
             log.warn("IN update(): user with id {} not exists", id);
@@ -87,7 +87,7 @@ public class UserService {
         return userRepository.save(oldUser);
     }
 
-    public User updateAdminData(long id, User user) {
+    public User updateAdminData(long id, User user) throws UserNotFoundException {
 
         User oldUser = userRepository.findById(id).orElseThrow(() -> {
             log.warn("IN updateAdminData(): user with id {} not exists", id);
@@ -114,7 +114,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public void toggleActive(long id) {
+    public void toggleActive(long id) throws UserNotFoundException {
         User user = userRepository.findById(id).orElseThrow(() -> {
             log.warn("IN block(): user with id {} not exists", id);
             throw new UserNotFoundException(id);
