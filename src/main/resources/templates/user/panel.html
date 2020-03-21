@@ -8,13 +8,12 @@
     <meta name="msapplication-tap-highlight" content="no">
     <title>User Panel</title>
     <!-- Favicons-->
-    <link rel="icon" th:href="@{/images/favicon/favicon-32x32.png}" sizes="32x32">
-    <!-- Favicons-->
-    <link rel="apple-touch-icon-precomposed" th:href="@{/images/favicon/apple-touch-icon-152x152.png}">
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
     <!-- For iPhone -->
+    <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+    <!-- For Windows Phone -->
     <meta name="msapplication-TileColor" content="#00bcd4">
     <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
-    <!-- For Windows Phone -->
     <!-- CORE CSS-->
     <link th:href="@{/css/materialize.css}" type="text/css" rel="stylesheet">
     <link th:href="@{/css/admin-style.css}" type="text/css" rel="stylesheet">
@@ -36,7 +35,7 @@
 <header id="header" class="page-topbar" th:fragment="user-header">
     <!-- start header nav-->
     <div class="navbar-fixed">
-        <nav class="navbar-color gradient-45deg-indigo-purple">
+        <nav class="navbar-color gradient-45deg-deep-orange-orange">
             <div class="nav-wrapper">
                 <ul class="left">
                     <li>
@@ -241,18 +240,18 @@
 <!-- END MAIN -->
 <!-- //////////////////////////////////////////////////////////////////////////// -->
 <!-- START FOOTER -->
-<footer class="page-footer gradient-45deg-indigo-purple" th:fragment="footer">
+<footer class="page-footer gradient-45deg-deep-orange-orange" th:fragment="footer">
     <div class="footer-copyright">
         <div class="container">
             <span>Copyright ©
               <script type="text/javascript">
                 document.write(new Date().getFullYear());
               </script>
-                <a class="grey-text text-lighten-2" href="https://github.com/yarikwest" target="_blank">JARO WEST</a>
+                <a class="white-text text-lighten-2" href="https://github.com/yarikwest" target="_blank">JARO WEST</a>
             </span>
-            <span class="right hide-on-small-only grey-text">
+            <span class="right hide-on-small-only white-text">
                 Design and Developed by
-                <a class="grey-text text-lighten-2" href="https://pixinvent.com/" target="_blank">PIXINVENT</a>
+                <a class="white-text text-lighten-2" href="https://pixinvent.com/" target="_blank">PIXINVENT</a>
             </span>
         </div>
     </div>

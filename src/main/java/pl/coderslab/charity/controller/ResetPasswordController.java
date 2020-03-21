@@ -50,12 +50,12 @@ class ResetPasswordController {
     }
 
     @PostMapping("reset-password")
-    public String resetPassword(WebRequest request, @RequestParam String email, Model model) {
+    public String resetPassword(Locale locale, @RequestParam String email, Model model) {
         User user = userService.getUserByEmail(email);
         String token = UUID.randomUUID().toString();
         userService.createVerificationToken(user, token);
-        mailSender.send(constructResetTokenEmail(request.getLocale(), token, user));
-        String message = messageSource.getMessage("message.resetPassword", null, request.getLocale());
+        mailSender.send(constructResetTokenEmail(locale, token, user));
+        String message = messageSource.getMessage("message.resetPassword", null, locale);
         model.addAttribute("successMsg", message);
         return "login";
     }
@@ -98,7 +98,7 @@ class ResetPasswordController {
 
         userService.changeUserPassword(user, newPassword.getPassword());
         SecurityContextHolder.getContext().setAuthentication(null);
-        
+
         String message = messageSource.getMessage("message.resetPasswordSuccess", null, locale);
         model.addAttribute("successMsg", message);
         return "login";

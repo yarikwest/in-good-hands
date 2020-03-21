@@ -53,13 +53,13 @@ public class Donation extends BaseEntity {
     @Enumerated(EnumType.STRING)
     DonationStatus status = DonationStatus.MISSED;
 
-    @NotNull(message = "institutionNotSelect.error.message")
+    @NotNull(message = "{institutionNotSelect.error.message}")
     @ManyToOne
     Institution institution;
 
     @ManyToOne
     User user;
-    @Size(min = 1, message = "categoryNotSelect.error.message")
+    @Size(min = 1, message = "{categoryNotSelect.error.message}")
     @ManyToMany
     @JoinTable(name = "donations_categories",
             joinColumns = @JoinColumn(name = "donation_id"),

@@ -4,37 +4,89 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Login</title>
-    <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="css/errors.css"/>
+    <title th:text="#{label.form.login}">login</title>
+    <!-- Favicons-->
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <!-- For iPhone -->
+    <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+    <!-- For Windows Phone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- CORE CSS-->
+    <link th:href="@{/css/materialize.css}" type="text/css" rel="stylesheet">
+    <link th:href="@{/css/admin-style.css}" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link th:href="@{/css/custom/custom.css}" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link th:href="@{/vendors/perfect-scrollbar/perfect-scrollbar.css}" type="text/css" rel="stylesheet">
 </head>
-<body>
-<header>
-    <th:block th:replace="index.html::header-nav"/>
-</header>
+<body class="login-bg">
+<th:block th:replace="index.html::loader"/>
+<th:block th:replace="index.html::header"/>
+<th:block th:replace="index.html::left-sidebar-nav"/>
 
-<section class="login-page">
-    <h2>Zaloguj się</h2>
-    <form th:action="@{/login}" method="post">
-        <div class="form-group">
-            <input type="email" name="email" placeholder="Email"/>
+<div class="container login-page-fixed">
+    <div id="forgot-password" class="row">
+        <div class="col s12 m6 l4 z-depth-4 offset-m4 card-panel border-radius-6 forgot-card bg-opacity-8">
+            <form class="login-form" th:action="@{/login}" method="post">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <h5 class="ml-4" th:text="#{label.form.login}">login</h5>
+                        <p th:if="${errorMsg}" class="error ml-4" th:text="${errorMsg}">error</p>
+                        <p th:if="${successMsg}" th:class="success" th:text="${successMsg}">success</p>
+                        <p th:if="${param.error}" th:class="error"
+                           th:text="${session.SPRING_SECURITY_LAST_EXCEPTION}"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix pt-2">email</i>
+                        <input id="email" type="email" name="email" class="validate">
+                        <label for="email" class="center-align"
+                               th:data-error="#{label.form.error.invalidEmail}">Email</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix pt-2">lock</i>
+                        <input id="password" type="password" name="password">
+                        <label for="password" class="center-align" th:text="#{label.form.password}">password</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <button th:text="#{label.form.login}"
+                                class="btn waves-effect waves-light border-round gradient-45deg-purple-deep-orange col s12 mb-1"
+                                type="submit">login
+                        </button>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6 m6 l6">
+                        <p class="margin medium-small">
+                            <a th:href="@{/reset-password}" th:text="#{label.resetPassword.title}">reset-password</a>
+                        </p>
+                    </div>
+                    <div class="input-field col s6 m6 l6">
+                        <p class="margin right-align medium-small">
+                            <a th:href="@{/registration}" th:text="#{label.form.signUp}">registration</a>
+                        </p>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <input type="password" name="password" placeholder="Hasło"/>
-            <a th:href="@{/reset-password}" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
-        </div>
+    </div>
+</div>
 
-        <span th:if="${param.error}" th:class="error" th:text="${session.SPRING_SECURITY_LAST_EXCEPTION}"></span>
-        <span th:if="${successMsg}" th:class="success" th:text="${successMsg}"></span>
-
-        <div class="form-group form-group--buttons">
-            <a th:href="@{/registration}" href="#" class="btn btn--without-border">Załóż konto</a>
-            <button class="btn" type="submit">Zaloguj się</button>
-        </div>
-    </form>
-</section>
-
-<th:block th:replace="index.html::footer"/>
-
+<!-- ================================================Scripts================================================ -->
+<!-- jQuery Library -->
+<script type="text/javascript" th:src="@{/vendors/jquery-3.2.1.min.js}"></script>
+<!--materialize js-->
+<script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+<!--scrollbar-->
+<script type="text/javascript" th:src="@{/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" th:src="@{/js/plugins.js}"></script>
 </body>
 </html>

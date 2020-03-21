@@ -14,7 +14,7 @@ class MyExceptionHandler extends ResponseEntityExceptionHandler {
     public String handleErrors(Throwable e, HttpServletRequest request, Model model) {
 
         String requestURI = request.getRequestURI();
-        model.addAttribute("error", e.getMessage());
+        model.addAttribute("errorMsg", e.getMessage());
         return requestURI;
     }
 }

@@ -1,5 +1,6 @@
 package pl.coderslab.charity.controller;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.model.Category;
 import pl.coderslab.charity.model.Donation;
 import pl.coderslab.charity.model.Institution;
+import pl.coderslab.charity.model.User;
 import pl.coderslab.charity.service.CategoryService;
 import pl.coderslab.charity.service.DonationService;
 import pl.coderslab.charity.service.InstitutionService;
+import pl.coderslab.charity.service.UserService;
 
 import javax.validation.Valid;
 import java.util.Set;
@@ -20,11 +23,13 @@ import java.util.Set;
 @Controller
 @RequestMapping("donations")
 class DonationController {
+    private final UserService userService;
     private final DonationService donationService;
     private final CategoryService categoryService;
     private final InstitutionService institutionService;
 
-    DonationController(DonationService donationService, CategoryService categoryService, InstitutionService institutionService) {
+    DonationController(UserService userService, DonationService donationService, CategoryService categoryService, InstitutionService institutionService) {
+        this.userService = userService;
         this.donationService = donationService;
         this.categoryService = categoryService;
         this.institutionService = institutionService;
@@ -39,9 +44,13 @@ class DonationController {
 
     @PostMapping
     public String createDonation(@Valid @ModelAttribute Donation donation, BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
+        if (bindingResult.hasErrors()) {
             return "form";
+        }
 
+        String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.getUserByEmail(userEmail);
+        donation.setUser(user);
         donationService.create(donation);
         return "form-confirmation";
     }

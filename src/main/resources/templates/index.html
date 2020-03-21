@@ -6,161 +6,369 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Oddam w dobre ręce</title>
+    <!-- Favicons-->
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <!-- For iPhone -->
+    <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+    <!-- For Windows Phone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
     <link rel="stylesheet" href="css/style.css"/>
+    <!-- CORE CSS-->
+    <link th:href="@{/css/materialize.css}" type="text/css" rel="stylesheet">
+    <link th:href="@{/css/admin-style.css}" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link th:href="@{/css/custom/custom.css}" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link th:href="@{/vendors/perfect-scrollbar/perfect-scrollbar.css}" type="text/css" rel="stylesheet">
 </head>
-<body>
-<header class="header--main-page">
-    <nav class="container container--70" th:fragment="header-nav">
-        <ul class="nav--actions">
-            <th:block sec:authorize="!isAuthenticated()">
-                <li><a th:href="@{/login}" href="" class="btn btn--small btn--without-border">Zaloguj</a></li>
-                <li><a th:href="@{/registration}" href="#" class="btn btn--small btn--highlighted">Załóż konto</a></li>
-            </th:block>
-            <li class="logged-user" sec:authorize="isAuthenticated()">
-                Witaj <span sec:authentication="name"></span>
-                <ul class="dropdown">
-                    <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin}">Panel admina</a></li>
-                    <li sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/user}" href="#">Profil</a></li>
-                    <li sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/user/donations}" href="#">Moje zbiórki</a></li>
-                    <li><a th:href="@{/logout}" href="#">Wyloguj</a></li>
+<body class="white">
+<!-- Start Page Loading -->
+<div id="loader-wrapper" th:fragment="loader">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- End Page Loading -->
+<!-- START HEADER -->
+<header id="header" class="page-topbar" th:fragment="header">
+    <div class="navbar-fixed">
+        <nav class="navbar-color gradient-45deg-deep-orange-orange">
+            <div class="nav-wrapper">
+                <ul class="left">
+                    <li>
+                        <h1 class="logo-wrapper">
+                            <a th:href="@{/}" class="brand-logo darken-1">
+                                <img th:src="@{/images/logo/materialize-logo.png}" alt="materialize logo">
+                            </a>
+                        </h1>
+                    </li>
                 </ul>
-            </li>
-        </ul>
-
-        <ul>
-            <li><a th:href="@{/}" href="" class="btn btn--without-border active">Start</a></li>
-            <li><a th:href="@{/#steps}" href="#steps" class="btn btn--without-border">O co chodzi?</a></li>
-            <li><a th:href="@{/#about-us}" href="#about-us" class="btn btn--without-border">O nas</a></li>
-            <li><a th:href="@{/#help}" href="#help" class="btn btn--without-border">Fundacje i organizacje</a></li>
-            <li><a th:href="@{/donations}" href="form.html" class="btn btn--without-border">Przekaż dary</a></li>
-            <li><a th:href="@{/#contact}" href="#contact" class="btn btn--without-border">Kontakt</a></li>
-        </ul>
-    </nav>
-
-    <div class="slogan container container--90">
-        <div class="slogan--item">
-            <h1>
-                Zacznij pomagać!<br/>
-                Oddaj niechciane rzeczy w zaufane ręce
-            </h1>
-        </div>
+                <ul class="right hide-on-med-and-down">
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect waves-block waves-light toggle-fullscreen">
+                            <i class="material-icons">settings_overscan</i>
+                        </a>
+                    </li>
+                    <li sec:authorize="!isAuthenticated()">
+                        <a href="javascript:void(0);" class="waves-effect waves-block waves-light profile-button"
+                           data-activates="profile-dropdown">Log In</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()">
+                        <a href="javascript:void(0);" class="waves-effect waves-block waves-light profile-button"
+                           data-activates="profile-dropdown">
+                            <span class="avatar-status avatar-online">
+                                <img th:src="@{/images/avatar/avatar-1.png}" alt="avatar">
+                                <i></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="right hide-on-med-and-down">
+                    <li><a th:href="@{/}" th:text="#{label.header.nav.main}">main</a></li>
+                    <li><a th:href="@{/#steps}" th:text="#{label.header.nav.whatIs}">what is</a></li>
+                    <li><a th:href="@{/#about-us}" th:text="#{label.header.nav.about}">about us</a></li>
+                    <li><a th:href="@{/#help}" th:text="#{label.header.nav.foundations}">foundations</a></li>
+                    <li><a th:href="@{/donations}" th:text="#{label.header.nav.giveGifts}">give gifts</a></li>
+                    <li><a th:href="@{/#contact}" th:text="#{label.header.nav.contact}">contact</a></li>
+                </ul>
+                <!-- profile-dropdown -->
+                <ul id="profile-dropdown" class="dropdown-content">
+                    <th:block th:fragment="profile-dropdown" sec:authorize="!isAuthenticated()">
+                        <li>
+                            <a th:href="@{/login}" class="grey-text text-darken-1">
+                                <i class="material-icons">exit_to_app</i>
+                                <span th:text="#{label.form.login}">login</span>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a th:href="@{/registration}" class="grey-text text-darken-1">
+                                <i class="material-icons">person_add </i>
+                                <span th:text="#{label.form.signUp}">sign up</span>
+                            </a>
+                        </li>
+                    </th:block>
+                    <th:block th:fragment="profile-dropdown" sec:authorize="isAuthenticated()">
+                        <li sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a th:href="@{/admin}" class="grey-text text-darken-1">
+                                <i class="material-icons">pie_chart</i>
+                                <span th:text="#{label.header.nav.adminPanel}">admin panel</span>
+                            </a>
+                        </li>
+                        <li sec:authorize="hasRole('ROLE_USER')">
+                            <a th:href="@{/user/profile}" class="grey-text text-darken-1">
+                                <i class="material-icons">face</i>
+                                <span th:text="#{label.header.nav.userPanel}">user panel</span>
+                            </a>
+                        </li>
+                        <li sec:authorize="hasRole('ROLE_USER')">
+                            <a th:href="@{/user/donations}" class="grey-text text-darken-1">
+                                <i class="material-icons">card_giftcard</i>
+                                <span th:text="#{label.header.nav.myDonations}">my donations</span>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a th:href="@{/logout}" class="grey-text text-darken-1">
+                                <i class="material-icons">keyboard_tab</i>
+                                <span th:text="#{label.form.logout}">logout</span>
+                            </a>
+                        </li>
+                    </th:block>
+                </ul>
+                <!-- end profile-dropdown -->
+            </div>
+        </nav>
     </div>
 </header>
+<!-- END HEADER -->
+<!-- START LEFT SIDEBAR NAV-->
+<aside id="left-sidebar-nav" th:fragment="left-sidebar-nav">
+    <ul id="slide-out" class="side-nav leftside-navigation ">
+        <li class="user-details cyan darken-2">
+            <div class="row">
+                <div class="col col s4 m4 l4" sec:authorize="isAuthenticated()">
+                    <img th:src="@{/images/avatar/avatar-1.png}" alt="avatar"
+                         class="dropdown-button profile-btn circle responsive-img valign profile-image cyan"
+                         data-activates="profile-dropdown-nav">
+                </div>
+                <div class="col col s8 m8 l8">
+                    <ul id="profile-dropdown-nav" class="dropdown-content">
+                        <th:block th:replace="index.html :: profile-dropdown"/>
+                    </ul>
+                    <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#"
+                       data-activates="profile-dropdown-nav" sec:authorize="!isAuthenticated()">
+                        <i class="material-icons">exit_to_app</i>Log In</a>
+                </div>
+            </div>
+        </li>
+        <li class="no-padding">
+            <ul class="collapsible" data-collapsible="accordion">
+                <li class="bold">
+                    <a th:href="@{/}" class="waves-effect waves-cyan">
+                        <i class="material-icons">dashboard</i>
+                        <span class="nav-text" th:text="#{label.header.nav.main}">main</span>
+                    </a>
+                </li>
+                <li class="bold">
+                    <a class="waves-effect waves-cyan" th:href="@{/#steps}" href="#steps">
+                        <i class="material-icons">help_outline</i>
+                        <span class="nav-text" th:text="#{label.header.nav.whatIs}">what is</span>
+                    </a>
+                </li>
+                <li class="bold">
+                    <a class="waves-effect waves-cyan" th:href="@{/#about-us}" href="#about-us">
+                        <i class="material-icons">description</i>
+                        <span class="nav-text" th:text="#{label.header.nav.about}">about us</span>
+                    </a>
+                </li>
+                <li class="bold">
+                    <a class="waves-effect waves-cyan" th:href="@{/#help}" href="#help">
+                        <i class="material-icons">account_balance </i>
+                        <span class="nav-text" th:text="#{label.header.nav.foundations}">foundations</span>
+                    </a>
+                </li>
+                <li class="bold">
+                    <a class="waves-effect waves-cyan" th:href="@{/donations}" href="form.html">
+                        <i class="material-icons">card_giftcard </i>
+                        <span class="nav-text" th:text="#{label.header.nav.giveGifts}">give gifts</span>
+                    </a>
+                </li>
+                <li class="bold">
+                    <a class="waves-effect waves-cyan" th:href="@{/#contact}" href="#contact">
+                        <i class="material-icons">question_answer</i>
+                        <span class="nav-text" th:text="#{label.header.nav.contact}">contact</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <a href="#" data-activates="slide-out"
+       class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only">
+        <i class="material-icons">menu</i>
+    </a>
+</aside>
+<!-- END LEFT SIDEBAR NAV-->
+<!-- START MAIN -->
+<main>
+    <section class="header--main-page">
+        <div class="slogan container container--90">
+            <div class="slogan--item">
+                <h1>
+                    Zacznij pomagać!<br/>
+                    Oddaj niechciane rzeczy w zaufane ręce
+                </h1>
+            </div>
+        </div>
+    </section>
 
-<section id="stats" class="stats">
-    <div class="container container--85">
-        <div class="stats--item">
-            <em th:text="${sumOfAllPackage}">10</em>
-            <h3>Oddanych worków</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum
-                tempora!</p>
+    <section id="stats" class="stats">
+        <div class="container container--85">
+            <div class="stats--item">
+                <em th:text="${sumOfAllPackage}">10</em>
+                <h3>Oddanych worków</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum
+                    tempora!</p>
+            </div>
+
+            <div class="stats--item">
+                <em th:text="${countAllDonations}">5</em>
+                <h3>Przekazanych darów</h3>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate
+                    quas
+                    quam.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="steps" class="steps">
+        <h2>Wystarczą 4 proste kroki</h2>
+
+        <div class="steps--container row">
+            <div class="steps--item col s12 m3">
+                <span class="icon icon--hands"></span>
+                <h3>Wybierz rzeczy</h3>
+                <p>ubrania, zabawki, sprzęt i inne</p>
+            </div>
+            <div class="steps--item col s12 m3">
+                <span class="icon icon--arrow"></span>
+                <h3>Spakuj je</h3>
+                <p>skorzystaj z worków na śmieci</p>
+            </div>
+            <div class="steps--item col s12 m3">
+                <span class="icon icon--glasses"></span>
+                <h3>Zdecyduj komu chcesz pomóc</h3>
+                <p>wybierz zaufane miejsce</p>
+            </div>
+            <div class="steps--item col s12 m3">
+                <span class="icon icon--courier"></span>
+                <h3>Zamów kuriera</h3>
+                <p>kurier przyjedzie w dogodnym terminie</p>
+            </div>
         </div>
 
-        <div class="stats--item">
-            <em th:text="${countAllDonations}">5</em>
-            <h3>Przekazanych darów</h3>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate quas
-                quam.</p>
+        <a sec:authorize="!isAuthenticated()" th:href="@{/registration}" href="#" class="btn btn--large">Załóż konto</a>
+    </section>
+
+    <section id="about-us" class="about-us">
+        <div class="about-us--text">
+            <h2>O nas</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt
+                libero
+                optio esse quisquam illo omnis.</p>
+            <img src="images/signature.svg" class="about-us--text-signature" alt="Signature"/>
         </div>
+        <div class="about-us--image"><img src="images/about-us.jpg" alt="People in circle"/></div>
+    </section>
 
-    </div>
-</section>
+    <section id="help" class="help">
+        <h2>Komu pomagamy?</h2>
 
-<section id="steps" class="steps">
-    <h2>Wystarczą 4 proste kroki</h2>
+        <!-- SLIDE 1 -->
+        <div class="help--slides active" data-id="1">
+            <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy.
+                Możesz sprawdzić czym się zajmują.</p>
 
-    <div class="steps--container">
-        <div class="steps--item">
-            <span class="icon icon--hands"></span>
-            <h3>Wybierz rzeczy</h3>
-            <p>ubrania, zabawki, sprzęt i inne</p>
-        </div>
-        <div class="steps--item">
-            <span class="icon icon--arrow"></span>
-            <h3>Spakuj je</h3>
-            <p>skorzystaj z worków na śmieci</p>
-        </div>
-        <div class="steps--item">
-            <span class="icon icon--glasses"></span>
-            <h3>Zdecyduj komu chcesz pomóc</h3>
-            <p>wybierz zaufane miejsce</p>
-        </div>
-        <div class="steps--item">
-            <span class="icon icon--courier"></span>
-            <h3>Zamów kuriera</h3>
-            <p>kurier przyjedzie w dogodnym terminie</p>
-        </div>
-    </div>
-
-    <a sec:authorize="!isAuthenticated()" th:href="@{/registration}" href="#" class="btn btn--large">Załóż konto</a>
-</section>
-
-<section id="about-us" class="about-us">
-    <div class="about-us--text">
-        <h2>O nas</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt libero
-            optio esse quisquam illo omnis.</p>
-        <img src="images/signature.svg" class="about-us--text-signature" alt="Signature"/>
-    </div>
-    <div class="about-us--image"><img src="images/about-us.jpg" alt="People in circle"/></div>
-</section>
-
-<section id="help" class="help">
-    <h2>Komu pomagamy?</h2>
-
-    <!-- SLIDE 1 -->
-    <div class="help--slides active" data-id="1">
-        <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy.
-            Możesz sprawdzić czym się zajmują.</p>
-
-        <ul class="help--slides-items">
-            <th:block th:each="institution, iterStat : ${institutions}">
-                <th:block th:if="${iterStat.odd}">
-                    <li>
+            <ul class="help--slides-items">
+                <th:block th:each="institution, iterStat : ${institutions}">
+                    <th:block th:if="${iterStat.odd}">
+                        <li>
+                            <div class="col">
+                                <div class="title" th:text="|Fundacja ${institution.name}|">Fundacja "Dbam o Zdrowie"
+                                </div>
+                                <div class="subtitle" th:text="|Cel i misja: ${institution.description}|">Cel i misja:
+                                    Pomoc dzieciom z ubogich rodzin.
+                                </div>
+                            </div>
+                    </th:block>
+                    <th:block th:if="${iterStat.even}">
                         <div class="col">
-                            <div class="title" th:text="|Fundacja ${institution.name}|">Fundacja "Dbam o Zdrowie"</div>
-                            <div class="subtitle" th:text="|Cel i misja: ${institution.description}|">Cel i misja:
-                                Pomoc dzieciom z ubogich rodzin.
+                            <div class="title" th:text="|Fundacja ${institution.name}|">Fundacja "A kogo"</div>
+                            <div class="subtitle" th:text="|Cel i misja: ${institution.description}|">Cel i misja: Pomoc
+                                wybudzaniu dzieci ze śpiączki.
                             </div>
                         </div>
+                        </li>
+                    </th:block>
                 </th:block>
-                <th:block th:if="${iterStat.even}">
-                    <div class="col">
-                        <div class="title" th:text="|Fundacja ${institution.name}|">Fundacja "A kogo"</div>
-                        <div class="subtitle" th:text="|Cel i misja: ${institution.description}|">Cel i misja: Pomoc
-                            wybudzaniu dzieci ze śpiączki.
-                        </div>
+            </ul>
+        </div>
+
+    </section>
+
+    <section id="contact">
+        <div class="contact">
+            <div id="basic-form" class="section">
+                <div class="card-panel bg-opacity-8">
+                    <h2>Skontaktuj się z nami</h2>
+                    <h4 class="header2">Formularz kontaktowy</h4>
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12 m6">
+                                    <input id="first_name" type="text">
+                                    <label for="first_name">Imie</label>
+                                </div>
+                                <div class="input-field col s12 m6">
+                                    <input id="last_name" type="text">
+                                    <label for="last_name">Nazwisko</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <textarea id="message" class="materialize-textarea"></textarea>
+                                    <label for="message">Message</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <button class="btn waves-effect waves-light right" type="submit">
+                                        <span th:text="#{label.form.submit}">submit</span>
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    </li>
-                </th:block>
-            </th:block>
-        </ul>
-    </div>
-
-</section>
-
-<footer th:fragment="footer">
-    <div id="contact" class="contact">
-        <h2>Skontaktuj się z nami</h2>
-        <h3>Formularz kontaktowy</h3>
-        <form class="form--contact">
-            <div class="form-group form-group--50"><input type="text" name="name" placeholder="Imię"/></div>
-            <div class="form-group form-group--50"><input type="text" name="surname" placeholder="Nazwisko"/></div>
-
-            <div class="form-group"><textarea name="message" placeholder="Wiadomość" rows="1"></textarea></div>
-
-            <button class="btn" type="submit">Wyślij</button>
-        </form>
-    </div>
-    <div class="bottom-line">
-        <span class="bottom-line--copy">Copyright &copy; 2018</span>
-        <div class="bottom-line--icons">
-            <a href="#" class="btn btn--small"><img src="images/icon-facebook.svg"/></a>
-            <a href="#" class="btn btn--small"><img src="images/icon-instagram.svg"/></a>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-line">
+            <div class="bottom-line--icons">
+                <a href="#" class="social-icon social-icon--small"><img src="images/icon-facebook.svg"/></a>
+                <a href="#" class="social-icon social-icon--small"><img src="images/icon-instagram.svg"/></a>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- END MAIN -->
+<!-- START FOOTER -->
+<footer id="main-footer" class="page-footer gradient-45deg-deep-orange-orange" th:fragment="footer">
+    <div class="footer-copyright">
+        <div class="container">
+            <span>Copyright ©
+              <script type="text/javascript">
+                document.write(new Date().getFullYear());
+              </script>
+                <a class="white-text text-lighten-2" href="https://github.com/yarikwest" target="_blank">JARO WEST</a>
+            </span>
+            <span class="right hide-on-small-only white-text">
+                Design and Developed by
+                <a class="white-text text-lighten-2" href="https://pixinvent.com/" target="_blank">PIXINVENT</a>
+            </span>
         </div>
     </div>
 </footer>
-
+<!-- END FOOTER -->
+<!-- ====================================== Scripts ====================================== -->
+<!-- jQuery Library -->
+<script type="text/javascript" th:src="@{/vendors/jquery-3.2.1.min.js}"></script>
+<!--materialize js-->
+<script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+<!--scrollbar-->
+<script type="text/javascript" th:src="@{/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" th:src="@{/js/plugins.js}"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
