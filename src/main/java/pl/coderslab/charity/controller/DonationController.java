@@ -43,7 +43,7 @@ class DonationController {
     }
 
     @PostMapping
-    public String createDonation(@Valid @ModelAttribute Donation donation, BindingResult bindingResult) {
+    public String createDonation(@Valid @ModelAttribute Donation donation, BindingResult bindingResult) throws Throwable {
         if (bindingResult.hasErrors()) {
             return "form";
         }

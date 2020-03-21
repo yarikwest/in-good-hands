@@ -35,7 +35,7 @@ class UserDonationsController {
                         @RequestParam(defaultValue = "1") Integer page,
                         @RequestParam(defaultValue = "5") Integer size,
                         @RequestParam(defaultValue = "id") String sortBy,
-                        @RequestParam(defaultValue = "true") Boolean asc) {
+                        @RequestParam(defaultValue = "true") Boolean asc) throws Throwable {
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.getUserByEmail(userEmail);
 

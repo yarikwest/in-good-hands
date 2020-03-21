@@ -50,7 +50,7 @@ class ResetPasswordController {
     }
 
     @PostMapping("reset-password")
-    public String resetPassword(Locale locale, @RequestParam String email, Model model) {
+    public String resetPassword(Locale locale, @RequestParam String email, Model model) throws Throwable {
         User user = userService.getUserByEmail(email);
         String token = UUID.randomUUID().toString();
         userService.createVerificationToken(user, token);

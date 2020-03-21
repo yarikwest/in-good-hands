@@ -21,7 +21,7 @@ class UserDashboardController {
     }
 
     @GetMapping
-    public String panel(Model model) {
+    public String panel(Model model) throws Throwable {
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.getUserByEmail(userEmail);
         model.addAttribute("donationsCount", donationService.getCountAllDonationsByUser(user));

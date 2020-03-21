@@ -25,7 +25,7 @@ class UserProfileController {
     }
 
     @GetMapping
-    public String panel(Model model) {
+    public String panel(Model model) throws Throwable {
         User loggedInUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
 
         model.addAttribute("updatePassword", new UpdatePasswordDto());
@@ -34,7 +34,7 @@ class UserProfileController {
     }
 
     @PostMapping("update-password")
-    public String updatePassword(@Valid @ModelAttribute("updatePassword") UpdatePasswordDto updatePassword, BindingResult bindingResult, Model model) {
+    public String updatePassword(@Valid @ModelAttribute("updatePassword") UpdatePasswordDto updatePassword, BindingResult bindingResult, Model model) throws Throwable {
 
         User loggedInUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         if (!userService.checkIfValidOldPassword(loggedInUser, updatePassword.getOldPassword())) {
@@ -54,7 +54,7 @@ class UserProfileController {
     }
 
     @PostMapping("update-email")
-    public String updateEmail(@Valid @ModelAttribute("user") UserDto userDto, BindingResult result, Model model) {
+    public String updateEmail(@Valid @ModelAttribute("user") UserDto userDto, BindingResult result, Model model) throws Throwable {
 
         if (result.hasErrors()) {
             model.addAttribute("updatePassword", new UpdatePasswordDto());
