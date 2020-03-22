@@ -35,7 +35,7 @@ class AdminController {
     }
 
     @PostMapping("add")
-    public String add(@Valid @ModelAttribute("user") AdminDto adminDto, BindingResult bindingResult) throws Throwable {
+    public String add(@Valid @ModelAttribute("user") AdminDto adminDto, BindingResult bindingResult)  {
         if (bindingResult.hasErrors()) {
             return "admin/administrators/add";
         }
@@ -46,14 +46,14 @@ class AdminController {
     }
 
     @GetMapping("edit/{id}")
-    public String editForm(@PathVariable long id, Model model) throws Throwable {
+    public String editForm(@PathVariable long id, Model model)  {
         AdminDto adminDto = adminMapper.userToAdminDto(userService.getById(id));
         model.addAttribute("user", adminDto);
         return "admin/administrators/edit";
     }
 
     @PostMapping("edit/{id}")
-    public String edit(@PathVariable long id, @Valid @ModelAttribute("user") AdminDto adminDto, BindingResult bindingResult) throws Throwable {
+    public String edit(@PathVariable long id, @Valid @ModelAttribute("user") AdminDto adminDto, BindingResult bindingResult)  {
         if (bindingResult.hasErrors()) {
             return "admin/administrators/edit";
         }

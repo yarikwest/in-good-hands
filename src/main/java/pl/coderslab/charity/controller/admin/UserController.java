@@ -29,14 +29,14 @@ class UserController {
     }
 
     @GetMapping("edit/{id}")
-    public String editForm(@PathVariable long id, Model model) throws Throwable {
+    public String editForm(@PathVariable long id, Model model)  {
         UserDto userDto = userMapper.userToUserDto(userService.getById(id));
         model.addAttribute("user", userDto);
         return "admin/users/edit";
     }
 
     @PostMapping("edit/{id}")
-    public String edit(@PathVariable long id, @Valid @ModelAttribute("user") UserDto userDto, BindingResult bindingResult) throws Throwable {
+    public String edit(@PathVariable long id, @Valid @ModelAttribute("user") UserDto userDto, BindingResult bindingResult)  {
         if (bindingResult.hasErrors()) {
             return "admin/users/edit";
         }
@@ -53,13 +53,13 @@ class UserController {
     }
 
     @GetMapping("block/{id}")
-    public String block(@PathVariable long id) throws Throwable {
+    public String block(@PathVariable long id)  {
         userService.toggleActive(id);
         return "redirect:/admin/users";
     }
 
     @ModelAttribute("allUsers")
-    public Set<UserDto> getAllUsers() throws Throwable {
+    public Set<UserDto> getAllUsers()  {
         return userMapper.usersToUserDtos(userService.getAllUsers());
     }
 }

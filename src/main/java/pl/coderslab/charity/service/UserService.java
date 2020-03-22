@@ -33,11 +33,11 @@ public class UserService {
         this.tokenRepository = tokenRepository;
     }
 
-    public User getUserByEmail(String email) throws Throwable {
+    public User getUserByEmail(String email)  {
         return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
     }
 
-    public User create(User user) throws Throwable {
+    public User create(User user)  {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(true);
         Role userRole = roleRepository.findByName("ROLE_USER").orElseThrow(RoleNotFoundException::new);
@@ -60,7 +60,7 @@ public class UserService {
         return new HashSet<>(userRepository.findAll());
     }
 
-    public Set<User> getAllUsers() throws Throwable {
+    public Set<User> getAllUsers()  {
         return userRepository.findAllByRole(roleRepository.findByName("ROLE_USER").orElseThrow(RoleNotFoundException::new));
     }
 
@@ -68,14 +68,14 @@ public class UserService {
         return userRepository.findAllByRole(roleRepository.findByName("ROLE_ADMIN").orElseThrow(RoleNotFoundException::new));
     }
 
-    public User getById(long id) throws Throwable {
+    public User getById(long id)  {
         return userRepository.findById(id).orElseThrow(() -> {
             log.warn("IN getById(id): user with id {} not founded", id);
             return new UserNotFoundException(id);
         });
     }
 
-    public User updateUserData(long id, User user) throws Throwable {
+    public User updateUserData(long id, User user)  {
 
         User oldUser = userRepository.findById(id).orElseThrow(() -> {
             log.warn("IN update(): user with id {} not exists", id);
@@ -87,7 +87,7 @@ public class UserService {
         return userRepository.save(oldUser);
     }
 
-    public User updateAdminData(long id, User user) throws Throwable {
+    public User updateAdminData(long id, User user) {
 
         User oldUser = userRepository.findById(id).orElseThrow(() -> {
             log.warn("IN updateAdminData(): user with id {} not exists", id);
@@ -98,7 +98,7 @@ public class UserService {
         return userRepository.save(oldUser);
     }
 
-    public User createAdmin(User user) throws Throwable {
+    public User createAdmin(User user)  {
         user.setPassword(bCryptPasswordEncoder.encode("admin"));
         user.setActive(true);
         Role roleAdmin = roleRepository.findByName("ROLE_ADMIN").orElseThrow(RoleNotFoundException::new);
@@ -114,7 +114,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public void toggleActive(long id) throws Throwable {
+    public void toggleActive(long id)  {
         User user = userRepository.findById(id).orElseThrow(() -> {
             log.warn("IN block(): user with id {} not exists", id);
             throw new UserNotFoundException(id);
@@ -124,11 +124,11 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public long getCountAll() throws Throwable {
+    public long getCountAll()  {
         return userRepository.countAllByRole(roleRepository.findByName("ROLE_USER").orElseThrow(RoleNotFoundException::new));
     }
 
-    public long getCountAllNewUserFromLastMonth() throws Throwable {
+    public long getCountAllNewUserFromLastMonth()  {
         LocalDateTime period = LocalDateTime.now().minusMonths(1);
         return userRepository.countAllByRoleAndCreatedFromLastMonth(
                 roleRepository.findByName("ROLE_USER").orElseThrow(RoleNotFoundException::new),

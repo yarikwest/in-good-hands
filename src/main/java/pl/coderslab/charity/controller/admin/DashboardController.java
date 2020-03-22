@@ -22,7 +22,7 @@ class DashboardController {
     }
 
     @GetMapping
-    public String panel(Model model) throws Throwable {
+    public String panel(Model model)  {
         model.addAttribute("institutionsCount", institutionService.getCountAll());
         model.addAttribute("usersCount", userService.getCountAll());
         model.addAttribute("newUsersCount", userService.getCountAllNewUserFromLastMonth());
