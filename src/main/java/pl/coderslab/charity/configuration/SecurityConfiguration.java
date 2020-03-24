@@ -10,22 +10,22 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import pl.coderslab.charity.service.CharityUserDetailsService;
+import pl.coderslab.charity.service.UserService;
 
 @Configuration
 @EnableWebSecurity
 class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+    private final UserService userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final CharityUserDetailsService userDetailsService;
     private final AuthenticationSuccessHandler successHandler;
     private final AuthenticationFailureHandler failureHandler;
 
-    public SecurityConfiguration(BCryptPasswordEncoder bCryptPasswordEncoder,
-                                 CharityUserDetailsService userDetailsService,
+    public SecurityConfiguration(UserService userDetailsService,
+                                 BCryptPasswordEncoder bCryptPasswordEncoder,
                                  AuthenticationSuccessHandler successHandler,
                                  AuthenticationFailureHandler failureHandler) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.userDetailsService = userDetailsService;
+        this.userService = userDetailsService;
         this.successHandler = successHandler;
         this.failureHandler = failureHandler;
     }
@@ -34,7 +34,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(userDetailsService)
+                .userDetailsService(userService)
                 .passwordEncoder(bCryptPasswordEncoder);
     }
 

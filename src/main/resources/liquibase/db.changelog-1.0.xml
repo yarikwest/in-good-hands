@@ -6,6 +6,18 @@
 	  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet id="1.0.0" author="jarowest" runOnChange="true">
+        <!-- Drop tables if exists -->
+        <sql splitStatements="true">
+            DROP TABLE IF EXISTS donations_categories CASCADE;
+            DROP TABLE IF EXISTS donations CASCADE;
+            DROP TABLE IF EXISTS categories CASCADE;
+            DROP TABLE IF EXISTS institutions CASCADE;
+            DROP TABLE IF EXISTS verification_tokens CASCADE;
+            DROP TABLE IF EXISTS user_roles CASCADE;
+            DROP TABLE IF EXISTS roles CASCADE;
+            DROP TABLE IF EXISTS users CASCADE;
+        </sql>
+
         <!--        users-->
         <createTable tableName="users">
             <column name="id" type="bigint" autoIncrement="true" incrementBy="1">

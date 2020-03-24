@@ -2,6 +2,7 @@ package pl.coderslab.charity.model;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -13,6 +14,11 @@ import javax.persistence.Table;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "roles")
-public class Role extends BaseEntity {
+public class Role extends BaseEntity implements GrantedAuthority {
     String name;
+
+    @Override
+    public String getAuthority() {
+        return getName();
+    }
 }

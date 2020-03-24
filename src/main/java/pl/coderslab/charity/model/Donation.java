@@ -59,6 +59,7 @@ public class Donation extends BaseEntity {
 
     @ManyToOne
     User user;
+
     @Size(min = 1, message = "{categoryNotSelect.error.message}")
     @ManyToMany
     @JoinTable(name = "donations_categories",

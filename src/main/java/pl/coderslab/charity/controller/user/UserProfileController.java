@@ -1,5 +1,6 @@
 package pl.coderslab.charity.controller.user;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,11 +26,10 @@ class UserProfileController {
     }
 
     @GetMapping
-    public String panel(Model model) {
-        User loggedInUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+    public String panel(Model model, @AuthenticationPrincipal User user) {
 
         model.addAttribute("updatePassword", new UpdatePasswordDto());
-        model.addAttribute("user", userMapper.userToUserDto(loggedInUser));
+        model.addAttribute("user", userMapper.userToUserDto(user));
         return "user/profile";
     }
 

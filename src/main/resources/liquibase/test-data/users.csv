@@ -1,6 +1,6 @@
 created,updated,email,password,active
-'2020-02-24 02:45:05','2020-02-24 02:45:05','admin@example.com','$2y$10$swt/MTaPDDhvaEzQcA7WZeUUiWxX4lQ2kJcfvjPIhjJzc36yM.WGm',1
-'2020-02-10 21:09:06','2020-02-10 21:09:06','user@example.com','$2y$10$Pudi22MlEW8K/tf9PEjjL.MBTQyqZXWJbAGoBzpSubfkY1W0okarW',1
+'2020-02-24 02:45:05','2020-02-24 02:45:05','admin@example.com','$2a$10$u2Zq8/tDuzVotDsMlkqD/.IdBeSQv.ausQVcf8JSw4ziJxv8Y.ZJG',1
+'2020-02-10 21:09:06','2020-02-10 21:09:06','user@example.com','$2a$10$oKdy1SxZ56iehSDvwJO2buJwVwFGa0o0bM25RcJp7uvT6/lm4ehIO',1
 '2019-11-30 00:57:07','2019-11-30 00:57:07','weissnat.angelo@example.com','$2y$10$rPJb0zcnE/x3.uqtLKUdC.SgThQ6YFGRKdqIC71r1QsJZamKJaICi',1
 '2020-01-26 21:25:16','2020-01-26 21:25:16','stamm.kolby@example.org','$2y$10$rPJb0zcnE/x3.uqtLKUdC.SgThQ6YFGRKdqIC71r1QsJZamKJaICi',0
 '2019-12-11 19:35:34','2019-12-11 19:35:34','ljenkins@example.com','$2y$10$rPJb0zcnE/x3.uqtLKUdC.SgThQ6YFGRKdqIC71r1QsJZamKJaICi',0

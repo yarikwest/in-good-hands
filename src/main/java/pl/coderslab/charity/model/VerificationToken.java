@@ -12,18 +12,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@Table(name = "verification_token")
-public class VerificationToken {
+@Table(name = "verification_tokens")
+public class VerificationToken extends BaseEntity {
     private static final long EXPIRATION = 60 * 24;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
 
     String token;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
     User user;
 
     LocalDateTime expiryDate;
