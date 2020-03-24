@@ -1,0 +1,13 @@
+created,updated,email,password,active
+'2020-02-24 02:45:05','2020-02-24 02:45:05','admin@example.com','$2y$10$swt/MTaPDDhvaEzQcA7WZeUUiWxX4lQ2kJcfvjPIhjJzc36yM.WGm',1
+'2020-02-10 21:09:06','2020-02-10 21:09:06','user@example.com','$2y$10$Pudi22MlEW8K/tf9PEjjL.MBTQyqZXWJbAGoBzpSubfkY1W0okarW',1
+'2019-11-30 00:57:07','2019-11-30 00:57:07','weissnat.angelo@example.com','$2y$10$rPJb0zcnE/x3.uqtLKUdC.SgThQ6YFGRKdqIC71r1QsJZamKJaICi',1
+'2020-01-26 21:25:16','2020-01-26 21:25:16','stamm.kolby@example.org','$2y$10$rPJb0zcnE/x3.uqtLKUdC.SgThQ6YFGRKdqIC71r1QsJZamKJaICi',0
+'2019-12-11 19:35:34','2019-12-11 19:35:34','ljenkins@example.com','$2y$10$rPJb0zcnE/x3.uqtLKUdC.SgThQ6YFGRKdqIC71r1QsJZamKJaICi',0
+'2019-12-21 11:08:33','2019-12-21 11:08:33','windler.mark@example.org','$2y$10$rPJb0zcnE/x3.uqtLKUdC.SgThQ6YFGRKdqIC71r1QsJZamKJaICi',0
+'2020-03-19 12:02:58','2020-03-19 12:02:58','pebert@example.com','$2y$10$rPJb0zcnE/x3.uqtLKUdC.SgThQ6YFGRKdqIC71r1QsJZamKJaICi',0
+'2019-12-11 04:52:06','2019-12-11 04:52:06','dannie56@example.net','$2y$10$rPJb0zcnE/x3.uqtLKUdC.SgThQ6YFGRKdqIC71r1QsJZamKJaICi',0
+'2020-01-28 08:35:28','2020-01-28 08:35:28','helena.altenwerth@example.net','$2y$10$rPJb0zcnE/x3.uqtLKUdC.SgThQ6YFGRKdqIC71r1QsJZamKJaICi',1
+'2020-03-17 21:58:05','2020-03-17 21:58:05','tadams@example.net','$2y$10$rPJb0zcnE/x3.uqtLKUdC.SgThQ6YFGRKdqIC71r1QsJZamKJaICi',0
+'2020-01-18 07:59:14','2020-01-18 07:59:14','jeanie.nicolas@example.com','$2y$10$rPJb0zcnE/x3.uqtLKUdC.SgThQ6YFGRKdqIC71r1QsJZamKJaICi',1
+'2020-03-02 20:50:10','2020-03-02 20:50:10','lavon14@example.com','$2y$10$rPJb0zcnE/x3.uqtLKUdC.SgThQ6YFGRKdqIC71r1QsJZamKJaICi',0

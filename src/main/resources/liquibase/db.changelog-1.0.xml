@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+	  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1.0.0" author="jarowest" runOnChange="true">
+        <!--        users-->
+        <createTable tableName="users">
+            <column name="id" type="bigint" autoIncrement="true" incrementBy="1">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="created" type="datetime" defaultValueComputed="now()">
+            </column>
+            <column name="updated" type="datetime" defaultValueComputed="now()">
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="boolean" defaultValue="false">
+            </column>
+        </createTable>
+
+        <!--        roles-->
+        <createTable tableName="roles">
+            <column name="id" type="bigint" autoIncrement="true" incrementBy="1">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="created" type="datetime" defaultValueComputed="now()">
+            </column>
+            <column name="updated" type="datetime" defaultValueComputed="now()">
+            </column>
+            <column name="name" type="varchar(30)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+
+        <!--        user_roles-->
+        <createTable tableName="user_roles">
+            <column name="user_id" type="bigint">
+                <constraints referencedColumnNames="id" referencedTableName="users"
+                             foreignKeyName="FK_users_roles_users" deleteCascade="true"/>
+            </column>
+            <column name="role_id" type="bigint">
+                <constraints referencedColumnNames="id" referencedTableName="roles"
+                             foreignKeyName="FK_users_roles_roles" deleteCascade="true"/>
+            </column>
+        </createTable>
+
+        <!--        verification tokens-->
+        <createTable tableName="verification_tokens">
+            <column name="id" type="bigint" autoIncrement="true" incrementBy="1">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="created" type="datetime" defaultValueComputed="now()">
+            </column>
+            <column name="updated" type="datetime" defaultValueComputed="now()">
+            </column>
+            <column name="token" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expiry_date" type="datetime"/>
+            <column name="user_id" type="bigint"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="verification_tokens" baseColumnNames="user_id"
+                                 constraintName="FK_verification_tokens_users"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"
+                                 onDelete="SET NULL"/>
+
+        <!--        institutions-->
+        <createTable tableName="institutions">
+            <column name="id" type="bigint" autoIncrement="true" incrementBy="1">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="created" type="datetime" defaultValueComputed="now()">
+            </column>
+            <column name="updated" type="datetime" defaultValueComputed="now()">
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="description" type="varchar(255)"/>
+        </createTable>
+
+        <!--        categories-->
+        <createTable tableName="categories">
+            <column name="id" type="bigint" autoIncrement="true" incrementBy="1">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="created" type="datetime" defaultValueComputed="now()">
+            </column>
+            <column name="updated" type="datetime" defaultValueComputed="now()">
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+
+        <!--        donations-->
+        <createTable tableName="donations">
+            <column name="id" type="bigint" autoIncrement="true" incrementBy="1">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="created" type="datetime" defaultValueComputed="now()">
+            </column>
+            <column name="updated" type="datetime" defaultValueComputed="now()">
+            </column>
+            <column name="city" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="street" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="zip_code" type="varchar(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pick_up_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pick_up_time" type="time">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pick_up_comment" type="varchar(255)"/>
+            <column name="status" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint"/>
+            <column name="institution_id" type="bigint"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="donations"
+                                 baseColumnNames="user_id"
+                                 constraintName="FK_donations_users"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"
+                                 onDelete="SET NULL"/>
+        <addForeignKeyConstraint baseTableName="donations"
+                                 baseColumnNames="institution_id"
+                                 constraintName="FK_donations_institutions"
+                                 referencedTableName="institutions"
+                                 referencedColumnNames="id"
+                                 onDelete="SET NULL"/>
+
+        <!--        donations_categories-->
+        <createTable tableName="donations_categories">
+            <column name="donation_id" type="bigint">
+                <constraints referencedTableName="donations" referencedColumnNames="id"
+                             foreignKeyName="FK_donations_categories_donations" deleteCascade="true"/>
+            </column>
+            <column name="category_id" type="bigint">
+                <constraints referencedTableName="categories" referencedColumnNames="id"
+                             foreignKeyName="FK_donations_categories_categories" deleteCascade="true"/>
+            </column>
+        </createTable>
+        <!--        =========================================================================        -->
+        <!--        insert categories-->
+        <loadData tableName="categories" file="liquibase/test-data/categories.csv" quotchar="'">
+            <column name="created"/>
+            <column name="updated"/>
+            <column name="name"/>
+        </loadData>
+
+        <!--        insert institutions-->
+        <loadData tableName="institutions" file="liquibase/test-data/institutions.csv" quotchar="'">
+            <column name="created"/>
+            <column name="updated"/>
+            <column name="name"/>
+            <column name="description"/>
+        </loadData>
+
+        <!--        insert users-->
+        <loadData tableName="users" file="liquibase/test-data/users.csv" quotchar="'">
+            <column name="created"/>
+            <column name="updated"/>
+            <column name="email"/>
+            <column name="password"/>
+            <column name="active"/>
+        </loadData>
+
+        <!--        insert roles-->
+        <loadData tableName="roles" file="liquibase/test-data/roles.csv" quotchar="'">
+            <column name="created"/>
+            <column name="updated"/>
+            <column name="name"/>
+        </loadData>
+
+        <!--        insert user_roles-->
+        <loadData tableName="user_roles" file="liquibase/test-data/user_roles.csv" quotchar="'">
+            <column name="user_id"/>
+            <column name="role_id"/>
+        </loadData>
+
+        <!--        insert donations-->
+        <loadData tableName="donations" file="liquibase/test-data/donations.csv" quotchar="'">
+            <column name="created"/>
+            <column name="updated"/>
+            <column name="city"/>
+            <column name="street"/>
+            <column name="zip_code"/>
+            <column name="phone"/>
+            <column name="quantity"/>
+            <column name="pick_up_date"/>
+            <column name="pick_up_comment"/>
+            <column name="status"/>
+            <column name="user_id"/>
+            <column name="institution_id"/>
+        </loadData>
+
+        <!--        insert donations_categories-->
+        <loadData tableName="donations_categories" file="liquibase/test-data/donations_categories.csv" quotchar="'">
+            <column name="donation_id"/>
+            <column name="category_id"/>
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>

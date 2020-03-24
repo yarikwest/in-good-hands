@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>pl.coderslab</groupId>
-    <artifactId>charity</artifactId>
+    <artifactId>in-good-hands</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>charity</name>
-    <description>Charity project, created with love in CodersLab</description>
+    <name>in-good-hands</name>
+    <description>Project in which everyone will be able to give unnecessary items to trusted institutions</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -76,6 +76,10 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
