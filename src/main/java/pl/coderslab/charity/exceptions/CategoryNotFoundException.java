@@ -1,8 +1,8 @@
 package pl.coderslab.charity.exceptions;
 
-public class CategoryNotFoundException extends RuntimeException {
-    public CategoryNotFoundException() {
-    }
+import javax.persistence.EntityNotFoundException;
+
+public class CategoryNotFoundException extends EntityNotFoundException {
 
     public CategoryNotFoundException(long id) {
         super("Category with id " + id + " not exists");

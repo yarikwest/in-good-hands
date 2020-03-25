@@ -1,6 +1,8 @@
 package pl.coderslab.charity.exceptions;
 
-public class RoleNotFoundException extends RuntimeException {
+import javax.persistence.EntityNotFoundException;
+
+public class RoleNotFoundException extends EntityNotFoundException {
     public RoleNotFoundException() {
         super("Role not found");
     }

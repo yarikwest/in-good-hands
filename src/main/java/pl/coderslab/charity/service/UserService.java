@@ -26,14 +26,12 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final VerificationTokenRepository tokenRepository;
 
     UserService(UserRepository userRepository, RoleRepository roleRepository,
-                BCryptPasswordEncoder bCryptPasswordEncoder, VerificationTokenRepository tokenRepository) {
+                BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.tokenRepository = tokenRepository;
     }
 
     @Override
@@ -160,17 +158,6 @@ public class UserService implements UserDetailsService {
     public void changeUserEmail(User loggedInUser, String email) {
         loggedInUser.setEmail(email);
         userRepository.save(loggedInUser);
-    }
-
-    public void createVerificationToken(User user, String token) {
-        VerificationToken myToken = new VerificationToken();
-        myToken.setToken(token);
-        myToken.setUser(user);
-        tokenRepository.save(myToken);
-    }
-
-    public VerificationToken getVerificationToken(String token) {
-        return tokenRepository.findByToken(token);
     }
 
     public void saveRegisteredUser(User user) {

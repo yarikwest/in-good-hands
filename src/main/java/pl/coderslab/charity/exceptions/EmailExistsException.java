@@ -1,6 +1,8 @@
 package pl.coderslab.charity.exceptions;
 
-public class EmailExistsException extends Throwable {
+import javax.persistence.EntityExistsException;
+
+public class EmailExistsException extends EntityExistsException {
     public EmailExistsException() {
         super("This email already exists");
     }

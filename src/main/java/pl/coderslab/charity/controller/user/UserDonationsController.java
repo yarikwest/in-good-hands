@@ -3,7 +3,7 @@ package pl.coderslab.charity.controller.user;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +15,6 @@ import pl.coderslab.charity.service.DonationService;
 import pl.coderslab.charity.service.UserService;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -31,14 +30,14 @@ class UserDonationsController {
     }
 
     @GetMapping
-    public String panel(Model model,
+    public String panel(@AuthenticationPrincipal User authUser,
                         @RequestParam(defaultValue = "1") Integer page,
                         @RequestParam(defaultValue = "5") Integer size,
                         @RequestParam(defaultValue = "id") String sortBy,
-                        @RequestParam(defaultValue = "true") Boolean asc) {
-        String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userService.getUserByEmail(userEmail);
+                        @RequestParam(defaultValue = "true") Boolean asc,
+                        Model model) {
 
+        User user = userService.getUserByEmail(authUser.getEmail());
         Page<Donation> donationPage;
 
         if (asc) {

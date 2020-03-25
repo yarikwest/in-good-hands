@@ -1,11 +1,13 @@
 package pl.coderslab.charity.controller.user;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.dto.UpdatePasswordDto;
 import pl.coderslab.charity.dto.UserDto;
 import pl.coderslab.charity.dto.UserMapper;
@@ -34,9 +36,12 @@ class UserProfileController {
     }
 
     @PostMapping("update-password")
-    public String updatePassword(@Valid @ModelAttribute("updatePassword") UpdatePasswordDto updatePassword, BindingResult bindingResult, Model model) {
+    public String updatePassword(@AuthenticationPrincipal User authUser,
+                                 @Valid @ModelAttribute("updatePassword") UpdatePasswordDto updatePassword,
+                                 BindingResult bindingResult,
+                                 Model model) {
 
-        User loggedInUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        User loggedInUser = userService.getUserByEmail(authUser.getEmail());
         if (!userService.checkIfValidOldPassword(loggedInUser, updatePassword.getOldPassword())) {
             bindingResult.rejectValue("oldPassword", "invalidOldPassword.error.message");
             model.addAttribute("user", userMapper.userToUserDto(loggedInUser));
@@ -54,7 +59,10 @@ class UserProfileController {
     }
 
     @PostMapping("update-email")
-    public String updateEmail(@Valid @ModelAttribute("user") UserDto userDto, BindingResult result, Model model) {
+    public String updateEmail(@AuthenticationPrincipal User authUser,
+                              @Valid @ModelAttribute("user") UserDto userDto,
+                              BindingResult result,
+                              Model model) {
 
         if (result.hasErrors()) {
             model.addAttribute("updatePassword", new UpdatePasswordDto());
@@ -68,7 +76,7 @@ class UserProfileController {
 
         }
 
-        User loggedInUser = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        User loggedInUser = userService.getUserByEmail(authUser.getEmail());
         userService.changeUserEmail(loggedInUser, userDto.getEmail());
 
         return "redirect:/logout";

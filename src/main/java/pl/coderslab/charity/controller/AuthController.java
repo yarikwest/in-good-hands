@@ -17,6 +17,7 @@ import pl.coderslab.charity.model.User;
 import pl.coderslab.charity.model.VerificationToken;
 import pl.coderslab.charity.registration.OnRegistrationCompleteEvent;
 import pl.coderslab.charity.service.UserService;
+import pl.coderslab.charity.service.VerificationTokenService;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -27,12 +28,18 @@ class AuthController {
 
     private final UserService userService;
     private final MessageSource messageSource;
+    private final VerificationTokenService tokenService;
     private final RegisterUserMapper registerUserMapper;
     private final ApplicationEventPublisher eventPublisher;
 
-    AuthController(UserService userService, MessageSource messageSource, RegisterUserMapper registerUserMapper, ApplicationEventPublisher eventPublisher) {
+    AuthController(UserService userService,
+                   MessageSource messageSource,
+                   VerificationTokenService tokenService,
+                   RegisterUserMapper registerUserMapper,
+                   ApplicationEventPublisher eventPublisher) {
         this.userService = userService;
         this.messageSource = messageSource;
+        this.tokenService = tokenService;
         this.registerUserMapper = registerUserMapper;
         this.eventPublisher = eventPublisher;
     }
@@ -50,7 +57,11 @@ class AuthController {
     }
 
     @PostMapping("registration")
-    public String createUser(@Valid @ModelAttribute("user") RegisterUserDto userDto, BindingResult bindingResult, WebRequest request, Model model) {
+    public String createUser(@Valid @ModelAttribute("user") RegisterUserDto userDto,
+                             BindingResult bindingResult,
+                             Model model,
+                             Locale locale) {
+
         if (bindingResult.hasErrors()) {
             return "registration";
         }
@@ -63,33 +74,31 @@ class AuthController {
             return "registration";
         }
 
-        String appUrl = request.getContextPath();
         eventPublisher.publishEvent(new OnRegistrationCompleteEvent(
-                registered, request.getLocale(), appUrl
+                registered, locale
         ));
-        Locale locale = request.getLocale();
         String message = messageSource.getMessage("auth.message.regSuccess", null, locale);
         model.addAttribute("successMsg", message);
         return "login";
     }
 
     @GetMapping("/registrationConfirm")
-    public String confirmRegistration(WebRequest request, Model model, @RequestParam("token") String token) {
-        Locale locale = request.getLocale();
+    public String confirmRegistration(Model model, @RequestParam("token") String token, Locale locale) {
 
-        VerificationToken verificationToken = userService.getVerificationToken(token);
+        VerificationToken verificationToken = tokenService.getVerificationToken(token);
         if (verificationToken == null) {
             String message = messageSource.getMessage("auth.message.invalidToken", null, locale);
             model.addAttribute("message", message);
-            return "error/bad-user";
+            return "error/custom";
         }
 
-        User user = verificationToken.getUser();
         if (LocalDateTime.now().isAfter(verificationToken.getExpiryDate())) {
             String message = messageSource.getMessage("auth.message.expired", null, locale);
             model.addAttribute("message", message);
-            return "error/bad-user";
+            return "error/custom";
         }
+
+        User user = verificationToken.getUser();
 
         user.setActive(true);
         userService.saveRegisteredUser(user);

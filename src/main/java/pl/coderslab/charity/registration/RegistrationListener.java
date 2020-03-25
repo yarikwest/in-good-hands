@@ -7,9 +7,9 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 import pl.coderslab.charity.model.User;
+import pl.coderslab.charity.model.VerificationToken;
 import pl.coderslab.charity.service.UserService;
-
-import java.util.UUID;
+import pl.coderslab.charity.service.VerificationTokenService;
 
 @Component
 public class RegistrationListener implements ApplicationListener<OnRegistrationCompleteEvent> {
@@ -20,12 +20,14 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
     private final UserService service;
     private final JavaMailSender mailSender;
     private final MessageSource messageSource;
+    private final VerificationTokenService tokenService;
 
 
-    public RegistrationListener(UserService service, JavaMailSender mailSender, MessageSource messageSource) {
+    public RegistrationListener(UserService service, JavaMailSender mailSender, MessageSource messageSource, VerificationTokenService tokenService) {
         this.service = service;
         this.mailSender = mailSender;
         this.messageSource = messageSource;
+        this.tokenService = tokenService;
     }
 
     @Override
@@ -35,12 +37,11 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 
     private void confirmRegistration(OnRegistrationCompleteEvent event) {
         User user = event.getUser();
-        String token = UUID.randomUUID().toString();
-        service.createVerificationToken(user, token);
+        VerificationToken token = tokenService.createVerificationToken(user);
 
         String recipientAddress = user.getEmail();
         String subject = "Registration Confirmation";
-        String confirmationUrl = event.getAppUrl() + "/registrationConfirm?token=" + token;
+        String confirmationUrl = "/registrationConfirm?token=" + token.getToken();
         String message = messageSource.getMessage("auth.message.emailTextRegSuccess", null, event.getLocale());
 
         SimpleMailMessage email = new SimpleMailMessage();

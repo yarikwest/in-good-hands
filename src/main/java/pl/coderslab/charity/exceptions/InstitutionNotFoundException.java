@@ -1,8 +1,8 @@
 package pl.coderslab.charity.exceptions;
 
-public class InstitutionNotFoundException extends RuntimeException {
-    public InstitutionNotFoundException() {
-    }
+import javax.persistence.EntityNotFoundException;
+
+public class InstitutionNotFoundException extends EntityNotFoundException {
 
     public InstitutionNotFoundException(long id) {
         super("Institution with id " + id + " not exists");
