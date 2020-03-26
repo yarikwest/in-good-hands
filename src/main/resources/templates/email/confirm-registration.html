@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title th:remove="all">Reset password</title>
+</head>
+<body class="em_body" style="margin:0px auto; padding:0px;" bgcolor="#efefef">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="em_full_wrap" align="center" bgcolor="#efefef">
+    <tr>
+        <td align="center" valign="top">
+            <table align="center" width="650" border="0" cellspacing="0" cellpadding="0" class="em_main_table"
+                   style="width:650px; table-layout:fixed;">
+                <tr>
+                    <td align="center" valign="top" style="padding:0 25px;" class="em_aside10">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+                            <tr>
+                                <td height="25" style="height:25px;" class="em_h20">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="top"><a th:href="${appUrl}" target="_blank"
+                                                                   style="text-decoration:none;"><img
+                                        src="../../static/images/logo/materialize-logo-color-full.png"
+                                        th:src="|cid:${logoImageName}|" width="280" height="40"
+                                        alt="meowgun" border="0"
+                                        style="display:block; font-family:Arial, sans-serif; font-size:18px; line-height:25px; text-align:center; color:#1d4685; font-weight:bold; max-width:280px;"
+                                        class="em_w150"/></a></td>
+                            </tr>
+                            <tr>
+                                <td height="28" style="height:28px;" class="em_h20">&nbsp;</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="em_full_wrap" align="center" bgcolor="#efefef">
+    <tr>
+        <td align="center" valign="top" class="em_aside5">
+            <table align="center" width="650" border="0" cellspacing="0" cellpadding="0" class="em_main_table"
+                   style="width:650px; table-layout:fixed;">
+                <tr>
+                    <td align="center" valign="top" style="padding:0 25px; background-color:#ffffff;"
+                        class="em_aside10">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+                            <tr>
+                                <td height="45" style="height:45px;" class="em_h20">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="em_blue em_font_22" align="center" valign="top"
+                                    th:text="#{label.email.forgotPasswordQuestion}"
+                                    style="font-family: Arial, sans-serif; font-size: 26px; line-height: 29px; color:#264780; font-weight:bold;">
+                                    Forgot your password?
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="14" style="height:14px; font-size:0px; line-height:0px;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="em_grey" align="center" valign="top"
+                                    th:text="#{label.email.resetPasswordDescription}"
+                                    style="font-family: Arial, sans-serif; font-size: 16px; line-height: 26px; color:#434343;">
+                                    reset password description
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="26" style="height:26px;" class="em_h20">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="top">
+                                    <table width="250" style="width:250px; border-radius:4px;"
+                                           border="0" cellspacing="0" cellpadding="0" align="center">
+                                        <tr>
+                                            <td class="em_white" height="42" align="center" valign="middle"
+                                                style="font-family: Arial, sans-serif; font-size: 16px; color:#ffffff; font-weight:bold; height:42px;">
+                                                <a th:href="${urlToResetPassword}"
+                                                   th:text="#{label.resetPassword.title}" target="_blank"
+                                                   style="text-decoration: none; text-transform: uppercase; border-radius: 20px; color: #fff; background:linear-gradient(45deg, #8e24aa 0%, #ff6e40 100%); line-height:42px; display:block;">
+                                                    RESET YOUR PASSWORD</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="25" style="height:25px;" class="em_h20">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="em_grey" align="center" valign="top"
+                                    th:text="#{label.email.fakeResetPasswordEmail}"
+                                    style="font-family: Arial, sans-serif; font-size: 16px; line-height: 26px; color:#434343;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="44" style="height:44px;" class="em_h20">&nbsp;</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="em_full_wrap" align="center" bgcolor="#efefef">
+    <tr>
+        <td align="center" valign="top">
+            <table align="center" width="650" border="0" cellspacing="0" cellpadding="0" class="em_main_table"
+                   style="width:650px; table-layout:fixed;">
+                <tr>
+                    <td align="center" valign="top" style="padding:0 25px;" class="em_aside10">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+                            <tr>
+                                <td height="16" style="font-size:0px; line-height:0px; height:16px;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="top">
+                                    <table border="0" cellspacing="0" cellpadding="0" align="left" class="em_wrapper">
+                                        <tr>
+                                            <td class="em_grey" align="center" valign="middle"
+                                                style="font-family: Arial, sans-serif; font-size: 11px; line-height: 16px; color:#434343;">
+                                                &copy; ingoodhands 2020
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="16" style="font-size:0px; line-height:0px; height:16px;">&nbsp;</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

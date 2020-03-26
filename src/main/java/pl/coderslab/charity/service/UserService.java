@@ -39,7 +39,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
     }
 
-    public User getUserByEmail(String email) {
+    public User getUserByEmail(String email) throws UserNotFoundException {
         return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
     }
 
