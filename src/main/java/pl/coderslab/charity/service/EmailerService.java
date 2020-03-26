@@ -51,6 +51,28 @@ public class EmailerService {
         EmailDto emailDto = new EmailDto(
                 user.getEmail(),
                 "Reset Password",
+                htmlTemplateEngine.process("reset-password", context));
+
+        final MimeMessageHelper message = prepareHtmlMessage(mimeMessage, emailDto);
+
+        mailSender.send(mimeMessage);
+        htmlTemplateEngine.clearTemplateCache();
+    }
+
+    public void sendConfirmRegistrationEmail(String email, Locale locale) throws MessagingException, UserNotFoundException {
+        final User user = userService.getUserByEmail(email);
+        final VerificationToken token = tokenService.createVerificationToken(user);
+        String confirmationUrl = appUlr + "/registration-confirm?token=" + token.getToken();
+
+        final MimeMessage mimeMessage = mailSender.createMimeMessage();
+        final Context context = new Context(locale);
+        context.setVariable("appUrl", appUlr);
+        context.setVariable("urlToConfirmRegistration", confirmationUrl);
+        context.setVariable("logoImageName", "logoImageName");
+
+        EmailDto emailDto = new EmailDto(
+                email,
+                "Registration Confirmation",
                 htmlTemplateEngine.process("confirm-registration", context));
 
         final MimeMessageHelper message = prepareHtmlMessage(mimeMessage, emailDto);

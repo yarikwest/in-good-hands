@@ -43,14 +43,6 @@ public class UserService implements UserDetailsService {
         return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
     }
 
-    public User create(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setActive(true);
-        Role userRole = roleRepository.findByName("ROLE_USER").orElseThrow(RoleNotFoundException::new);
-        user.getRoles().add(userRole);
-        return userRepository.save(user);
-    }
-
     public User registerNewUser(User user) throws EmailExistsException {
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new EmailExistsException();
@@ -62,8 +54,9 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    public Set<User> getAll() {
-        return new HashSet<>(userRepository.findAll());
+    public void activateUser(User user) {
+        user.setActive(true);
+        userRepository.save(user);
     }
 
     public Set<User> getAllUsers() {
@@ -158,9 +151,5 @@ public class UserService implements UserDetailsService {
     public void changeUserEmail(User loggedInUser, String email) {
         loggedInUser.setEmail(email);
         userRepository.save(loggedInUser);
-    }
-
-    public void saveRegisteredUser(User user) {
-        userRepository.save(user);
     }
 }

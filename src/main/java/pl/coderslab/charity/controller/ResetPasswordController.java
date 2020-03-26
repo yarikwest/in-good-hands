@@ -62,21 +62,9 @@ class ResetPasswordController {
     }
 
     @GetMapping("change-password")
-    public String showChangePasswordForm(@RequestParam("token") String token, Model model, Locale locale) {
+    public String showChangePasswordForm(@RequestParam("token") String token, Model model) {
 
         VerificationToken verificationToken = tokenService.getVerificationToken(token);
-
-        if (verificationToken == null) {
-            String message = messageSource.getMessage("auth.message.invalidToken", null, locale);
-            model.addAttribute("message", message);
-            return "error/custom";
-        }
-
-        if (LocalDateTime.now().isAfter(verificationToken.getExpiryDate())) {
-            String message = messageSource.getMessage("auth.message.expired", null, locale);
-            model.addAttribute("message", message);
-            return "error/custom";
-        }
 
         User user = verificationToken.getUser();
         Authentication auth = new UsernamePasswordAuthenticationToken(user, null, Collections.singletonList(

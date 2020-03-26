@@ -1,6 +1,5 @@
 package pl.coderslab.charity.controller;
 
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,18 +8,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.WebRequest;
 import pl.coderslab.charity.dto.RegisterUserDto;
 import pl.coderslab.charity.dto.RegisterUserMapper;
 import pl.coderslab.charity.exceptions.EmailExistsException;
 import pl.coderslab.charity.model.User;
 import pl.coderslab.charity.model.VerificationToken;
-import pl.coderslab.charity.registration.OnRegistrationCompleteEvent;
+import pl.coderslab.charity.service.EmailerService;
 import pl.coderslab.charity.service.UserService;
 import pl.coderslab.charity.service.VerificationTokenService;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.Locale;
 
 @Controller
@@ -28,20 +26,20 @@ class AuthController {
 
     private final UserService userService;
     private final MessageSource messageSource;
+    private final EmailerService emailerService;
     private final VerificationTokenService tokenService;
     private final RegisterUserMapper registerUserMapper;
-    private final ApplicationEventPublisher eventPublisher;
 
     AuthController(UserService userService,
                    MessageSource messageSource,
+                   EmailerService emailerService,
                    VerificationTokenService tokenService,
-                   RegisterUserMapper registerUserMapper,
-                   ApplicationEventPublisher eventPublisher) {
+                   RegisterUserMapper registerUserMapper) {
         this.userService = userService;
         this.messageSource = messageSource;
+        this.emailerService = emailerService;
         this.tokenService = tokenService;
         this.registerUserMapper = registerUserMapper;
-        this.eventPublisher = eventPublisher;
     }
 
     @GetMapping("login")
@@ -60,7 +58,7 @@ class AuthController {
     public String createUser(@Valid @ModelAttribute("user") RegisterUserDto userDto,
                              BindingResult bindingResult,
                              Model model,
-                             Locale locale) {
+                             Locale locale) throws MessagingException {
 
         if (bindingResult.hasErrors()) {
             return "registration";
@@ -74,34 +72,19 @@ class AuthController {
             return "registration";
         }
 
-        eventPublisher.publishEvent(new OnRegistrationCompleteEvent(
-                registered, locale
-        ));
+        emailerService.sendConfirmRegistrationEmail(registered.getEmail(), locale);
+
         String message = messageSource.getMessage("auth.message.regSuccess", null, locale);
         model.addAttribute("successMsg", message);
         return "login";
     }
 
-    @GetMapping("/registrationConfirm")
-    public String confirmRegistration(Model model, @RequestParam("token") String token, Locale locale) {
+    @GetMapping("/registration-confirm")
+    public String confirmRegistration(@RequestParam("token") String token) {
 
         VerificationToken verificationToken = tokenService.getVerificationToken(token);
-        if (verificationToken == null) {
-            String message = messageSource.getMessage("auth.message.invalidToken", null, locale);
-            model.addAttribute("message", message);
-            return "error/custom";
-        }
+        userService.activateUser(verificationToken.getUser());
 
-        if (LocalDateTime.now().isAfter(verificationToken.getExpiryDate())) {
-            String message = messageSource.getMessage("auth.message.expired", null, locale);
-            model.addAttribute("message", message);
-            return "error/custom";
-        }
-
-        User user = verificationToken.getUser();
-
-        user.setActive(true);
-        userService.saveRegisteredUser(user);
         return "redirect:/login";
     }
 }
