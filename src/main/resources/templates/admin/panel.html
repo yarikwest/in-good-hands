@@ -22,6 +22,7 @@
     <link th:href="@{/css/custom/custom.css}" type="text/css" rel="stylesheet">
     <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
     <link th:href="@{/vendors/perfect-scrollbar/perfect-scrollbar.css}" type="text/css" rel="stylesheet">
+    <link th:href="@{/vendors/flag-icon/css/flag-icon.min.css}" type="text/css" rel="stylesheet">
 </head>
 <body>
 <!-- Start Page Loading -->
@@ -42,16 +43,16 @@
                     <li>
                         <h1 class="logo-wrapper">
                             <a th:href="@{/}" class="brand-logo darken-1">
-                                <img th:src="@{/images/logo/materialize-logo.png}" alt="materialize logo">
-                                <span class="logo-text hide-on-med-and-down">Panel administratora</span>
+                                <img th:src="@{/images/logo/materialize-logo-full.png}" alt="materialize logo">
                             </a>
                         </h1>
                     </li>
                 </ul>
                 <ul class="right hide-on-med-and-down">
                     <li>
-                        <a href="javascript:void(0);" class="waves-effect waves-block waves-light toggle-fullscreen">
-                            <i class="material-icons">settings_overscan</i>
+                        <a href="javascript:void(0);" class="waves-effect waves-block waves-light translation-button"
+                           data-activates="translation-dropdown">
+                            <span th:classappend="|flag-icon-${#locale}|" class="flag-icon flag-icon-gb"></span>
                         </a>
                     </li>
                     <li>
@@ -64,10 +65,31 @@
                         </a>
                     </li>
                 </ul>
+                <!-- translation-button -->
+                <ul id="translation-dropdown" class="dropdown-content">
+                    <th:block th:fragment="translation-dropdown">
+                        <li>
+                            <a th:href="@{${#servletContext.contextPath}(lang='gb')}"
+                               class="grey-text text-darken-1">
+                                <i class="flag-icon flag-icon-gb"></i>
+                                <span>English</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{${#servletContext.contextPath}(lang='pl')}"
+                               class="grey-text text-darken-1">
+                                <i class="flag-icon flag-icon-pl"></i>
+                                <span>Polski</span>
+                            </a>
+                        </li>
+                    </th:block>
+                </ul>
+                <!-- end translation-button -->
                 <!-- profile-dropdown -->
                 <ul id="profile-dropdown" class="dropdown-content">
                     <th:block th:replace="admin/panel.html :: profile-dropdown"/>
                 </ul>
+                <!-- end profile-dropdown -->
             </div>
         </nav>
     </div>
@@ -135,7 +157,18 @@
                                 <span class="nav-text">Użytkownicy</span>
                             </a>
                         </li>
+                        <li class="bold">
+                            <a href="javascript:void(0);" class="waves-effect waves-cyan translation-button"
+                               data-activates="translation-dropdown-nav">
+                                <i th:classappend="|flag-icon-${#locale}|" class="flag-icon flag-icon-gb"></i>
+                                <span class="nav-text" th:text="#{label.header.nav.language}">language</span>
+                            </a>
+                            <ul id="translation-dropdown-nav" class="dropdown-content">
+                                <th:block th:replace="admin/panel.html :: translation-dropdown"/>
+                            </ul>
+                        </li>
                     </ul>
+                    <div style="height: 64px"></div>
                 </li>
             </ul>
             <a href="#" data-activates="slide-out"

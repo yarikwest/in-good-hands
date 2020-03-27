@@ -66,6 +66,7 @@ class ResetPasswordController {
 
         VerificationToken verificationToken = tokenService.getVerificationToken(token);
 
+        //TODO check user if not null
         User user = verificationToken.getUser();
         Authentication auth = new UsernamePasswordAuthenticationToken(user, null, Collections.singletonList(
                 new SimpleGrantedAuthority("CHANGE_PASSWORD_PRIVILEGE")));
