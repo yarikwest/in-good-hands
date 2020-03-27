@@ -31,25 +31,25 @@
     <section class="header--form-page">
         <div class="slogan container container--90">
             <div class="slogan--item">
-                <h1>
+                <h1 th:utext="#{label.page.slogan2}">
                     Oddaj rzeczy, których już nie chcesz<br/>
                     <span class="uppercase">potrzebującym</span>
                 </h1>
 
                 <div class="slogan--steps">
-                    <div class="slogan--steps-title">Wystarczą 4 proste kroki:</div>
+                    <div class="slogan--steps-title" th:text="#{label.page.only4Steps}">Wystarczą 4 proste kroki:</div>
                     <ul class="slogan--steps-boxes">
                         <li>
-                            <div><em>1</em><span>Wybierz rzeczy</span></div>
+                            <div><em>1</em><span th:text="#{label.page.step1Title}">Wybierz rzeczy</span></div>
                         </li>
                         <li>
-                            <div><em>2</em><span>Spakuj je w worki</span></div>
+                            <div><em>2</em><span th:text="#{label.page.step2Title}">Spakuj je w worki</span></div>
                         </li>
                         <li>
-                            <div><em>3</em><span>Wybierz fundację</span></div>
+                            <div><em>3</em><span th:text="#{label.page.step3Title}">Wybierz fundację</span></div>
                         </li>
                         <li>
-                            <div><em>4</em><span>Zamów kuriera</span></div>
+                            <div><em>4</em><span th:text="#{label.page.step4Title}">Zamów kuriera</span></div>
                         </li>
                     </ul>
                 </div>
@@ -60,31 +60,32 @@
     <section class="form--steps">
         <div class="form--steps-instructions">
             <div class="form--steps-container">
-                <h3>Ważne!</h3>
-                <p data-step="1" class="active">
+                <h3 th:text="#{label.page.important}">Ważne!</h3>
+                <p data-step="1" class="active" th:text="#{label.page.importantExplain1-2}">
                     Uzupełnij szczegóły dotyczące Twoich rzeczy. Dzięki temu będziemy
                     wiedzieć komu najlepiej je przekazać.
                 </p>
-                <p data-step="2">
+                <p data-step="2" th:text="#{label.page.importantExplain1-2}">
                     Uzupełnij szczegóły dotyczące Twoich rzeczy. Dzięki temu będziemy
                     wiedzieć komu najlepiej je przekazać.
                 </p>
-                <p data-step="3">
-                    Wybierz jedną, do
-                    której trafi Twoja przesyłka.
+                <p data-step="3" th:text="#{label.page.importantExplain3}">
+                    Wybierz jedną, do której trafi Twoja przesyłka.
                 </p>
-                <p data-step="4">Podaj adres oraz termin odbioru rzeczy.</p>
+                <p data-step="4" th:text="#{label.page.importantExplain4}">Podaj adres oraz termin odbioru rzeczy.</p>
             </div>
         </div>
 
         <div class="form--steps-container">
-            <div class="form--steps-counter">Krok <span>1</span>/4</div>
+            <div class="form--steps-counter"><strong th:text="#{label.page.step}">Krok</strong> <span>1</span>/4</div>
             <div class="card-panel bg-opacity-8">
                 <form action="form-confirmation.html" th:action="@{/donations}" th:object="${donation}" method="post">
                     <!-- STEP 1: class .active is switching steps -->
                     <div data-step="1" class="active">
-                        <h3 th:if="${#fields.hasErrors()}" th:class="error">Uzupełnij wszystkie niezbędne danę</h3>
-                        <h3>Zaznacz co chcesz oddać:</h3>
+                        <h3 th:if="${#fields.hasErrors()}" th:class="error" th:text="#{label.form.addGift.error}">
+                            Uzupełnij wszystkie niezbędne danę
+                        </h3>
+                        <h3 th:text="#{label.form.addGiftStep1}">Zaznacz co chcesz oddać:</h3>
                         <span th:if="${#fields.hasErrors('categories')}" th:errors="*{categories}"
                               th:class="error"></span>
 
@@ -103,7 +104,8 @@
 
                     <!-- STEP 2 -->
                     <div data-step="2">
-                        <h3>Podaj liczbę 60l worków, w które spakowałeś/aś rzeczy:</h3>
+                        <h3 th:text="#{label.form.addGiftStep2}">Podaj liczbę 60l worków, w które spakowałeś/aś
+                            rzeczy:</h3>
                         <div class="row">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix pt-2">functions</i>
@@ -124,7 +126,7 @@
 
                     <!-- STEP 3 -->
                     <div data-step="3">
-                        <h3>Wybierz organizacje, której chcesz pomóc:</h3>
+                        <h3 th:text="#{label.form.addGiftStep3}">Wybierz organizacje, której chcesz pomóc:</h3>
                         <span th:if="${#fields.hasErrors('institution')}" th:errors="*{institution}"
                               th:class="error"></span>
 
@@ -150,7 +152,9 @@
 
                     <!-- STEP 4 -->
                     <div data-step="4">
-                        <h3>Podaj adres oraz termin odbioru rzecz przez kuriera:</h3>
+                        <h3 th:text="#{label.form.addGiftStep4}">
+                            Podaj adres oraz termin odbioru rzecz przez kuriera:
+                        </h3>
                         <div class="col s12 m6 l4">
                             <h5 th:text="#{label.form.pickupAddress}">pickup address</h5>
 
@@ -228,7 +232,7 @@
 
                     <!-- STEP 5 -->
                     <div data-step="5">
-                        <h3>Podsumowanie Twojej darowizny</h3>
+                        <h3 th:text="#{label.form.addGiftSummary}">Podsumowanie Twojej darowizny</h3>
 
                         <div class="summary">
                             <div class="form-section">
@@ -237,6 +241,7 @@
                                     <li>
                                         <span class="icon icon-bag"></span>
                                         <span class="summary--text" id="summary-quantity"></span>
+                                        <span th:text="#{label.page.bag}" style="padding-left: 10px;"></span>
                                     </li>
 
                                     <li>
@@ -284,6 +289,7 @@
 <th:block th:replace="index.html::footer"/>
 
 <!-- ====================================== Scripts ====================================== -->
+<!--variables for internationalization datepicker and timepicker-->
 <script type="text/javascript" th:inline="javascript">
     var okBtn = [[#{label.form.ok}]];
     var clearBtn = [[#{label.form.clear}]];

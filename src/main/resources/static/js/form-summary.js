@@ -28,7 +28,7 @@ btnNextStep.forEach(value => {
             summaryInstitution.innerText = inputInstitution.parentElement.children[2].children[0].innerText;
         }
 
-        summaryQuantity.innerText = inputQuantity.value + ' worki';
+        summaryQuantity.innerText = inputQuantity.value;
         summaryStreet.innerText = inputStreet.value;
         summaryCity.innerText = inputCity.value;
         summaryZipCode.innerText = inputZipCode.value;

@@ -5,7 +5,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Oddam w dobre ręce</title>
+    <title>Ingoodhands</title>
     <!-- Favicons-->
     <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
     <!-- For iPhone -->
@@ -228,7 +228,7 @@
     <section class="header--main-page">
         <div class="slogan container container--90">
             <div class="slogan--item">
-                <h1>
+                <h1 th:utext="#{label.page.slogan}">
                     Zacznij pomagać!<br/>
                     Oddaj niechciane rzeczy w zaufane ręce
                 </h1>
@@ -240,14 +240,14 @@
         <div class="container container--85">
             <div class="stats--item">
                 <em th:text="${sumOfAllPackage}">10</em>
-                <h3>Oddanych worków</h3>
+                <h3 th:text="#{label.page.givenBags}">Oddanych worków</h3>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum
                     tempora!</p>
             </div>
 
             <div class="stats--item">
                 <em th:text="${countAllDonations}">5</em>
-                <h3>Przekazanych darów</h3>
+                <h3 th:text="#{label.page.givenGifts}">Przekazanych darów</h3>
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate
                     quas
                     quam.</p>
@@ -257,37 +257,38 @@
     </section>
 
     <section id="steps" class="steps">
-        <h2>Wystarczą 4 proste kroki</h2>
+        <h2 th:text="#{label.page.only4Steps}">Wystarczą 4 proste kroki</h2>
 
         <div class="steps--container row">
             <div class="steps--item col s12 m3">
                 <span class="icon icon--hands"></span>
-                <h3>Wybierz rzeczy</h3>
-                <p>ubrania, zabawki, sprzęt i inne</p>
+                <h3 th:text="#{label.page.step1Title}">Wybierz rzeczy</h3>
+                <p th:text="#{label.page.step1Desc}">ubrania, zabawki, sprzęt i inne</p>
             </div>
             <div class="steps--item col s12 m3">
                 <span class="icon icon--arrow"></span>
-                <h3>Spakuj je</h3>
-                <p>skorzystaj z worków na śmieci</p>
+                <h3 th:text="#{label.page.step2Title}">Spakuj je</h3>
+                <p th:text="#{label.page.step2Desc}">skorzystaj z worków na śmieci</p>
             </div>
             <div class="steps--item col s12 m3">
                 <span class="icon icon--glasses"></span>
-                <h3>Zdecyduj komu chcesz pomóc</h3>
-                <p>wybierz zaufane miejsce</p>
+                <h3 th:text="#{label.page.step3Title}">Zdecyduj komu chcesz pomóc</h3>
+                <p th:text="#{label.page.step3Desc}">wybierz zaufane miejsce</p>
             </div>
             <div class="steps--item col s12 m3">
                 <span class="icon icon--courier"></span>
-                <h3>Zamów kuriera</h3>
-                <p>kurier przyjedzie w dogodnym terminie</p>
+                <h3 th:text="#{label.page.step4Title}">Zamów kuriera</h3>
+                <p th:text="#{label.page.step4Desc}">kurier przyjedzie w dogodnym terminie</p>
             </div>
         </div>
 
-        <a sec:authorize="!isAuthenticated()" th:href="@{/registration}" href="#" class="btn btn--large">Załóż konto</a>
+        <a sec:authorize="!isAuthenticated()" th:href="@{/registration}" href="#" th:text="#{label.form.signUp}"
+           class="btn btn--large">Załóż konto</a>
     </section>
 
     <section id="about-us" class="about-us">
         <div class="about-us--text">
-            <h2>O nas</h2>
+            <h2 th:text="#{label.page.aboutUs}">O nas</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt
                 libero
                 optio esse quisquam illo omnis.</p>
@@ -297,30 +298,36 @@
     </section>
 
     <section id="help" class="help">
-        <h2>Komu pomagamy?</h2>
+        <h2 th:text="#{label.page.whomHelpTitle}">Komu pomagamy?</h2>
 
         <!-- SLIDE 1 -->
         <div class="help--slides active" data-id="1">
-            <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy.
-                Możesz sprawdzić czym się zajmują.</p>
+            <p th:text="#{label.page.whomHelpDesc}">
+                W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy.
+                Możesz sprawdzić czym się zajmują.
+            </p>
 
             <ul class="help--slides-items">
                 <th:block th:each="institution, iterStat : ${institutions}">
                     <th:block th:if="${iterStat.odd}">
                         <li>
                             <div class="col">
-                                <div class="title" th:text="|Fundacja ${institution.name}|">Fundacja "Dbam o Zdrowie"
+                                <div class="title" th:text="|#{label.foundation.title} ${institution.name}|">
+                                    Fundacja "Dbam o Zdrowie"
                                 </div>
-                                <div class="subtitle" th:text="|Cel i misja: ${institution.description}|">Cel i misja:
-                                    Pomoc dzieciom z ubogich rodzin.
+                                <div class="subtitle"
+                                     th:text="|#{label.foundation.mission}: ${institution.description}|">
+                                    Cel i misja: Pomoc dzieciom z ubogich rodzin.
                                 </div>
                             </div>
                     </th:block>
                     <th:block th:if="${iterStat.even}">
                         <div class="col">
-                            <div class="title" th:text="|Fundacja ${institution.name}|">Fundacja "A kogo"</div>
-                            <div class="subtitle" th:text="|Cel i misja: ${institution.description}|">Cel i misja: Pomoc
-                                wybudzaniu dzieci ze śpiączki.
+                            <div class="title" th:text="|#{label.foundation.title} ${institution.name}|">
+                                Fundacja "A kogo"
+                            </div>
+                            <div class="subtitle" th:text="|#{label.foundation.mission}: ${institution.description}|">
+                                Cel i misja: Pomoc wybudzaniu dzieci ze śpiączki.
                             </div>
                         </div>
                         </li>
@@ -335,24 +342,24 @@
         <div class="contact">
             <div id="basic-form" class="section">
                 <div class="card-panel bg-opacity-8">
-                    <h2>Skontaktuj się z nami</h2>
-                    <h4 class="header2">Formularz kontaktowy</h4>
+                    <h2 th:text="#{label.page.contactWithUs}">Skontaktuj się z nami</h2>
+                    <h4 class="header2" th:text="#{label.form.contactFormTitle}">Formularz kontaktowy</h4>
                     <div class="row">
                         <form class="col s12">
                             <div class="row">
                                 <div class="input-field col s12 m6">
                                     <input id="first_name" type="text">
-                                    <label for="first_name">Imie</label>
+                                    <label for="first_name" th:text="#{label.form.firstName}">Imie</label>
                                 </div>
                                 <div class="input-field col s12 m6">
                                     <input id="last_name" type="text">
-                                    <label for="last_name">Nazwisko</label>
+                                    <label for="last_name" th:text="#{label.form.lastName}">Nazwisko</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12">
                                     <textarea id="message" class="materialize-textarea"></textarea>
-                                    <label for="message">Message</label>
+                                    <label for="message" th:text="#{label.form.message}">Wiadomość</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <button class="btn waves-effect waves-light right" type="submit">
