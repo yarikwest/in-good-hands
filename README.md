@@ -17,6 +17,7 @@ Application deployed on Heroku by this [link](https://in-good-hands.herokuapp.co
 ![Screenshot](readme-img/screen2.png)
 ![Screenshot](readme-img/screen3.png)
 ![Screenshot](readme-img/screen4.png)
+![Screenshot](readme-img/screen5.png)
 
 ### Tech
 
