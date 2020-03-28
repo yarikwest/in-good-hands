@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="msapplication-tap-highlight" content="no">
-    <title>Donations | User Panel</title>
+    <title th:text="|#{label.page.title.userPanel} - #{label.page.title.main}|">user panel | main</title>
     <!-- Favicons-->
     <link rel="icon" th:href="@{/images/favicon/favicon-32x32.png}" sizes="32x32">
     <!-- Favicons-->
@@ -38,10 +38,10 @@
                 <div class="container">
                     <div class="row">
                         <div class="col s10 m6 l6">
-                            <h5 class="breadcrumbs-title">Przekazane dary</h5>
+                            <h5 class="breadcrumbs-title" th:text="#{label.sidebar.nav.givenGifts}">given gifts</h5>
                             <ol class="breadcrumbs">
-                                <li><a th:href="@{/user}">Panel główny</a></li>
-                                <li class="active">Przekazane dary</li>
+                                <li><a th:href="@{/user}" th:text="#{label.sidebar.nav.mainPanel}">main panel</a></li>
+                                <li class="active" th:text="#{label.sidebar.nav.givenGifts}">given gifts</li>
                             </ol>
                         </div>
                     </div>
@@ -54,18 +54,20 @@
                 <div class="divider"></div>
                 <div id="work-collections">
                     <div class="row">
-                        <h4 class="header col s12 m6 l6">Lista przekazanych darów</h4>
+                        <h4 class="header col s12 m6 l6" th:text="#{label.page.listOfGifts}">list of gifts</h4>
                         <div class="col s12 m6 l6" style="margin-top: 17px;">
                             <a class="btn dropdown-settings waves-effect waves-light breadcrumbs-btn right"
                                th:href="@{/donations}">
                                 <i class="material-icons left">add</i>
-                                <span class="hide-on-small-onl">Przekaż dar</span>
+                                <span class="hide-on-small-onl" th:text="#{label.page.giveGiftBtn}">give gift btn</span>
                             </a>
                         </div>
                     </div>
                     <div class="row">
-                        <a class="btn-flat dropdown-button waves-effect right" href="#!" data-activates="dropdownSize">Rozmiar<i
-                                class="material-icons right">arrow_drop_down</i></a>
+                        <a class="btn-flat dropdown-button waves-effect right" href="#" data-activates="dropdownSize">
+                            <i class="material-icons right">arrow_drop_down</i>
+                            <span th:text="#{label.table.size}">size</span>
+                        </a>
                         <ul id="dropdownSize" class="dropdown-content">
                             <li>
                                 <a th:href="@{${currentUrl}(page=1,size=5,sortBy=${sortByParam}, asc=${ascParam})}"
@@ -92,32 +94,33 @@
                                 </a>
                             </li>
                         </ul>
-                        <a class="btn-flat dropdown-button waves-effect right" href="#!"
-                           data-activates="dropdownSortBy">Sortuj<i
-                                class="material-icons right">arrow_drop_down</i></a>
+                        <a class="btn-flat dropdown-button waves-effect right" href="#" data-activates="dropdownSortBy">
+                            <i class="material-icons right">arrow_drop_down</i>
+                            <span th:text="#{label.table.sort}">sort</span>
+                        </a>
                         <ul id="dropdownSortBy" class="dropdown-content">
                             <li>
                                 <a th:href="@{${currentUrl}(page=1,size=${sizeParam},sortBy='status', asc=false)}"
-                                   class="-text">
-                                    Status: najpierw odebrane
+                                   class="-text" th:text="#{label.table.sort.status.asc}">
+                                    status asc
                                 </a>
                             </li>
                             <li>
                                 <a th:href="@{${currentUrl}(page=1,size=${sizeParam},sortBy='status', asc=true)}"
-                                   class="-text">
-                                    Status: najpierw nieodebrane
+                                   class="-text" th:text="#{label.table.sort.status.desc}">
+                                    status desc
                                 </a>
                             </li>
                             <li>
                                 <a th:href="@{${currentUrl}(page=1,size=${sizeParam},sortBy='created', asc=false)}"
-                                   class="-text">
-                                    Data przekazania: od najnowszej
+                                   class="-text" th:text="#{label.table.sort.date.asc}">
+                                    date asc
                                 </a>
                             </li>
                             <li>
                                 <a th:href="@{${currentUrl}(page=1,size=${sizeParam},sortBy='created', asc=true)}"
-                                   class="-text">
-                                    Data przekazania: od najstarszej
+                                   class="-text" th:text="#{label.table.sort.date.desc}">
+                                    date desc
                                 </a>
                             </li>
                         </ul>
@@ -125,20 +128,22 @@
                     <div class="row">
                         <div class="col s12">
                             <ul id="projects-collection" class="collection z-depth-1">
-                                <li class="collection-item avatar">
+                                <li class="collection-item">
                                     <div class="row row-flex">
                                         <div class="col s6">
-                                            <i class="material-icons cyan circle">card_travel</i>
-                                            <h6 class="collection-header m-0">Przekazane dary</h6>
+                                            <h6 class="collection-header m-0" th:text="#{label.table.givenGifts}">given
+                                                gifts</h6>
                                         </div>
                                         <div class="col s2">
-                                            <h6 class="collection-header m-0">Status</h6>
+                                            <h6 class="collection-header m-0" th:text="#{label.table.status}">
+                                                status</h6>
                                         </div>
                                         <div class="col s2">
-                                            <h6 class="collection-header m-0">Worków</h6>
+                                            <h6 class="collection-header m-0" th:text="#{label.table.bags}">bags</h6>
                                         </div>
                                         <div class="col s2">
-                                            <h6 class="collection-header m-0">Fundacja</h6>
+                                            <h6 class="collection-header m-0" th:text="#{label.table.foundation}">
+                                                foundation</h6>
                                         </div>
                                     </div>
                                 </li>
@@ -146,23 +151,25 @@
                                     <div class="row row-flex">
                                         <div class="col s6">
                                             <p class="collections-title"
-                                               th:text="|Data przekazania: ${donation.created}|">
-                                                Street, zip-code city</p>
+                                               th:text="|#{label.table.createDate}: ${donation.created}|">
+                                                create date</p>
                                             <p class="collections-content"
-                                               th:text="|Data odbioru: ${donation.pickUpDate} ${donation.pickUpTime}|">
-                                                Date time</p>
+                                               th:text="|#{label.table.pickUpDateTime}: ${donation.pickUpDate} ${donation.pickUpTime}|">
+                                                pick up date</p>
                                             <p class="collections-content"
-                                               th:text="|Komentarz: ${donation.pickUpComment}|">
-                                                Comment</p>
+                                               th:text="|#{label.table.comment}: ${donation.pickUpComment}|">
+                                                comment</p>
                                             <p class="collections-content"
-                                               th:text="|Kategoria: ${donation.categories}|">
-                                                Category</p>
+                                               th:text="|#{label.table.category}: ${donation.categories}|">
+                                                category</p>
                                         </div>
                                         <div class="col s2" th:switch="${donation.status}">
                                             <span th:case="${donation.status.MISSED}"
-                                                  class="task-cat red darken-1">NIEODEBRANE</span>
+                                                  class="task-cat red darken-1" th:text="#{label.form.status.missed}">
+                                                missed</span>
                                             <span th:case="${donation.status.RECEIVED}"
-                                                  class="task-cat green darken-3">ODEBRANE</span>
+                                                  class="task-cat green darken-3"
+                                                  th:text="#{label.form.status.received}">received</span>
                                         </div>
                                         <div class="col s2">
                                             <span th:if="${donation.quantity}==1" class="task-cat blue darken-2"
@@ -176,7 +183,7 @@
                                         </div>
                                         <div class="col s2">
                                             <p class="collections-title" th:text="${donation.institution.name}">
-                                                Fundacja</p>
+                                                foundation</p>
                                         </div>
                                     </div>
                                 </li>

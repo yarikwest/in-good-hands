@@ -89,9 +89,9 @@
                 </div>
                 <div class="col col s8 m8 l8">
                     <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#"
-                       data-activates="profile-dropdown-nav" sec:authentication="name">John Doe<i
+                       data-activates="profile-dropdown-nav" sec:authentication="name">name<i
                             class="mdi-navigation-arrow-drop-down right"></i></a>
-                    <p class="user-roal">Użytkownik</p>
+                    <p class="user-roal" th:text="#{label.page.user}">user</p>
                     <ul th:replace="fragments/profile-dropdown::profile-dropdown(id='profile-dropdown-nav')"></ul>
                 </div>
             </div>
@@ -101,13 +101,13 @@
                 <li class="bold">
                     <a th:href="@{/user}" class="waves-effect waves-cyan">
                         <i class="material-icons">dashboard</i>
-                        <span class="nav-text">Panel główny</span>
+                        <span class="nav-text" th:text="#{label.sidebar.nav.mainPanel}">main panel</span>
                     </a>
                 </li>
                 <li class="bold">
                     <a th:href="@{/user/donations}" class="waves-effect waves-cyan">
                         <i class="material-icons">card_giftcard</i>
-                        <span class="nav-text">Przekazane dary</span>
+                        <span class="nav-text" th:text="#{label.sidebar.nav.givenGifts}">given gifts</span>
                     </a>
                 </li>
                 <li class="bold">

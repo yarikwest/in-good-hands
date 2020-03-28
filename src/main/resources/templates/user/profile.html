@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="msapplication-tap-highlight" content="no">
-    <title>Profile | User Panel</title>
+    <title th:text="|#{label.page.title.userPanel} - #{label.page.title.main}|">user panel | main</title>
     <!-- Favicons-->
     <link rel="icon" th:href="@{/images/favicon/favicon-32x32.png}" sizes="32x32">
     <!-- Favicons-->
@@ -33,6 +33,21 @@
         <aside th:replace="fragments/left-sidebar-nav::left-sidebar-nav-user"></aside>
         <!-- START CONTENT -->
         <section id="content">
+            <!--breadcrumbs start-->
+            <div id="breadcrumbs-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 m6 l6">
+                            <h5 class="breadcrumbs-title" th:text="#{label.sidebar.nav.profile}">given gifts</h5>
+                            <ol class="breadcrumbs">
+                                <li><a th:href="@{/user}" th:text="#{label.sidebar.nav.mainPanel}">main panel</a></li>
+                                <li class="active" th:text="#{label.sidebar.nav.profile}">profile</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--breadcrumbs end-->
             <!--start container-->
             <div class="container">
                 <!--card widgets start-->
@@ -50,7 +65,8 @@
                                     <a class="btn-floating activator btn-move-up waves-effect waves-light red accent-2 z-depth-4 right">
                                         <i class="material-icons">edit</i>
                                     </a>
-                                    <span class="card-title activator grey-text text-darken-4">Zmiana adresu e-mail</span>
+                                    <span class="card-title activator grey-text text-darken-4"
+                                          th:text="#{label.form.title.changeEmail}">Zmiana adresu e-mail</span>
                                     <p th:errors="${user.email}" class="red-text"></p>
                                 </div>
                                 <div class="card-reveal">
@@ -60,20 +76,22 @@
                                     <div>
                                         <form class="col s12" th:action="@{/user/profile/update-email}"
                                               th:object="${user}" method="post">
-                                            <h6 class="teal-text">Po zmianie adresu email zostaniesz wylogowany</h6>
+                                            <h6 class="teal-text" th:text="#{label.form.changeEmail.desc}">
+                                                change email desc</h6>
                                             <div class="row">
                                                 <div class="input-field col s12">
                                                     <i class="material-icons prefix">email</i>
                                                     <input id="email" type="email" class="validate"
                                                            th:field="*{email}">
-                                                    <label for="email" data-error="Email niepoprawny">
-                                                        Nowy adres email</label>
+                                                    <label for="email" th:data-error="#{label.form.error.invalidEmail}"
+                                                           th:text="#{label.form.new}">new</label>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <button class="btn waves-effect waves-light right"
-                                                        type="submit" name="action">Zapisz
+                                                        type="submit" name="action">
                                                     <i class="material-icons right">send</i>
+                                                    <span th:text="#{label.form.submit}">submit</span>
                                                 </button>
                                             </div>
                                         </form>
@@ -95,7 +113,8 @@
                                     <a class="btn-floating activator btn-move-up waves-effect waves-light red accent-2 z-depth-4 right">
                                         <i class="material-icons">edit</i>
                                     </a>
-                                    <span class="card-title activator grey-text text-darken-4">Zmiana hasła</span>
+                                    <span class="card-title activator grey-text text-darken-4"
+                                          th:text="#{label.form.title.changePassword}">change password</span>
                                     <p style="height: 20px"></p>
                                     <p th:errors="${updatePassword.*}" class="red-text"></p>
                                 </div>
@@ -109,7 +128,7 @@
                                             <div class="input-field col s12">
                                                 <i class="material-icons prefix">lock</i>
                                                 <input id="oldPassword" type="password" th:field="*{oldPassword}">
-                                                <label for="oldPassword">Stare hasło</label>
+                                                <label for="oldPassword" th:text="#{label.form.old}">old</label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -117,22 +136,24 @@
                                                 <i class="material-icons prefix">lock_outline</i>
                                                 <input id="password" type="password" minlength="8"
                                                        class="validate" th:field="*{password}">
-                                                <label for="password" data-error="Minimum 8 znaków">
-                                                    Nowe hasło
+                                                <label for="password" th:text="#{label.form.new}"
+                                                       th:data-error="#{label.form.error.invalidPassword}">new
                                                 </label>
                                             </div>
                                             <div class="input-field col s6">
                                                 <input id="matchingPassword" type="password"
                                                        th:field="*{matchingPassword}">
-                                                <label for="matchingPassword">Potwierdz nowe hasło</label>
+                                                <label for="matchingPassword"
+                                                       th:text="#{label.form.confirm}">confirm</label>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="row">
                                                 <div class="input-field col s12">
                                                     <button class="btn waves-effect waves-light right"
-                                                            type="submit" name="action">Zapisz
+                                                            type="submit" name="action">
                                                         <i class="material-icons right">send</i>
+                                                        <span th:text="#{label.form.submit}">submit</span>
                                                     </button>
                                                 </div>
                                             </div>
