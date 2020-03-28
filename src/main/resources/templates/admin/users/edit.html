@@ -26,22 +26,13 @@
 </head>
 
 <body>
-<!-- Start Page Loading -->
-<th:block th:replace="admin/panel.html :: loader"/>
-<!-- End Page Loading -->
-<!-- //////////////////////////////////////////////////////////////////////////// -->
-<!-- START HEADER -->
-<th:block th:replace="admin/panel.html :: admin-header"/>
-<!-- END HEADER -->
-<!-- //////////////////////////////////////////////////////////////////////////// -->
+<div th:replace="fragments/page-loader::loader"></div>
+<header th:replace="fragments/header::header-admin"></header>
 <!-- START MAIN -->
 <div id="main">
     <!-- START WRAPPER -->
     <div class="wrapper">
-        <!-- START LEFT SIDEBAR NAV-->
-        <th:block th:replace="admin/panel.html :: admin-left-sidebar-nav"/>
-        <!-- END LEFT SIDEBAR NAV-->
-        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <aside th:replace="fragments/left-sidebar-nav::left-sidebar-nav-admin"></aside>
         <!-- START CONTENT -->
         <section id="content">
             <!--breadcrumbs start-->
@@ -109,13 +100,8 @@
     <!-- END WRAPPER -->
 </div>
 <!-- END MAIN -->
-<!-- //////////////////////////////////////////////////////////////////////////// -->
-<!-- START FOOTER -->
-<th:block th:replace="admin/panel.html :: footer"/>
-<!-- END FOOTER -->
-<!-- ================================================
-  Scripts
-  ================================================ -->
+<footer th:replace="fragments/footer::footer-admin"></footer>
+<!-- ====================================== Scripts ====================================== -->
 <!-- jQuery Library -->
 <script type="text/javascript" th:src="@{/vendors/jquery-3.2.1.min.js}"></script>
 <!--materialize js-->

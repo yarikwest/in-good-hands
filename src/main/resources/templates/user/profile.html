@@ -24,22 +24,13 @@
     <link th:href="@{/vendors/flag-icon/css/flag-icon.min.css}" type="text/css" rel="stylesheet">
 </head>
 <body>
-<!-- Start Page Loading -->
-<th:block th:replace="user/panel.html :: loader"/>
-<!-- End Page Loading -->
-<!-- //////////////////////////////////////////////////////////////////////////// -->
-<!-- START HEADER -->
-<th:block th:replace="user/panel.html :: user-header"/>
-<!-- END HEADER -->
-<!-- //////////////////////////////////////////////////////////////////////////// -->
+<div th:replace="fragments/page-loader::loader"></div>
+<header th:replace="fragments/header::header-user"></header>
 <!-- START MAIN -->
 <div id="main">
     <!-- START WRAPPER -->
     <div class="wrapper">
-        <!-- START LEFT SIDEBAR NAV-->
-        <th:block th:replace="user/panel.html :: user-left-sidebar-nav"/>
-        <!-- END LEFT SIDEBAR NAV-->
-        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <aside th:replace="fragments/left-sidebar-nav::left-sidebar-nav-user"></aside>
         <!-- START CONTENT -->
         <section id="content">
             <!--start container-->
@@ -163,12 +154,8 @@
 </div>
 <!-- END MAIN -->
 <!-- //////////////////////////////////////////////////////////////////////////// -->
-<!-- START FOOTER -->
-<th:block th:replace="user/panel.html :: footer"/>
-<!-- END FOOTER -->
-<!-- ================================================
-Scripts
-================================================ -->
+<footer th:replace="fragments/footer::footer-main"></footer>
+<!-- ====================================== Scripts ====================================== -->
 <!-- jQuery Library -->
 <script type="text/javascript" th:src="@{/vendors/jquery-3.2.1.min.js}"></script>
 <!--materialize js-->

@@ -22,7 +22,7 @@ nav .nav-wrapper {
 }
 
 section.header--main-page {
-    height: calc(100vh - 64px);
+    height: calc(100vh - 56px);
     display: flex;
 }
 
@@ -80,7 +80,7 @@ form {
 }
 
 header .brand-logo {
-    padding: 14px 20px;
+    padding: 10px 20px;
 }
 
 header .brand-logo img {

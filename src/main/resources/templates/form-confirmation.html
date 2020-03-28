@@ -23,9 +23,9 @@
     <link th:href="@{/vendors/flag-icon/css/flag-icon.min.css}" type="text/css" rel="stylesheet">
 </head>
 <body class="white">
-<th:block th:replace="index.html::loader"/>
-<th:block th:replace="index.html::header"/>
-<th:block th:replace="index.html::left-sidebar-nav"/>
+<div th:replace="fragments/page-loader::loader"></div>
+<header th:replace="fragments/header::header-main"></header>
+<aside th:replace="fragments/left-sidebar-nav::left-sidebar-nav-main"></aside>
 
 <main>
     <section class="header--form-page">
@@ -38,8 +38,7 @@
 
     <th:block th:replace="index.html::#contact"/>
 </main>
-
-<th:block th:replace="index.html::footer"/>
+<footer th:replace="fragments/footer::footer-main"></footer>
 <!-- ====================================== Scripts ====================================== -->
 <script type="text/javascript" th:inline="javascript">
     var okBtn = [[#{label.form.ok}]];

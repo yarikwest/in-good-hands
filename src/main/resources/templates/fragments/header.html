@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>header</title>
+</head>
+<body>
+<header id="header" class="page-topbar" th:fragment="header-main">
+    <div class="navbar-fixed">
+        <nav class="navbar-color gradient-45deg-deep-orange-orange">
+            <div class="nav-wrapper">
+                <ul class="left">
+                    <li>
+                        <h1 class="logo-wrapper">
+                            <a th:href="@{/}" class="brand-logo darken-1">
+                                <img th:src="@{/images/logo/materialize-logo-full.png}" alt="materialize logo">
+                            </a>
+                        </h1>
+                    </li>
+                </ul>
+                <ul class="right hide-on-med-and-down">
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect waves-block waves-light translation-button"
+                           data-activates="translation-dropdown">
+                            <span th:classappend="|flag-icon-${#locale}|" class="flag-icon flag-icon-gb"></span>
+                        </a>
+                    </li>
+                    <li sec:authorize="!isAuthenticated()">
+                        <a href="javascript:void(0);" class="waves-effect waves-block waves-light profile-button"
+                           data-activates="profile-dropdown">Log In</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()">
+                        <a href="javascript:void(0);" class="waves-effect waves-block waves-light profile-button"
+                           data-activates="profile-dropdown">
+                            <span class="avatar-status avatar-online">
+                                <img th:src="@{/images/avatar/avatar-1.png}" alt="avatar">
+                                <i></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="right hide-on-med-and-down">
+                    <li><a th:href="@{/}" th:text="#{label.header.nav.main}">main</a></li>
+                    <li><a th:href="@{/#steps}" th:text="#{label.header.nav.whatIs}">what is</a></li>
+                    <li><a th:href="@{/#about-us}" th:text="#{label.header.nav.about}">about us</a></li>
+                    <li><a th:href="@{/#help}" th:text="#{label.header.nav.foundations}">foundations</a></li>
+                    <li><a th:href="@{/donations}" th:text="#{label.header.nav.giveGifts}">give gifts</a></li>
+                    <li><a th:href="@{/#contact}" th:text="#{label.header.nav.contact}">contact</a></li>
+                </ul>
+                <ul th:replace="fragments/translation-dropdown::translation-dropdown(id='translation-dropdown')"></ul>
+                <ul th:replace="fragments/profile-dropdown::profile-dropdown(id='profile-dropdown')"></ul>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<header id="header" class="page-topbar" th:fragment="header-user">
+    <div class="navbar-fixed">
+        <nav class="navbar-color gradient-45deg-deep-orange-orange">
+            <div class="nav-wrapper">
+                <ul class="left">
+                    <li>
+                        <h1 class="logo-wrapper">
+                            <a th:href="@{/}" class="brand-logo darken-1">
+                                <img th:src="@{/images/logo/materialize-logo-full.png}" alt="materialize logo">
+                            </a>
+                        </h1>
+                    </li>
+                </ul>
+                <ul class="right hide-on-med-and-down">
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect waves-block waves-light translation-button"
+                           data-activates="translation-dropdown">
+                            <span th:classappend="|flag-icon-${#locale}|" class="flag-icon flag-icon-gb"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect waves-block waves-light profile-button"
+                           data-activates="profile-dropdown">
+                            <span class="avatar-status avatar-online">
+                                <img th:src="@{/images/avatar/avatar-1.png}" alt="avatar">
+                                <i></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <ul th:replace="fragments/translation-dropdown::translation-dropdown(id='translation-dropdown')"></ul>
+                <ul th:replace="fragments/profile-dropdown::profile-dropdown(id='profile-dropdown')"></ul>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<header id="header" class="page-topbar" th:fragment="header-admin">
+    <div class="navbar-fixed">
+        <nav class="navbar-color gradient-45deg-blue-grey-blue">
+            <div class="nav-wrapper">
+                <ul class="left">
+                    <li>
+                        <h1 class="logo-wrapper">
+                            <a th:href="@{/}" class="brand-logo darken-1">
+                                <img th:src="@{/images/logo/materialize-logo-full.png}" alt="materialize logo">
+                            </a>
+                        </h1>
+                    </li>
+                </ul>
+                <ul class="right hide-on-med-and-down">
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect waves-block waves-light translation-button"
+                           data-activates="translation-dropdown">
+                            <span th:classappend="|flag-icon-${#locale}|" class="flag-icon flag-icon-gb"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect waves-block waves-light profile-button"
+                           data-activates="profile-dropdown">
+                            <span class="avatar-status avatar-online">
+                                <img th:src="@{/images/avatar/avatar-7.png}" alt="avatar">
+                                <i></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <ul th:replace="fragments/translation-dropdown::translation-dropdown(id='translation-dropdown')"></ul>
+                <ul th:replace="fragments/profile-dropdown::profile-dropdown(id='profile-dropdown')"></ul>
+            </div>
+        </nav>
+    </div>
+</header>
+
+</body>
+</html>

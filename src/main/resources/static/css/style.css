@@ -886,7 +886,7 @@ section.header--form-page {
     background-position: top left -350px;
     background-repeat: no-repeat;
     background-size: 70vw;
-    min-height: calc(100vh - 64px);
+    min-height: calc(100vh - 56px);
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

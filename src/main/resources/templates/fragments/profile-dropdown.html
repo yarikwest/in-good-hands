@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>profile-dropdown</title>
+</head>
+<body>
+<ul th:id="${id}" class="dropdown-content" th:fragment="profile-dropdown(id)">
+    <th:block sec:authorize="!isAuthenticated()">
+        <li>
+            <a th:href="@{/login}" class="grey-text text-darken-1">
+                <i class="material-icons">exit_to_app</i>
+                <span th:text="#{label.form.login}">login</span>
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a th:href="@{/registration}" class="grey-text text-darken-1">
+                <i class="material-icons">person_add </i>
+                <span th:text="#{label.form.signUp}">sign up</span>
+            </a>
+        </li>
+    </th:block>
+    <th:block sec:authorize="isAuthenticated()">
+        <li sec:authorize="hasRole('ROLE_ADMIN')">
+            <a th:href="@{/admin}" class="grey-text text-darken-1">
+                <i class="material-icons">pie_chart</i>
+                <span th:text="#{label.header.nav.adminPanel}">admin panel</span>
+            </a>
+        </li>
+        <li sec:authorize="hasRole('ROLE_USER')">
+            <a th:href="@{/user/profile}" class="grey-text text-darken-1">
+                <i class="material-icons">face</i>
+                <span th:text="#{label.header.nav.userPanel}">user panel</span>
+            </a>
+        </li>
+        <li sec:authorize="hasRole('ROLE_USER')">
+            <a th:href="@{/user/donations}" class="grey-text text-darken-1">
+                <i class="material-icons">card_giftcard</i>
+                <span th:text="#{label.header.nav.myDonations}">my donations</span>
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a th:href="@{/logout}" class="grey-text text-darken-1">
+                <i class="material-icons">keyboard_tab</i>
+                <span th:text="#{label.form.logout}">logout</span>
+            </a>
+        </li>
+    </th:block>
+</ul>
+</body>
+</html>
