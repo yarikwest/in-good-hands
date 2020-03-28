@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="msapplication-tap-highlight" content="no">
-    <title>Institutions | Admin Panel</title>
+    <title th:text="|#{label.page.title.adminPanel} - #{label.page.title.main}|">admin panel - main</title>
     <!-- Favicons-->
     <link rel="icon" th:href="@{/images/favicon/favicon-32x32.png}" sizes="32x32">
     <!-- Favicons-->
@@ -40,10 +40,10 @@
                 <div class="container">
                     <div class="row">
                         <div class="col s10 m6 l6">
-                            <h5 class="breadcrumbs-title">Fundacji</h5>
+                            <h5 class="breadcrumbs-title" th:text="#{label.sidebar.nav.foundations}">foundations</h5>
                             <ol class="breadcrumbs">
-                                <li><a th:href="@{/admin}">Panel główny</a></li>
-                                <li class="active">Fundacji</li>
+                                <li><a th:href="@{/admin}" th:text="#{label.sidebar.nav.mainPanel}">main panel</a></li>
+                                <li class="active" th:text="#{label.sidebar.nav.foundations}">foundations</li>
                             </ol>
                         </div>
                     </div>
@@ -57,12 +57,13 @@
                     <div class="divider"></div>
                     <div id="hoverable-table">
                         <div class="row">
-                            <h4 class="header col s10 m6 l6">Lista wspieranych fundacji</h4>
+                            <h4 class="header col s10 m6 l6" th:text="#{label.page.listOfFoundations}">
+                                list of foundations</h4>
                             <div class="col s2 m6 l6" style="margin-top: 17px;">
                                 <a class="btn dropdown-settings waves-effect waves-light breadcrumbs-btn right"
                                    th:href="@{/admin/institutions/add}">
                                     <i class="material-icons left">add</i>
-                                    <span class="hide-on-small-onl">Dodaj nową</span>
+                                    <span class="hide-on-small-onl" th:text="#{label.form.add}">add</span>
                                 </a>
                             </div>
                         </div>
@@ -71,9 +72,9 @@
                                 <table class="highlight bordered">
                                     <thead>
                                     <tr>
-                                        <th>Nazwa</th>
-                                        <th>Cel i misja</th>
-                                        <th>Akcja</th>
+                                        <th th:text="#{label.table.name}">name</th>
+                                        <th th:text="#{label.foundation.mission}">mission</th>
+                                        <th th:text="#{label.table.action}">action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -96,15 +97,17 @@
                                             </a>
                                             <div th:id="'delete-action' + ${institution.id}" class="modal">
                                                 <div class="modal-content">
-                                                    <h4>Usunąć?</h4>
-                                                    <p>Napewno chcesz usunąć fundację: [[${institution.name}]]</p>
+                                                    <h4 th:text="#{label.form.deleteQuestion}">delete</h4>
+                                                    <p th:text="|#{label.form.deleteFoundationQuestion}: ${institution.name}|">
+                                                        delete foundation</p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button
-                                                            class="modal-close waves-effect waves-green btn-flat">Nie
+                                                    <button class="modal-close waves-effect waves-green btn-flat"
+                                                            th:text="#{label.form.no}">no
                                                     </button>
                                                     <a th:href="@{/admin/institutions/delete/{id}(id = ${institution.id})}"
-                                                       class="modal-close waves-effect waves-green btn-flat">Tak</a>
+                                                       class="modal-close waves-effect waves-green btn-flat"
+                                                       th:text="#{label.form.yes}">yes</a>
                                                 </div>
                                             </div>
                                         </td>

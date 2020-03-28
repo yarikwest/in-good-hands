@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="msapplication-tap-highlight" content="no">
-    <title>Users | Admin Panel</title>
+    <title th:text="|#{label.page.title.adminPanel} - #{label.page.title.main}|">admin panel - main</title>
     <!-- Favicons-->
     <link rel="icon" th:href="@{/images/favicon/favicon-32x32.png}" sizes="32x32">
     <!-- Favicons-->
@@ -24,7 +24,6 @@
     <link th:href="@{/vendors/perfect-scrollbar/perfect-scrollbar.css}" type="text/css" rel="stylesheet">
     <link th:href="@{/vendors/flag-icon/css/flag-icon.min.css}" type="text/css" rel="stylesheet">
 </head>
-
 <body>
 <div th:replace="fragments/page-loader::loader"></div>
 <header th:replace="fragments/header::header-admin"></header>
@@ -40,10 +39,10 @@
                 <div class="container">
                     <div class="row">
                         <div class="col s10 m6 l6">
-                            <h5 class="breadcrumbs-title">Użytkownicy</h5>
+                            <h5 class="breadcrumbs-title" th:text="#{label.sidebar.nav.users}">users</h5>
                             <ol class="breadcrumbs">
-                                <li><a th:href="@{/admin}">Panel główny</a></li>
-                                <li class="active">Użytkownicy</li>
+                                <li><a th:href="@{/admin}" th:text="#{label.sidebar.nav.mainPanel}">main panel</a></li>
+                                <li class="active" th:text="#{label.sidebar.nav.users}">users</li>
                             </ol>
                         </div>
                     </div>
@@ -57,7 +56,7 @@
                     <div class="divider"></div>
                     <div id="hoverable-table">
                         <div class="row">
-                            <h4 class="header col s10 m6 l6">Lista zarejestrowanych użytkowników</h4>
+                            <h4 class="header col s10 m6 l6" th:text="#{label.page.listOfUsers}">list of users</h4>
                         </div>
                         <div class="row">
                             <div class="col s12">
@@ -65,15 +64,13 @@
                                     <thead>
                                     <tr>
                                         <th>Email</th>
-                                        <th>Aktywny</th>
-                                        <th>Akcja</th>
+                                        <th th:text="#{label.table.active}">active</th>
+                                        <th th:text="#{label.table.action}">action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr th:if="${allUsers.empty}">
-                                        <td colspan="3">
-                                            Brak zarejestrowanych użytkowników
-                                        </td>
+                                        <td colspan="3" th:text="#{label.table.userListEmpty}">no users</td>
                                     </tr>
                                     <tr th:each="user : ${allUsers}">
                                         <td><span th:text="${user.email}"></span></td>
@@ -96,28 +93,34 @@
                                             </a>
                                             <div th:id="'delete-action' + ${user.id}" class="modal">
                                                 <div class="modal-content">
-                                                    <h4>Usunąć?</h4>
-                                                    <p>Napewno chcesz usunąć użytkownika: [[${user.email}]]</p>
+                                                    <h4 th:text="#{label.form.deleteQuestion}">delete</h4>
+                                                    <p th:text="|#{label.form.deleteUserQuestion}: ${user.email}|">
+                                                        delete user</p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button
-                                                            class="modal-close waves-effect waves-green btn-flat">Nie
+                                                    <button class="modal-close waves-effect waves-green btn-flat"
+                                                            th:text="#{label.form.no}">no
                                                     </button>
                                                     <a th:href="@{/admin/users/delete/{id}(id = ${user.id})}"
-                                                       class="modal-close waves-effect waves-green btn-flat">Tak</a>
+                                                       class="modal-close waves-effect waves-green btn-flat"
+                                                       th:text="#{label.form.yes}">yes
+                                                    </a>
                                                 </div>
                                             </div>
                                             <div th:id="'block-action' + ${user.id}" class="modal">
                                                 <div class="modal-content">
-                                                    <h4>Zablokować?</h4>
-                                                    <p>Napewno chcesz zablokować użytkownika: [[${user.email}]]</p>
+                                                    <h4 th:text="#{label.form.blockQuestion}">block</h4>
+                                                    <p th:text="|#{label.form.blockUserQuestion}: ${user.email}|">
+                                                        block user</p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button
-                                                            class="modal-close waves-effect waves-green btn-flat">Nie
+                                                    <button class="modal-close waves-effect waves-green btn-flat"
+                                                            th:text="#{label.form.no}">no
                                                     </button>
                                                     <a th:href="@{/admin/users/block/{id}(id = ${user.id})}"
-                                                       class="modal-close waves-effect waves-green btn-flat">Tak</a>
+                                                       class="modal-close waves-effect waves-green btn-flat"
+                                                       th:text="#{label.form.yes}">yes
+                                                    </a>
                                                 </div>
                                             </div>
                                         </td>
@@ -149,5 +152,4 @@
 <!--custom-script.js - Add your own theme custom JS-->
 <script type="text/javascript" th:src="@{/js/custom-script.js}"></script>
 </body>
-
 </html>

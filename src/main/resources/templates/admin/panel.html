@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="msapplication-tap-highlight" content="no">
-    <title>Admin Panel</title>
+    <title th:text="|#{label.page.title.adminPanel} - #{label.page.title.main}|">admin panel - main</title>
     <!-- Favicons-->
     <link rel="icon" th:href="@{/images/favicon/favicon-32x32.png}" sizes="32x32">
     <!-- Favicons-->
@@ -43,7 +43,7 @@
                                 <div class="padding-4">
                                     <div class="col s8 m8">
                                         <i class="material-icons background-round mt-5">account_balance</i>
-                                        <p>Fundacji</p>
+                                        <p th:text="#{label.sidebar.nav.foundations}">foundations</p>
                                     </div>
                                     <div class="col s4 m4 right-align">
                                         <h5 class="mb-0" th:text="${institutionsCount}">N/A</h5>
@@ -56,7 +56,7 @@
                                 <div class="padding-4">
                                     <div class="col s8 m8">
                                         <i class="material-icons background-round mt-5">perm_identity</i>
-                                        <p>Użytkownicy</p>
+                                        <p th:text="#{label.sidebar.nav.users}">users</p>
                                     </div>
                                     <div class="col s4 m4 right-align">
                                         <h5 class="mb-0" th:text="${usersCount}">N/A</h5>
@@ -69,7 +69,7 @@
                                 <div class="padding-4">
                                     <div class="col s8 m8">
                                         <i class="material-icons background-round mt-5">card_giftcard</i>
-                                        <p>Przekazane dary</p>
+                                        <p th:text="#{label.sidebar.nav.givenGifts}">given gifts</p>
                                     </div>
                                     <div class="col s4 m4 right-align">
                                         <h5 class="mb-0" th:text="${donationsCount}">N/A</h5>
@@ -85,10 +85,13 @@
                             <div class="card">
                                 <div class="card-content cyan white-text">
                                     <p class="card-stats-title">
-                                        <i class="material-icons">person_outline</i> Nowych użytkowników</p>
+                                        <i class="material-icons">person_outline</i>
+                                        <span th:text="#{label.page.newUsers}">new users</span>
+                                    </p>
                                     <h4 class="card-stats-number" th:text="${newUsersCount}">N/A</h4>
                                     <p class="card-stats-compare">
-                                        <span class="cyan text text-lighten-5">za ostatni miesiąc</span>
+                                        <span class="cyan text text-lighten-5"
+                                              th:text="#{label.page.forLastMonth}">for last month</span>
                                     </p>
                                 </div>
                             </div>
@@ -97,10 +100,13 @@
                             <div class="card">
                                 <div class="card-content red accent-2 white-text">
                                     <p class="card-stats-title">
-                                        <i class="material-icons">card_giftcard</i> Przekazanych darów</p>
+                                        <i class="material-icons">card_giftcard</i>
+                                        <span th:text="#{label.page.newGifts}">new gifts</span>
+                                    </p>
                                     <h4 class="card-stats-number" th:text="${newDonationsCount}">N/A</h4>
                                     <p class="card-stats-compare">
-                                        <span class="red-text text-lighten-5">za ostatni miesiąc</span>
+                                        <span class="red-text text-lighten-5"
+                                              th:text="#{label.page.forLastMonth}">for last month</span>
                                     </p>
                                 </div>
                             </div>
@@ -109,10 +115,13 @@
                             <div class="card">
                                 <div class="card-content teal accent-4 white-text">
                                     <p class="card-stats-title">
-                                        <i class="material-icons">open_with</i> Przekazanych worków</p>
+                                        <i class="material-icons">open_with</i>
+                                        <span th:text="#{label.page.newBags}">new bags</span>
+                                    </p>
                                     <h4 class="card-stats-number" th:text="${newQuantityCount}">N/A</h4>
                                     <p class="card-stats-compare">
-                                        <span class="teal-text text-lighten-5">za ostatni miesiąc</span>
+                                        <span class="teal-text text-lighten-5"
+                                              th:text="#{label.page.forLastMonth}">for last month</span>
                                     </p>
                                 </div>
 
@@ -122,10 +131,13 @@
                             <div class="card">
                                 <div class="card-content deep-orange accent-2 white-text">
                                     <p class="card-stats-title">
-                                        <i class="material-icons">account_balance</i> Wspartych fundacji</p>
+                                        <i class="material-icons">account_balance</i>
+                                        <span th:text="#{label.page.supportedFoundations}">supported foundations</span>
+                                    </p>
                                     <h4 class="card-stats-number" th:text="${supportedInstitutions}">N/A</h4>
                                     <p class="card-stats-compare">
-                                        <span class="deep-orange-text text-lighten-5">za ostatni miesiąc</span>
+                                        <span class="deep-orange-text text-lighten-5"
+                                              th:text="#{label.page.forLastMonth}">for last month</span>
                                     </p>
                                 </div>
                             </div>
@@ -142,14 +154,16 @@
                                     <div class="row row-flex">
                                         <div class="col s7">
                                             <i class="material-icons cyan circle">card_travel</i>
-                                            <h6 class="collection-header m-0">Przekazane dary</h6>
-                                            <p>Nie odebrane</p>
+                                            <h6 class="collection-header m-0" th:text="#{label.table.givenGifts}">
+                                                given gifts</h6>
+                                            <p th:text="#{label.form.status.missed}">missed</p>
                                         </div>
                                         <div class="col s2">
-                                            <h6 class="collection-header m-0">Worków</h6>
+                                            <h6 class="collection-header m-0" th:text="#{label.table.bags}">bags</h6>
                                         </div>
                                         <div class="col s3">
-                                            <h6 class="collection-header m-0">Fundacja</h6>
+                                            <h6 class="collection-header m-0" th:text="#{label.table.foundation}">
+                                                foundation</h6>
                                         </div>
                                     </div>
                                 </li>
@@ -157,13 +171,14 @@
                                     <div class="row row-flex">
                                         <div class="col s7">
                                             <p class="collections-title"
-                                               th:text="|Adres: ${donation.street}, ${donation.zipCode} ${donation.city}|">
-                                                Street, zip-code city</p>
+                                               th:text="|#{label.form.pickupAddress}: ${donation.street}, ${donation.zipCode} ${donation.city}|">
+                                                pick up address</p>
                                             <p class="collections-content"
-                                               th:text="|Data odbioru: ${donation.pickUpDate} ${donation.pickUpTime}|">
-                                                Date time</p>
-                                            <p class="collections-content" th:text="|Telefon: ${donation.phone}|">
-                                                Phone</p>
+                                               th:text="|#{label.table.pickUpDateTime}: ${donation.pickUpDate} ${donation.pickUpTime}|">
+                                                pick up date</p>
+                                            <p class="collections-content"
+                                               th:text="|#{label.form.phone}: ${donation.phone}|">
+                                                phone</p>
                                         </div>
                                         <div class="col s2">
                                             <span th:if="${donation.quantity}==1" class="task-cat blue darken-2"
@@ -177,7 +192,7 @@
                                         </div>
                                         <div class="col s3">
                                             <p class="collections-title" th:text="${donation.institution.name}">
-                                                Fundacja</p>
+                                                foundation</p>
                                         </div>
                                     </div>
                                 </li>

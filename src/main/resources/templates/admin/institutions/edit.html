@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="msapplication-tap-highlight" content="no">
-    <title>Edit Institution | Admin Panel</title>
+    <title th:text="|#{label.page.title.adminPanel} - #{label.page.title.main}|">admin panel - main</title>
     <!-- Favicons-->
     <link rel="icon" th:href="@{/images/favicon/favicon-32x32.png}" sizes="32x32">
     <!-- Favicons-->
@@ -27,7 +27,7 @@
 
 <body>
 <div th:replace="fragments/page-loader::loader"></div>
-<header th:replace="fragments/header::header-admin"></header>-->
+<header th:replace="fragments/header::header-admin"></header>
 <!-- START MAIN -->
 <div id="main">
     <!-- START WRAPPER -->
@@ -40,11 +40,13 @@
                 <div class="container">
                     <div class="row">
                         <div class="col s10 m6 l6">
-                            <h5 class="breadcrumbs-title">Edytuj fundajcę</h5>
+                            <h5 class="breadcrumbs-title" th:text="#{label.form.edit}">edit</h5>
                             <ol class="breadcrumbs">
-                                <li><a th:href="@{/admin}">Panel główny</a></li>
-                                <li><a th:href="@{/admin/institutions}">Fundacji</a></li>
-                                <li class="active">Edytuj fundację</li>
+                                <li><a th:href="@{/admin}" th:text="#{label.sidebar.nav.mainPanel}">main panel</a></li>
+                                <li>
+                                    <a th:href="@{/admin/institutions}" th:text="#{label.sidebar.nav.foundations}">foundations</a>
+                                </li>
+                                <li class="active" th:text="#{label.form.edit}">edit</li>
                             </ol>
                         </div>
                     </div>
@@ -59,35 +61,31 @@
                         <div class="row">
                             <div class="col s12 m12 l6 offset-l3">
                                 <div class="card-panel">
-                                    <h4 class="header2">Edytuj fundację</h4>
+                                    <h4 class="header2" th:text="#{label.form.editFoundation}">edit foundation</h4>
                                     <div class="row">
                                         <form th:action="@{/admin/institutions/edit/{id}(id = ${institution.id})}"
                                               th:object="${institution}"
                                               method="post" class="col s12">
-                                            <div class="row">
-                                                <div class="input-field col s12">
-                                                    <label for="name">Nazwa</label>
-                                                    <input id="name" type="text" th:field="*{name}">
-                                                    <span th:if="${#fields.hasErrors('name')}"
-                                                          th:errors="*{name}" class="red-text"></span>
-                                                </div>
+                                            <div class="input-field col s12">
+                                                <label for="name" th:text="#{label.table.name}">name</label>
+                                                <input id="name" type="text" th:field="*{name}">
+                                                <span th:if="${#fields.hasErrors('name')}"
+                                                      th:errors="*{name}" class="red-text"></span>
                                             </div>
-                                            <div class="row">
-                                                <div class="input-field col s12">
-                                                    <label for="description">Cel i misja</label>
-                                                    <textarea id="description" class="materialize-textarea"
-                                                              th:field="*{description}"></textarea>
-                                                    <span th:if="${#fields.hasErrors('description')}"
-                                                          th:errors="*{description}" class="red-text"></span>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="input-field col s12">
-                                                        <button class="btn waves-effect waves-light right" type="submit"
-                                                                name="action">Zapisz
-                                                            <i class="material-icons right">send</i>
-                                                        </button>
-                                                    </div>
-                                                </div>
+                                            <div class="input-field col s12">
+                                                <label for="description"
+                                                       th:text="#{label.foundation.mission}">mission</label>
+                                                <textarea id="description" class="materialize-textarea"
+                                                          th:field="*{description}"></textarea>
+                                                <span th:if="${#fields.hasErrors('description')}"
+                                                      th:errors="*{description}" class="red-text"></span>
+                                            </div>
+                                            <div class="input-field col s12">
+                                                <button class="btn waves-effect waves-light right" type="submit"
+                                                        name="action">
+                                                    <span th:text="#{label.form.submit}">submit</span>
+                                                    <i class="material-icons right">send</i>
+                                                </button>
                                             </div>
                                         </form>
                                     </div>

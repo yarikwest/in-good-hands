@@ -42,7 +42,7 @@
                                 <div class="padding-4">
                                     <div class="col s8 m8">
                                         <i class="material-icons background-round mt-5">card_giftcard</i>
-                                        <p>Przekazane dary</p>
+                                        <p th:text="#{label.page.newGifts}">new gifts</p>
                                     </div>
                                     <div class="col s4 m4 right-align">
                                         <h5 class="mb-0" th:text="${donationsCount}">N/A</h5>
@@ -55,7 +55,7 @@
                                 <div class="padding-4">
                                     <div class="col s8 m8">
                                         <i class="material-icons background-round mt-5">open_with</i>
-                                        <p>Przekazane worki</p>
+                                        <p th:text="#{label.page.newBags}">new bags</p>
                                     </div>
                                     <div class="col s4 m4 right-align">
                                         <h5 class="mb-0" th:text="${quantityCount}">N/A</h5>
@@ -68,7 +68,7 @@
                                 <div class="padding-4">
                                     <div class="col s8 m8">
                                         <i class="material-icons background-round mt-5">account_balance</i>
-                                        <p>Wsparte fundacji</p>
+                                        <p th:text="#{label.page.supportedFoundations}">supported foundations</p>
                                     </div>
                                     <div class="col s4 m4 right-align">
                                         <h5 class="mb-0" th:text="${institutionsCount}">N/A</h5>
@@ -88,14 +88,16 @@
                                     <div class="row row-flex">
                                         <div class="col s7">
                                             <i class="material-icons cyan circle">card_travel</i>
-                                            <h6 class="collection-header m-0">Przekazane dary</h6>
-                                            <p>Nie odebrane</p>
+                                            <h6 class="collection-header m-0" th:text="#{label.table.givenGifts}">
+                                                given gifts</h6>
+                                            <p th:text="#{label.form.status.missed}">missed</p>
                                         </div>
                                         <div class="col s2">
-                                            <h6 class="collection-header m-0">Worków</h6>
+                                            <h6 class="collection-header m-0" th:text="#{label.table.bags}">bags</h6>
                                         </div>
                                         <div class="col s3">
-                                            <h6 class="collection-header m-0">Fundacja</h6>
+                                            <h6 class="collection-header m-0" th:text="#{label.table.foundation}">
+                                                foundation</h6>
                                         </div>
                                     </div>
                                 </li>
@@ -103,8 +105,8 @@
                                     <div class="row row-flex">
                                         <div class="col s7">
                                             <p class="collections-title"
-                                               th:text="|Data odbioru: ${donation.pickUpDate} ${donation.pickUpTime}|">
-                                                Date time</p>
+                                               th:text="|#{label.table.pickUpDateTime}: ${donation.pickUpDate} ${donation.pickUpTime}|">
+                                                pick up date</p>
                                         </div>
                                         <div class="col s2">
                                             <span th:if="${donation.quantity}==1" class="task-cat blue darken-2"
@@ -118,7 +120,7 @@
                                         </div>
                                         <div class="col s3">
                                             <p class="collections-title" th:text="${donation.institution.name}">
-                                                Fundacja</p>
+                                                foundation</p>
                                         </div>
                                     </div>
                                 </li>

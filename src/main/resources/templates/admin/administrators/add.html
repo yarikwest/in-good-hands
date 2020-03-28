@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="msapplication-tap-highlight" content="no">
-    <title>Add Administrator | Admin Panel</title>
+    <title th:text="|#{label.page.title.adminPanel} - #{label.page.title.main}|">admin panel - main</title>
     <!-- Favicons-->
     <link rel="icon" th:href="@{/images/favicon/favicon-32x32.png}" sizes="32x32">
     <!-- Favicons-->
@@ -24,7 +24,6 @@
     <link th:href="@{/vendors/perfect-scrollbar/perfect-scrollbar.css}" type="text/css" rel="stylesheet">
     <link th:href="@{/vendors/flag-icon/css/flag-icon.min.css}" type="text/css" rel="stylesheet">
 </head>
-
 <body>
 <div th:replace="fragments/page-loader::loader"></div>
 <header th:replace="fragments/header::header-admin"></header>
@@ -40,11 +39,11 @@
                 <div class="container">
                     <div class="row">
                         <div class="col s10 m6 l6">
-                            <h5 class="breadcrumbs-title">Dodaj administratora</h5>
+                            <h5 class="breadcrumbs-title" th:text="#{label.form.add}">add</h5>
                             <ol class="breadcrumbs">
-                                <li><a th:href="@{/admin}">Panel główny</a></li>
-                                <li><a th:href="@{/admin/admins}">Administratorzy</a></li>
-                                <li class="active">Dodaj administratora</li>
+                                <li><a th:href="@{/admin}" th:text="#{label.sidebar.nav.mainPanel}">main panel</a></li>
+                                <li><a th:href="@{/admin/admins}" th:text="#{label.sidebar.nav.admins}">admins</a></li>
+                                <li class="active" th:text="#{label.form.add}">add</li>
                             </ol>
                         </div>
                     </div>
@@ -59,29 +58,24 @@
                         <div class="row">
                             <div class="col s12 m12 l6 offset-l3">
                                 <div class="card-panel">
-                                    <h4 class="header2">Dodaj administratora</h4>
+                                    <h4 class="header2" th:text="#{label.form.addAdmin}">add admin</h4>
                                     <div class="row">
                                         <form th:action="@{/admin/admins/add}"
                                               th:object="${user}"
                                               method="post" class="col s12">
-                                            <div class="row">
-                                                <div class="input-field col s12">
-                                                    <input id="email" type="email" th:field="*{email}" class="validate">
-                                                    <label for="email"
-                                                           data-error="Niepoprawny adres email">Email</label>
-                                                    <span th:if="${#fields.hasErrors('email')}"
-                                                          th:errors="*{email}" class="red-text"></span>
-                                                </div>
+                                            <div class="input-field col s12">
+                                                <input id="email" type="email" th:field="*{email}" class="validate">
+                                                <label for="email"
+                                                       th:data-error="#{label.form.error.invalidEmail}">Email</label>
+                                                <span th:if="${#fields.hasErrors('email')}"
+                                                      th:errors="*{email}" class="red-text"></span>
                                             </div>
-                                            <div class="row">
-                                                <div class="row">
-                                                    <div class="input-field col s12">
-                                                        <button class="btn waves-effect waves-light right" type="submit"
-                                                                name="action">Zapisz
-                                                            <i class="material-icons right">send</i>
-                                                        </button>
-                                                    </div>
-                                                </div>
+                                            <div class="input-field col s12">
+                                                <button class="btn waves-effect waves-light right" type="submit"
+                                                        name="action">
+                                                    <span th:text="#{label.form.submit}">submit</span>
+                                                    <i class="material-icons right">send</i>
+                                                </button>
                                             </div>
                                         </form>
                                     </div>
@@ -111,5 +105,4 @@
 <!--custom-script.js - Add your own theme custom JS-->
 <script type="text/javascript" th:src="@{/js/custom-script.js}"></script>
 </body>
-
 </html>
