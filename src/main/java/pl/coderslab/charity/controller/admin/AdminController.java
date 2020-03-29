@@ -1,5 +1,7 @@
 package pl.coderslab.charity.controller.admin;
 
+import org.springframework.context.MessageSource;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,6 +12,8 @@ import pl.coderslab.charity.model.User;
 import pl.coderslab.charity.service.UserService;
 
 import javax.validation.Valid;
+import java.util.Locale;
+import java.util.Optional;
 import java.util.Set;
 
 @Controller
@@ -17,10 +21,13 @@ import java.util.Set;
 class AdminController {
     private final AdminMapper adminMapper;
     private final UserService userService;
+    private final MessageSource messageSource;
 
-    AdminController(AdminMapper adminMapper, UserService userService) {
+
+    AdminController(AdminMapper adminMapper, UserService userService, MessageSource messageSource) {
         this.adminMapper = adminMapper;
         this.userService = userService;
+        this.messageSource = messageSource;
     }
 
     @GetMapping
@@ -64,7 +71,13 @@ class AdminController {
     }
 
     @GetMapping("delete/{id}")
-    public String delete(@PathVariable long id) {
+    public String delete(@PathVariable long id, @AuthenticationPrincipal User user, Model model, Locale locale) {
+        User userByEmail = userService.getUserByEmail(user.getEmail());
+        if (userByEmail.getId() == id) {
+            String message = messageSource.getMessage("adminDeleteYourself.error.message", null, locale);
+            model.addAttribute("errorMsg", message);
+            return "admin/administrators/administrators";
+        }
         userService.delete(id);
         return "redirect:/admin/admins";
     }
