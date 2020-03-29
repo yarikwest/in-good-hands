@@ -11,7 +11,9 @@
 
 ### Run
 
-Application deployed on Heroku by this [link](https://in-good-hands.herokuapp.com)
+Application deployed on Heroku by this [link](https://in-good-hands.herokuapp.com)  
+Check admin panel - login: admin@example.com, password: admin  
+Check user panel - login: user@example.com, password: user  
 
 ![Screenshot](readme-img/screen1.png)
 ![Screenshot](readme-img/screen2.png)
