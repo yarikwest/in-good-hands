@@ -22,10 +22,5 @@ public class VerificationToken extends BaseEntity {
     @ManyToOne
     @NonNull User user;
 
-    LocalDateTime expiryDate;
-
-    @PrePersist
-    private void calculateExpiryDate() {
-        expiryDate = LocalDateTime.now().plusMinutes(EXPIRATION);
-    }
+    LocalDateTime expiryDate = LocalDateTime.now().plusMinutes(EXPIRATION);
 }

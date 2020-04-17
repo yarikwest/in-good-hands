@@ -1,6 +1,7 @@
 package pl.coderslab.charity.service;
 
 import org.springframework.stereotype.Service;
+import pl.coderslab.charity.exceptions.UserIsNullException;
 import pl.coderslab.charity.model.User;
 import pl.coderslab.charity.model.VerificationToken;
 import pl.coderslab.charity.repository.VerificationTokenRepository;
@@ -17,6 +18,9 @@ public class VerificationTokenService {
     }
 
     public VerificationToken createVerificationToken(User user) {
+        if (user == null) {
+            throw new UserIsNullException();
+        }
         VerificationToken myToken = VerificationToken.of(UUID.randomUUID().toString(), user);
         return tokenRepository.save(myToken);
     }
