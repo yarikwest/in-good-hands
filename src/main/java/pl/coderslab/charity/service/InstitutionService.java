@@ -2,6 +2,7 @@ package pl.coderslab.charity.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import pl.coderslab.charity.exceptions.InstitutionIsNullException;
 import pl.coderslab.charity.exceptions.InstitutionNotFoundException;
 import pl.coderslab.charity.model.Institution;
 import pl.coderslab.charity.repository.InstitutionRepository;
@@ -30,6 +31,9 @@ public class InstitutionService {
     }
 
     public Institution create(Institution institution) {
+        if (institution == null) {
+            throw new InstitutionIsNullException();
+        }
         return institutionRepository.save(institution);
     }
 
