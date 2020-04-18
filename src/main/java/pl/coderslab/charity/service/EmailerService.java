@@ -5,7 +5,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.ITemplateEngine;
 import org.thymeleaf.context.Context;
 import pl.coderslab.charity.dto.EmailDto;
 import pl.coderslab.charity.exceptions.UserNotFoundException;
@@ -26,11 +26,11 @@ public class EmailerService {
     private String appUlr;
 
     private final JavaMailSender mailSender;
-    private final TemplateEngine htmlTemplateEngine;
+    private final ITemplateEngine htmlTemplateEngine;
     private final UserService userService;
     private final VerificationTokenService tokenService;
 
-    EmailerService(JavaMailSender mailSender, TemplateEngine htmlTemplateEngine, UserService userService, VerificationTokenService tokenService) {
+    EmailerService(JavaMailSender mailSender, ITemplateEngine htmlTemplateEngine, UserService userService, VerificationTokenService tokenService) {
         this.mailSender = mailSender;
         this.htmlTemplateEngine = htmlTemplateEngine;
         this.userService = userService;
@@ -49,14 +49,13 @@ public class EmailerService {
         context.setVariable("logoImageName", "logoImageName");
 
         EmailDto emailDto = new EmailDto(
-                user.getEmail(),
+                email,
                 "Reset Password",
                 htmlTemplateEngine.process("reset-password", context));
 
-        final MimeMessageHelper message = prepareHtmlMessage(mimeMessage, emailDto);
+        prepareHtmlMessage(mimeMessage, emailDto);
 
         mailSender.send(mimeMessage);
-        htmlTemplateEngine.clearTemplateCache();
     }
 
     public void sendConfirmRegistrationEmail(String email, Locale locale) throws MessagingException, UserNotFoundException {
@@ -75,13 +74,12 @@ public class EmailerService {
                 "Registration Confirmation",
                 htmlTemplateEngine.process("confirm-registration", context));
 
-        final MimeMessageHelper message = prepareHtmlMessage(mimeMessage, emailDto);
+        prepareHtmlMessage(mimeMessage, emailDto);
 
         mailSender.send(mimeMessage);
-        htmlTemplateEngine.clearTemplateCache();
     }
 
-    private MimeMessageHelper prepareHtmlMessage(MimeMessage mimeMessage, EmailDto emailDto) throws MessagingException {
+    private void prepareHtmlMessage(MimeMessage mimeMessage, EmailDto emailDto) throws MessagingException {
 
         MimeMessageHelper message = new MimeMessageHelper(mimeMessage, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, "UTF-8");
 
@@ -89,7 +87,5 @@ public class EmailerService {
         message.setSubject(emailDto.getSubject());
         message.setText(emailDto.getMessage(), true);
         message.addInline("logoImageName", new ClassPathResource(LOGO_IMAGE), PNG_MIME);
-
-        return message;
     }
 }
