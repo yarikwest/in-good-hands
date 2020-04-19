@@ -41,10 +41,10 @@ class UserDonationsController {
         Page<Donation> donationPage;
 
         if (asc) {
-            donationPage = donationService.getAllByUserSotred(
+            donationPage = donationService.getAllByUserSorted(
                     user, PageRequest.of(page - 1, size, Sort.Direction.ASC, sortBy));
         } else {
-            donationPage = donationService.getAllByUserSotred(
+            donationPage = donationService.getAllByUserSorted(
                     user, PageRequest.of(page - 1, size, Sort.Direction.DESC, sortBy));
         }
 

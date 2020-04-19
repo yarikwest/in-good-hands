@@ -27,13 +27,6 @@ public class DonationService {
         return new HashSet<>(donationRepository.findAll());
     }
 
-    public Donation getById(long id) {
-        return donationRepository.findById(id).orElseThrow(() -> {
-            log.warn("IN getById(id): donation with id {} not founded", id);
-            return new DonationNotFoundException(id);
-        });
-    }
-
     public Donation create(Donation donation) {
         return donationRepository.save(donation);
     }
@@ -81,7 +74,7 @@ public class DonationService {
         return donationRepository.findAllByUser(user);
     }
 
-    public Page<Donation> getAllByUserSotred(User user, Pageable pageable) {
+    public Page<Donation> getAllByUserSorted(User user, Pageable pageable) {
         return donationRepository.findAllByUser(user, pageable);
     }
 }
