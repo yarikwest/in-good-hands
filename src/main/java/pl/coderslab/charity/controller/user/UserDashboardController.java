@@ -1,6 +1,6 @@
 package pl.coderslab.charity.controller.user;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +21,9 @@ class UserDashboardController {
     }
 
     @GetMapping
-    public String panel(Model model, @AuthenticationPrincipal User authUser) {
-        User user = userService.getUserByEmail(authUser.getEmail());
+    public String panel(Model model) {
+        String authUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.getUserByEmail(authUsername);
         model.addAttribute("donationsCount", donationService.getCountAllDonationsByUser(user));
         model.addAttribute("quantityCount", donationService.getSumOfAllPackageByUser(user));
         model.addAttribute("institutionsCount", donationService.getCountAllSupportedInstitutionsByUser(user));

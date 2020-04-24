@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,14 +31,14 @@ class UserDonationsController {
     }
 
     @GetMapping
-    public String panel(@AuthenticationPrincipal User authUser,
-                        @RequestParam(defaultValue = "1") Integer page,
+    public String panel(@RequestParam(defaultValue = "1") Integer page,
                         @RequestParam(defaultValue = "5") Integer size,
                         @RequestParam(defaultValue = "id") String sortBy,
                         @RequestParam(defaultValue = "true") Boolean asc,
                         Model model) {
 
-        User user = userService.getUserByEmail(authUser.getEmail());
+        String authUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.getUserByEmail(authUsername);
         Page<Donation> donationPage;
 
         if (asc) {
