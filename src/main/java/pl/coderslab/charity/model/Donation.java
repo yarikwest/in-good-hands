@@ -17,6 +17,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -44,12 +45,11 @@ public class Donation extends BaseEntity {
     LocalDate pickUpDate;
 
     @NotNull
+    @DateTimeFormat(pattern = "HH:mm")
     LocalTime pickUpTime;
 
-    @NotBlank
     String pickUpComment;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     DonationStatus status = DonationStatus.MISSED;
 

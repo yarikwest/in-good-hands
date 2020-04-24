@@ -1,6 +1,6 @@
 package pl.coderslab.charity.controller;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,16 +43,15 @@ class DonationController {
     }
 
     @PostMapping
-    public String createDonation(@AuthenticationPrincipal User authUser,
-                                 @Valid @ModelAttribute Donation donation,
+    public String createDonation(@Valid @ModelAttribute Donation donation,
                                  BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "form";
         }
-
-        User user = userService.getUserByEmail(authUser.getEmail());
-        donation.setUser(user);
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User userByEmail = userService.getUserByEmail(username);
+        donation.setUser(userByEmail);
         donationService.create(donation);
         return "form-confirmation";
     }

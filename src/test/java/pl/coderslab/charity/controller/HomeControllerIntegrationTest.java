@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.coderslab.charity.model.Institution;
 import pl.coderslab.charity.service.DonationService;
@@ -19,8 +20,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(HomeController.class)
-class HomeControllerIT {
+@WebMvcTest(controllers = HomeController.class)
+@ContextConfiguration(classes = TestSecurityConfiguration.class)
+class HomeControllerIntegrationTest {
     @Autowired
     MockMvc mockMvc;
 
@@ -52,9 +54,9 @@ class HomeControllerIT {
                 .andExpect(content().contentType("text/html;charset=UTF-8"))
                 .andExpect(content().string(allOf(
                         containsString("Foundation name1"),
-                        containsString("Goal and mission desc1"),
+                        containsString("Goal and mission: desc1"),
                         containsString("Foundation name2"),
-                        containsString("Goal and mission desc2")
+                        containsString("Goal and mission: desc2")
                 )));
     }
 }

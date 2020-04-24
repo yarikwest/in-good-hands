@@ -12,13 +12,12 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import java.util.Locale;
 
 @Configuration
-@ComponentScan(basePackages = "pl.coderslab.charity")
-class MvcConfiguration implements WebMvcConfigurer {
+public class MvcConfiguration implements WebMvcConfigurer {
 
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(new Locale("pl"));
+        slr.setDefaultLocale(Locale.US);
         return slr;
     }
 
